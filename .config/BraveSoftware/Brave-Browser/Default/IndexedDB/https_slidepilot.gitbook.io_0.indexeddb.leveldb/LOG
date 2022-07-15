@@ -1,0 +1,6 @@
+2022/06/26-23:59:20.722 2ee3d Creating DB /home/jose/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_slidepilot.gitbook.io_0.indexeddb.leveldb since it was missing.
+2022/06/26-23:59:20.734 2ee3d Reusing MANIFEST /home/jose/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_slidepilot.gitbook.io_0.indexeddb.leveldb/MANIFEST-000001
+2022/06/27-00:07:15.053 2c2bf Level-0 table #5: started
+2022/06/27-00:07:15.056 2c2bf Level-0 table #5: 1754 bytes OK
+2022/06/27-00:07:15.059 2c2bf Delete type=0 #3
+2022/06/27-00:07:15.059 2c2bf Manual compaction at level-0 from (begin) .. (end); will stop at (end)

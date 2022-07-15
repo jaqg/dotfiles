@@ -1,0 +1,6 @@
+2022/02/03-22:10:31.463 442ec Creating DB /home/jose/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_www.nationalgeographic.es_0.indexeddb.leveldb since it was missing.
+2022/02/03-22:10:31.503 442ec Reusing MANIFEST /home/jose/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_www.nationalgeographic.es_0.indexeddb.leveldb/MANIFEST-000001
+2022/02/03-22:11:08.242 464e9 Level-0 table #5: started
+2022/02/03-22:11:08.246 464e9 Level-0 table #5: 3048 bytes OK
+2022/02/03-22:11:08.252 464e9 Delete type=0 #3
+2022/02/03-22:11:08.252 464e9 Manual compaction at level-0 from (begin) .. (end); will stop at (end)

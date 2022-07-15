@@ -1,0 +1,18 @@
+00:00:00.434748 VirtualBox GUI VM Selector Window 6.1.34 r150636 linux.amd64 (May 30 2022 06:37:05) release log
+00:00:00.434750 Log opened 2022-06-26T10:21:17.320335000Z
+00:00:00.434750 Build Type: release
+00:00:00.434752 OS Product: Linux
+00:00:00.434753 OS Release: 5.15.49-1-lts
+00:00:00.434754 OS Version: #1 SMP Wed, 22 Jun 2022 12:52:35 +0000
+00:00:00.434769 DMI Product Name: 81HN
+00:00:00.434774 DMI Product Version: Lenovo V130-15IKB
+00:00:00.434778 Firmware type: UEFI
+00:00:00.435322 Secure Boot: Disabled
+00:00:00.435350 Host RAM: 7284MB (7.1GB) total, 5999MB (5.8GB) available
+00:00:00.435356 Executable: /usr/lib/virtualbox/VirtualBox
+00:00:00.435357 Process ID: 7600
+00:00:00.435357 Package type: LINUX_64BITS_GENERIC (OSE)
+00:00:00.435379 Qt version: 5.15.5
+00:00:00.475045 GUI: UIMediumEnumerator: Medium-enumeration started...
+00:00:01.076598 GUI: UIDesktopWidgetWatchdog::sltHandleHostScreenAvailableGeometryCalculated: Screen 0 work area is actually resized to: 16x40 x 1884x1020
+00:00:01.098604 GUI: UIMediumEnumerator: Medium-enumeration finished!

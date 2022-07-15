@@ -1,0 +1,11 @@
+\newcommand{\HRule}{\rule{.9\linewidth}{.6pt}} % New command to make the lines in the title page
+\newcommand{\authorname}{José Antonio \textsc{Quiñonero Gris}}
+\newcommand{\univname}{Universidad de Murcia}
+\newcommand{\ttitle}{Simulación computacional avanzada por medio de métodos de primeros principios y espectroscopía infrarroja experimental al estudio de sólidos cristalinos y moleculares con interés geológico y astrofísico}
+\newcommand{\worktype}{Prácticas Externas}
+\newcommand{\supname}{Dr. Vicente \textsc{Timón Salinero}}
+\newcommand{\degreename}{Grado en Química}
+\newcommand{\deptname}{Departamento de Física Molecular}
+\newcommand{\facultyname}{Facultad de Química}
+\newcommand{\institutename}{Instituto de Estrucutra de la Materia (IEM)}
+\newcommand{\centername}{Consejo Superior de Investigaciones Científicas (CSIC)}

@@ -1,0 +1,157 @@
+# ____________________________________________________________________________
+# *****************************************************************************
+# Autor: José Antonio Quiñonero gris
+# Fecha de creación: 3 de marzo de 2022
+# *****************************************************************************
+# -----------------------------------------------------------------------------
+
+# Grafica para el oscilador con una perturbacion cuartica
+
+# Librerias
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+plt.style.use('mine')
+
+# line cyclers adapted to colourblind people
+from cycler import cycler
+line_cycler   = (cycler(color=["#E69F00", "#56B4E9", "#009E73", "#0072B2", "#D55E00", "#CC79A7", "#F0E442"]) +
+                 cycler(linestyle=["-", "--", "-.", ":", "-", "--", "-."]))
+marker_cycler = (cycler(color=["#E69F00", "#56B4E9", "#009E73", "#0072B2", "#D55E00", "#CC79A7", "#F0E442"]) +
+                 cycler(linestyle=["none", "none", "none", "none", "none", "none", "none"]) +
+                 cycler(marker=["4", "2", "3", "1", "+", "x", "."]))
+marker_line_cycler = (cycler(color=["#E69F00", "#56B4E9", "#009E73", "#0072B2", "#D55E00", "#CC79A7", "#F0E442"]) +
+                      cycler(linestyle=["-", "-", "-", "-", "-", "-", "-"]) +
+                      cycler(marker=["o", "^", "s", "v", "o", "^", "s"]))
+
+plt.rc("axes", prop_cycle=marker_line_cycler)
+# Para un solo axes
+#ax.set_prop_cycle(line_cycler)
+
+# *****************************************************************************
+# INICIO
+# *****************************************************************************
+
+# Creacion del dataframe
+file1 = '../data_opt/out-energias_d=0,1.dat'
+file2 = '../data_opt/out-energias_d=0,5.dat'
+file3 = '../data_opt/out-energias_d=1,0.dat'
+
+# Grafico
+
+fig = plt.figure(figsize=(7.2,7.2*2))
+axs = fig.add_gridspec(4,4)
+ax1 = fig.add_subplot(axs[0, 0:2])
+ax2 = fig.add_subplot(axs[0, 2:4])
+ax3 = fig.add_subplot(axs[1, 1:3])
+# ax4 = fig.add_subplot(axs[0, 1])
+
+grosor=1.2
+
+### d = 0.1 ###
+N, W0, W1, W2, W3, W4, W5, W6, W7, W8, W9, W10, W11, W12, W13, W14, W15, W16, W17, W18, W19, W20 = np.loadtxt(file1, unpack=True, skiprows=2)
+
+Nmax = 25
+ax1.plot(N[0:Nmax],   W0[0:Nmax],  lw=grosor, label=r'$W_0$'      )
+#ax1.plot(N[0:Nmax],   W1[0:Nmax],  lw=grosor, label=r'$W_1$'      )
+ax1.plot(N[1:Nmax],   W2[1:Nmax],  lw=grosor, label=r'$W_2$'      )
+#ax1.plot(N[1:Nmax],   W3[1:Nmax],  lw=grosor, label=r'$W_3$'      )
+ax1.plot(N[2:Nmax],   W4[2:Nmax],  lw=grosor, label=r'$W_4$'      )
+#ax1.plot(N[2:Nmax],   W5[2:Nmax],  lw=grosor, label=r'$W_5$'      )
+ax1.plot(N[3:Nmax],   W6[3:Nmax],  lw=grosor, label=r'$W_6$'      )
+#ax1.plot(N[3:Nmax],   W7[3:Nmax],  lw=grosor, label=r'$W_7$'      )
+ax1.plot(N[4:Nmax],   W8[4:Nmax],  lw=grosor, label=r'$W_8$'      )
+#ax1.plot(N[4:Nmax],   W9[4:Nmax],  lw=grosor, label=r'$W_9$'      )
+ax1.plot(N[5:Nmax],  W10[5:Nmax],  lw=grosor, label=r'$W_{10}$'   )
+#ax1.plot(N[5:Nmax],  W11[5:Nmax],  lw=grosor, label=r'$W_{11}$'   )
+ax1.plot(N[6:Nmax],  W12[6:Nmax],  lw=grosor, label=r'$W_{12}$'   )
+#ax1.plot(N[6:Nmax],  W13[6:Nmax],  lw=grosor, label=r'$W_{13}$'   )
+ax1.plot(N[7:Nmax],  W14[7:Nmax],  lw=grosor, label=r'$W_{14}$'   )
+#ax1.plot(N[7:Nmax],  W15[7:Nmax],  lw=grosor, label=r'$W_{15}$'   )
+ax1.plot(N[8:Nmax],  W16[8:Nmax],  lw=grosor, label=r'$W_{16}$'   )
+#ax1.plot(N[8:Nmax],  W17[8:Nmax],  lw=grosor, label=r'$W_{17}$'   )
+ax1.plot(N[9:Nmax],  W18[9:Nmax],  lw=grosor, label=r'$W_{18}$'   )
+#ax1.plot(N[9:Nmax],  W19[9:Nmax],  lw=grosor, label=r'$W_{19}$'   )
+ax1.plot(N[10:Nmax], W20[10:Nmax], lw=grosor, label=r'$W_{20}$'   )
+#
+ax1.set_xlim(0,2*Nmax)
+# ax1.set_ylim(-5,max(W20)+max(W20)/20)
+ax1.set_ylim(min(W0)-(max(W20)-min(W0))/10,max(W20)+(max(W20)-min(W0))/10)
+# handles, labels = ax1.get_legend_handles_labels()
+# ax1.legend(handles[::-1], labels[::-1], loc=(1.01,0.03))
+ax1.set(title=r'$d=0.1$',xlabel=r'$N$', ylabel=r'$E$ (Ha)')
+# ax1.text(0.9,0.95, r'$d=0.1$', horizontalalignment='center', verticalalignment='center', transform=ax1.transAxes, bbox=dict(facecolor='none'))
+
+### d = 0.5 ###
+N, W0, W1, W2, W3, W4, W5, W6, W7, W8, W9, W10, W11, W12, W13, W14, W15, W16, W17, W18, W19, W20 = np.loadtxt(file2, unpack=True, skiprows=2)
+
+ax2.plot(N[0:Nmax],   W0[0:Nmax],  lw=grosor, label=r'$W_0$'      )
+#ax2.plot(N[0:Nmax],   W1[0:Nmax],  lw=grosor, label=r'$W_1$'      )
+ax2.plot(N[1:Nmax],   W2[1:Nmax],  lw=grosor, label=r'$W_2$'      )
+#ax2.plot(N[1:Nmax],   W3[1:Nmax],  lw=grosor, label=r'$W_3$'      )
+ax2.plot(N[2:Nmax],   W4[2:Nmax],  lw=grosor, label=r'$W_4$'      )
+#ax2.plot(N[2:Nmax],   W5[2:Nmax],  lw=grosor, label=r'$W_5$'      )
+ax2.plot(N[3:Nmax],   W6[3:Nmax],  lw=grosor, label=r'$W_6$'      )
+#ax2.plot(N[3:Nmax],   W7[3:Nmax],  lw=grosor, label=r'$W_7$'      )
+ax2.plot(N[4:Nmax],   W8[4:Nmax],  lw=grosor, label=r'$W_8$'      )
+#ax2.plot(N[4:Nmax],   W9[4:Nmax],  lw=grosor, label=r'$W_9$'      )
+ax2.plot(N[5:Nmax],  W10[5:Nmax],  lw=grosor, label=r'$W_{10}$'   )
+#ax2.plot(N[5:Nmax],  W11[5:Nmax],  lw=grosor, label=r'$W_{11}$'   )
+ax2.plot(N[6:Nmax],  W12[6:Nmax],  lw=grosor, label=r'$W_{12}$'   )
+#ax2.plot(N[6:Nmax],  W13[6:Nmax],  lw=grosor, label=r'$W_{13}$'   )
+ax2.plot(N[7:Nmax],  W14[7:Nmax],  lw=grosor, label=r'$W_{14}$'   )
+#ax2.plot(N[7:Nmax],  W15[7:Nmax],  lw=grosor, label=r'$W_{15}$'   )
+ax2.plot(N[8:Nmax],  W16[8:Nmax],  lw=grosor, label=r'$W_{16}$'   )
+#ax2.plot(N[8:Nmax],  W17[8:Nmax],  lw=grosor, label=r'$W_{17}$'   )
+ax2.plot(N[9:Nmax],  W18[9:Nmax],  lw=grosor, label=r'$W_{18}$'   )
+#ax2.plot(N[9:Nmax],  W19[9:Nmax],  lw=grosor, label=r'$W_{19}$'   )
+ax2.plot(N[10:Nmax], W20[10:Nmax], lw=grosor, label=r'$W_{20}$'   )
+#
+ax2.set_xlim(0,2*Nmax)
+# ax2.set_ylim(-5,max(W20)+max(W20)/20)
+ax2.set_ylim(min(W0)-(max(W20)-min(W0))/10,max(W20)+(max(W20)-min(W0))/10)
+# handles, labels = ax2.get_legend_handles_labels()
+# ax2.legend(handles[::-1], labels[::-1], loc=(1.01,0.03))
+ax2.set(title=r'$d=0.5$',xlabel=r'$N$', ylabel=r'$E$ (Ha)')
+# ax2.text(0.9,0.95, r'$d=0.1$', horizontalalignment='center', verticalalignment='center', transform=ax2.transAxes, bbox=dict(facecolor='none'))
+
+### d = 1.0 ###
+N, W0, W1, W2, W3, W4, W5, W6, W7, W8, W9, W10, W11, W12, W13, W14, W15, W16, W17, W18, W19, W20 = np.loadtxt(file3, unpack=True, skiprows=2)
+
+ax3.plot(N[0:Nmax],   W0[0:Nmax],  lw=grosor, label=r'$W_0$'      )
+#ax3.plot(N[0:Nmax],   W1[0:Nmax],  lw=grosor, label=r'$W_1$'      )
+ax3.plot(N[1:Nmax],   W2[1:Nmax],  lw=grosor, label=r'$W_2$'      )
+#ax3.plot(N[1:Nmax],   W3[1:Nmax],  lw=grosor, label=r'$W_3$'      )
+ax3.plot(N[2:Nmax],   W4[2:Nmax],  lw=grosor, label=r'$W_4$'      )
+#ax3.plot(N[2:Nmax],   W5[2:Nmax],  lw=grosor, label=r'$W_5$'      )
+ax3.plot(N[3:Nmax],   W6[3:Nmax],  lw=grosor, label=r'$W_6$'      )
+#ax3.plot(N[3:Nmax],   W7[3:Nmax],  lw=grosor, label=r'$W_7$'      )
+ax3.plot(N[4:Nmax],   W8[4:Nmax],  lw=grosor, label=r'$W_8$'      )
+#ax3.plot(N[4:Nmax],   W9[4:Nmax],  lw=grosor, label=r'$W_9$'      )
+ax3.plot(N[5:Nmax],  W10[5:Nmax],  lw=grosor, label=r'$W_{10}$'   )
+#ax3.plot(N[5:Nmax],  W11[5:Nmax],  lw=grosor, label=r'$W_{11}$'   )
+ax3.plot(N[6:Nmax],  W12[6:Nmax],  lw=grosor, label=r'$W_{12}$'   )
+#ax3.plot(N[6:Nmax],  W13[6:Nmax],  lw=grosor, label=r'$W_{13}$'   )
+ax3.plot(N[7:Nmax],  W14[7:Nmax],  lw=grosor, label=r'$W_{14}$'   )
+#ax3.plot(N[7:Nmax],  W15[7:Nmax],  lw=grosor, label=r'$W_{15}$'   )
+ax3.plot(N[8:Nmax],  W16[8:Nmax],  lw=grosor, label=r'$W_{16}$'   )
+#ax3.plot(N[8:Nmax],  W17[8:Nmax],  lw=grosor, label=r'$W_{17}$'   )
+ax3.plot(N[9:Nmax],  W18[9:Nmax],  lw=grosor, label=r'$W_{18}$'   )
+#ax3.plot(N[9:Nmax],  W19[9:Nmax],  lw=grosor, label=r'$W_{19}$'   )
+ax3.plot(N[10:Nmax], W20[10:Nmax], lw=grosor, label=r'$W_{20}$'   )
+#
+ax3.set_xlim(0,2*Nmax)
+# ax3.set_ylim(-5,max(W20)+max(W20)/20)
+ax3.set_ylim(min(W0)-(max(W20)-min(W0))/10,max(W20)+(max(W20)-min(W0))/10)
+ax3.set(title=r'$d=1.0$',xlabel=r'$N$', ylabel=r'$E$ (Ha)')
+# ax3.text(0.9,0.95, r'$d=0.1$', horizontalalignment='center', verticalalignment='center', transform=ax3.transAxes, bbox=dict(facecolor='none'))
+# handles, labels = ax3.get_legend_handles_labels()
+# ax3.legend(handles[::-1], labels[::-1], loc=(1.01,0.03))
+
+handles, labels = ax1.get_legend_handles_labels()
+fig.legend(handles[::-1], labels[::-1], bbox_to_anchor=(0.8, 0.6), loc='center', borderaxespad=0)
+# fig.legend(handles[::-1], labels[::-1], loc='center right')
+
+plt.savefig('grafica_osc_pert_cuart_diagonalizacion.pdf', transparent='True', bbox_inches='tight')
+# plt.show()

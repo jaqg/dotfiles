@@ -1,0 +1,11 @@
+sudo systemctl start bluetooth.service
+bluetoothctl
+power on
+agent on
+default-agent
+scan on
+devices
+trust 00:11:67:28:2C:53
+pair 00:11:67:28:2C:53
+connect 00:11:67:28:2C:53
+scan off

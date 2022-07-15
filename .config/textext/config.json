@@ -1,0 +1,12 @@
+{
+  "preamble": "/home/jose/.config/inkscape/extensions/textext/default_packages.tex",
+  "scale": 1.0,
+  "previous_tex_command": "pdflatex",
+  "gui": {
+    "confirm_close": true,
+    "line_numbers": true,
+    "auto_indent": true,
+    "insert_spaces": true,
+    "tab_width": 4
+  }
+}

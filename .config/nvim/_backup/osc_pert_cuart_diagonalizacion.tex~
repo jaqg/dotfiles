@@ -1,0 +1,208 @@
+\documentclass[12pt, final, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[spanish, es-tabla]{babel}
+\usepackage{amsmath, amssymb}
+
+\input{/home/jose/Documents/latex/preamble/paquetes1} %mis paquetes
+\input{/home/jose/Documents/latex/preamble/bibliography_config} %configuracion para l bibliografia
+\input{/home/jose/Documents/latex/preamble/paquetesTikz} %mis paquetes
+\input{/home/jose/Documents/latex/preamble/tikzstyle} %Estilo para las gráficas
+
+% \newcommand{\mat}[1]{\boldsymbol{\mathrm{#1}}}
+
+\decimalpoint
+
+\graphicspath{{../grafica/}}
+
+\author{José Antonio Quiñonero Gris}
+\title{\textbf{Estudio de convergencia de un oscilador armónico perturbado cuárticamente.}\\
+        \vspace{5mm}
+        \large \textbf{Formulación matricial.}}
+
+% \date{29 de enero de 2022}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+%------------------------------------------------------------------------------
+\section{Introducción}%
+%------------------------------------------------------------------------------
+Para formar nuestra función de prueba, $\widetilde{\Phi}$, hemos tomado el conjunto de funciones reales fijas $\left\{ \Ket{ \varphi_k} \right\}_N$ del oscilador armónico unidimensional, estableciendo la siguiente combinación lineal
+\begin{equation}\label{ec:combinacion_lineal_general}
+   \Ket{\widetilde{\Phi}} = \sum_{k=0}^{N} c_k \Ket{\varphi_k}
+\end{equation}
+de manera que los coeficientes $\left\{ c_k \right\}_N$ son los parámetros variacionales.\\
+
+Atendiendo a la simetría de las funciones, reescribo la ecuación \eqref{ec:combinacion_lineal_general} como
+\begin{equation}\label{ec:combinacion_lineal}
+   \Ket{\widetilde{\Phi}} = \Ket{\widetilde{\Phi}_{\mathrm{par}}} + \Ket{\widetilde{\Phi}_{\mathrm{impar}}} =  \sum_{k=0}^{N_{\mathrm{p}}} c_{2k} \Ket{\varphi_{2k}} + \sum_{k=0}^{N_{\mathrm{i}}} c_{2k+1} \Ket{\varphi_{2k+1}}
+\end{equation}
+donde $N_{\mathrm{p}}$ es el número de funciones base de índice par y $N_{\mathrm{i}}$ el número de funciones base de índice impar, de manera que se cumple que
+\begin{equation}
+    N = N_{\mathrm{p}} + N_{\mathrm{i}}
+\end{equation}
+
+La representación de $\hat{H}$ en la base $\left\{ \Ket{ \varphi_k} \right\}_N$ da la matriz del Hamiltoniano $\mat{H}$, con elementos
+\begin{equation}
+    \left( \mat{H} \right)_{ij} = H_{ij} = \Braket{\varphi_i | \hat{H} | \varphi_j}
+\end{equation}
+que evaluamos como hemos hecho anteriormente, considerando el parámetro $\alpha$ optimizado y las propiedades de simetría según la ecuación \eqref{ec:combinacion_lineal}.\\
+
+Ahora bien, queremos encontrar los valores de $\left\{ c_k \right\}_N$ que minimizan la energía. Para ello, utilizando los multiplicadores indeterminados de Lagrange\footnote{El desarrollo se puede consultar en la página 36 del libro \textit{Química Teórica y Computacional}~\cite{bort_quimica_2001}.} y la condición de normalización, encontramos que
+\begin{equation}
+    \sum_{j} H_{ij} c_j = E c_i
+\end{equation}
+lo que implica, en notación matricial, que
+\begin{equation}
+    \mat{Hc} = E \mat{c}
+\end{equation}
+que es la ecuación de valores propios de $\mat{H}$.\\
+
+Así, diagonalizando la matriz $\mat{H}$ obtendremos los $N$ valores de las energías variacionales $E$, los valores propios de $\mat{H}$, y sus correspondientes vectores propios $\mat{c}^0$, $\mat{c}^1$, $\ldots$, $\mat{c}^{N-1}$, de forma que
+\begin{equation}
+    \mat{H}\mat{c}^{\alpha} = E_{\alpha} \mat{c}^{\alpha} \qquad \alpha = 0,1,\ldots,N-1
+\end{equation}
+y las $N$ soluciones ortonormales asociadas a los $N$ valores de la energía
+\begin{equation}
+    \Ket{\widetilde{\Phi}_{\alpha}} = \sum_{k} c_k^{\alpha} \Ket{\varphi_k}
+\end{equation}
+
+Ahora, al considerar las propiedades de simetría según la ecuación \eqref{ec:combinacion_lineal}, podemos representar $\hat{H}$ en la base $\left\{ \Ket{\varphi_{2k}}\right\}_{N_{\mathrm{p}}}$ para obtener la matriz del Hamiltoniano $\mat{H_{\mathrm{p}}}$ correspondiente a las funciones pares, y en la base $\left\{ \Ket{\varphi_{2k+1}}\right\}_{N_{\mathrm{i}}}$ para obtener $\mat{H_{\mathrm{i}}}$, correspondiente a las funciones impares, de manera que
+\begin{align}
+    \mat{H_{\mathrm{p}}} \mat{c_{\mathrm{p}}} &= E \mat{c_{\mathrm{p}}}\\
+    \mat{H_{\mathrm{i}}} \mat{c_{\mathrm{i}}} &= E \mat{c_{\mathrm{i}}}
+\end{align}
+
+Diagonalizando $\mat{H_{\mathrm{p}}}$ obtendremos los $N_{\mathrm{p}}$ valores propios de energías variacionales correspondientes a los niveles pares, y los vectores propios $\mat{c}^0,\mat{c}^2,\ldots,\mat{c}^{2N_{\mathrm{p}}-2}$. Análogamente, diagonalizando $\mat{H_{\mathrm{i}}}$ obtenemos los $N_{\mathrm{i}}$ valores correspondientes a los niveles impares y sus vectores propios $\mat{c}^1,\mat{c}^3,\ldots,\mat{c}^{2N_{\mathrm{i}}-1}$, con lo que
+\begin{alignat}{3}
+    \mat{H_{\mathrm{p}}}\mat{c_{\mathrm{p}}}^{\alpha} &= E_{\alpha} \mat{c_{\mathrm{p}}}^{\alpha} \qquad &\alpha &= 0,2,\ldots,2N_{\mathrm{p}}-2 \\
+    \mat{H_{\mathrm{i}}}\mat{c_{\mathrm{i}}}^{\alpha} &= E_{\alpha} \mat{c_{\mathrm{i}}}^{\alpha} \qquad &\alpha &= 1,3,\ldots,2N_{\mathrm{i}}-1
+\end{alignat}
+
+Hay, por tanto, $N_{\mathrm{p}}$ soluciones ortonormales asociadas a los $N_{\mathrm{p}}$ valores de energía de índice par y $N_{\mathrm{i}}$ soluciones asociadas a los $N_{\mathrm{i}}$ valores de energía impares
+\begin{alignat}{3}
+    \Ket{\widetilde{\Phi}_{\alpha}^{\mathrm{par}}}  &= \sum_{k=0}^{N_{\mathrm{p}}} c_{2k}^{\alpha} \Ket{\varphi_{2k}}     \qquad &\alpha&=0,2,\ldots 2N_{\mathrm{p}}-2\\
+    \Ket{\widetilde{\Phi}_{\alpha}^{\mathrm{imp.}}} &= \sum_{k=0}^{N_{\mathrm{i}}} c_{2k+1}^{\alpha} \Ket{\varphi_{2k+1}} \qquad &\alpha&=1,3,\ldots 2N_{\mathrm{i}}-1
+\end{alignat}
+
+Para los niveles de energía de índice $\alpha$ par, los coeficientes de las funciones base impares son cero, $c_{2k+1}^{\alpha}=0$, mientras que para los niveles de índice $\alpha$ impar lo son los coeficientes de las funciones base pares, $c_{2k}^{\alpha}=0$. Por tanto, podemos escribir $\Ket{\widetilde{\Phi}}$ como
+\begin{equation}
+    \Ket{\widetilde{\Phi}_{\alpha}} =
+    \begin{cases}
+            \Ket{\widetilde{\Phi}_{\alpha}^{\mathrm{par}}}  = \sum_{k=0}^{N_{\mathrm{p}}} c_{2k}^{\alpha} \Ket{\varphi_{2k}}, &         \text{si } \alpha \text{ par},\\
+            \Ket{\widetilde{\Phi}_{\alpha}^{\mathrm{imp.}}} = \sum_{k=0}^{N_{\mathrm{i}}} c_{2k+1}^{\alpha} \Ket{\varphi_{2k+1}}, &         \text{si } \alpha \text{ impar}.
+    \end{cases}
+\end{equation}
+
+%------------------------------------------------------------------------------
+\section{Cálculos}%
+%------------------------------------------------------------------------------
+Llevo a cabo los cálculos para $N=100$ funciones base y para los valores del parámetro perturbativo $d=0.1,\ 0.5,\ 1.0$ que venimos estudiando. Para $N\ge55,69,71$ (respectivamente a los valores de $d$), los valores de las energías de los 21 primeros niveles no disminuyen para la precisión de nuestros cálculos, por lo que los tomaremos como valores de energía de nuestro sistema. \\
+
+Para la diagonalización de la matriz del Hamiltoniano $\mat{H}$ uso la subrutina \verb|dsyev()| de la librería LAPACK~\cite{lapack_userguide}, que nos permite obtener tanto los valores propios de $\mat{H}$, las energías variacionales, como los vectores propios, aunque no se presentan en este informe.
+
+%------------------------------------------------------------------------------
+\section{Resultados}%
+%------------------------------------------------------------------------------
+Recojo los valores de las energías variacionales convergidos de los primeros $n=21$ niveles junto al número de funciones base necesarias para la convergencia de dichas energías $N_{\mathrm{con.}}$ en la tabla \ref{tab:tabla_resultados}. Además, presento en la tabla \ref{tab:convergencia_n=0,5,10,15} los valores de las energías variacionales para los niveles $n=0,5,10,15$ convergidos junto al número de funciones base de convergencia tomando el parámetro $\alpha$ del oscilador armónico y $\alpha_{\mathrm{opt.}}$ para $d=0.5$.\\
+%
+{
+ % \extrarowheight = -0.5ex  %espacio en blanco
+ % \renewcommand{\arraystretch}{2.00}
+\begin{table}[h]
+    \ra{1.2} % Spacing btween lines of table
+    \caption{Valores de las energías variacionales convergidos para los $n=21$ primeros niveles energéticos, $W_n$, junto al número de funciones base de convergencia, $N_{\mathrm{con.}}$, y los valores del parámetro perturbativo $d$ de estudio.}
+    \label{tab:tabla_resultados}
+    \centering
+    \begin{tabular}{@{}c c c c c c c@{}}
+        \toprule
+         & \multicolumn{2}{c}{$\boldsymbol{d=0.1}$} & \multicolumn{2}{c}{$\boldsymbol{d=0.5}$} & \multicolumn{2}{c}{$\boldsymbol{d=1.0}$}\\
+         % & \multicolumn{2}{c}{$d=0.1$} & \multicolumn{2}{c}{$d=0.5$} & \multicolumn{2}{c}{$d=1.0$}\\
+         \cmidrule(r){2-3} \cmidrule(r){4-5} \cmidrule(r){6-7}
+        $\boldsymbol{n}$ & $\boldsymbol{W_n}$ & $\boldsymbol{N_{\mathrm{con.}}}$ & $\boldsymbol{W_n}$ & $\boldsymbol{N_{\mathrm{con.}}}$ & $\boldsymbol{W_n}$ & $\boldsymbol{N_{\mathrm{con.}}}$ \\
+        % $n$ & $W_n$ & $N$ & $W_n$ & $N$ & $W_n$ & $N$ \\
+        \midrule
+        0  & 0.55915  & 7  & 0.69618  & 11 & 0.80378  & 11 \\
+        1  & 1.76951  & 8  & 2.32441  & 14 & 2.7379   & 14 \\
+        2  & 3.13863  & 11 & 4.32753  & 17 & 5.1793   & 17 \\
+        3  & 4.62889  & 12 & 6.5784   & 20 & 7.94241  & 20 \\
+        4  & 6.22031  & 15 & 9.02879  & 21 & 10.96359 & 23 \\
+        5  & 7.89978  & 18 & 11.64873 & 24 & 14.20314 & 26 \\
+        6  & 9.65785  & 19 & 14.41767 & 27 & 17.63405 & 29 \\
+        7  & 11.48732 & 24 & 17.32043 & 30 & 21.23644 & 32 \\
+        8  & 13.38248 & 27 & 20.3452  & 33 & 24.99494 & 35 \\
+        9  & 15.33865 & 28 & 23.48251 & 36 & 28.89725 & 38 \\
+        10 & 17.35191 & 31 & 26.72455 & 39 & 32.93326 & 41 \\
+        11 & 19.41895 & 34 & 30.06476 & 42 & 37.09448 & 44 \\
+        12 & 21.53688 & 35 & 33.49752 & 45 & 41.37364 & 47 \\
+        13 & 23.70319 & 38 & 37.01794 & 48 & 45.76445 & 50 \\
+        14 & 25.91566 & 41 & 40.62176 & 49 & 50.26143 & 53 \\
+        15 & 28.17232 & 44 & 44.30518 & 52 & 54.8597  & 56 \\
+        16 & 30.47138 & 45 & 48.06483 & 55 & 59.5549  & 59 \\
+        17 & 32.81124 & 48 & 51.89766 & 58 & 64.34315 & 62 \\
+        18 & 35.19043 & 51 & 55.80092 & 61 & 69.2209  & 65 \\
+        19 & 37.60763 & 54 & 59.77209 & 66 & 74.18494 & 68 \\
+        20 & 40.06162 & 55 & 63.8089  & 69 & 79.23234 & 71 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+}
+
+%
+{
+% \extrarowheight = -0.5ex  %espacio en blanco
+% \renewcommand{\arraystretch}{2.00}
+\begin{table}[h]
+    \ra{1.2} % Spacing btween lines of table
+    \caption{Valores de las energías variacionales para los niveles $n=0,5,10,15$ convergidos junto al número de funciones base de convergencia tomando el parámetro $\alpha$ del oscilador armónico y $\alpha_{\mathrm{opt.}}$ para $d=0.5$.}
+    \label{tab:convergencia_n=0,5,10,15}
+    \centering
+    \begin{tabular}{@{}c c c c@{}}
+        \toprule
+         & & \multicolumn{2}{c}{$\boldsymbol{N_{\mathrm{con.}}}$} \\
+        \cmidrule(r){3-4}
+        $\boldsymbol{n}$ & $\boldsymbol{W_n}$ & $\boldsymbol{\alpha = 1}$ & $\boldsymbol{\alpha = \alpha_{\mathrm{opt.}}}$\\
+        \midrule
+
+        0  & 0.69618  & 15 & 11 \\
+        5  & 11.64873 & 36 & 24 \\
+        10 & 26.72455 & 57 & 39 \\
+        15 & 44.30518 & 82 & 52 \\
+
+        \bottomrule
+    \end{tabular}
+\end{table}
+}
+
+Represento en la figura \ref{fig:grafica_osc_pert_cuart_diagonalizacion} los valores de las energías variacionales de los 11 primeros niveles energéticos de indice par frente al número de funciones base $N$, para cada valor del parámetro $d$. Los puntos se corresponden al valor de $W_n$ para cada número de funciones base par, siendo omitidos los puntos correspondientes a valores de $N$ impares. Podemos apreciar cómo la disminución en los valores de energía con el aumento del número de funciones base es mayor para niveles energéticos superiores, y para los primeros aumentos de $N$. Así, podemos ver cómo las energías variacionales convergen hacia los valores presentados en la tabla \ref{tab:tabla_resultados}, y cómo esta convergencia es más rápida para los niveles inferiores, siendo la más rápida la del estado fundamental.\\
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{grafica_osc_pert_cuart_diagonalizacion.pdf}
+    \caption{Valores de las energías variacionales de los primeros 11 niveles pares para los valores de $d$ estudiados, calculados tomando el parámetro $\alpha$ optimizado frente al número de funciones base $N$ pares.}
+    \label{fig:grafica_osc_pert_cuart_diagonalizacion}
+\end{figure}
+
+En la figura \ref{fig:convergencia_n=0,5,10,15} represento los valores de las energías variacionales de los niveles $n=0,5,10,15$ (para $d=0.5$) calculados tomando $\alpha=1$ del oscilador armónico (línea amarilla) y $\alpha=\alpha_{\mathrm{opt.}}$ (línea azul) frente al número de funciones base $N$. De esta figura podemos apreciar el efecto de la optimización del parámetro $\alpha$ en la convergencia de los valores de energía, siendo esta más rápida cuando optimizamos $\alpha$, como ya esperábamos y podemos ver en los valores de $N_{\mathrm{con.}}$ de la tabla \ref{tab:tabla_resultados}. \\
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{convergencia_n=0,5,10,15.pdf}
+    \caption{Valores de las energías variacionales $W_n$ de los niveles $n=0,5,10,15$ para $d=0.5$ calculados tomando el parámetro $\alpha$ del oscilador (línea amarilla) y $\alpha_{\mathrm{opt.}}$ (línea azul) frente al número de funciones base $N$ pares.}
+    \label{fig:convergencia_n=0,5,10,15}
+\end{figure}
+
+\clearpage
+\newpage
+% \printbibliography[title={References}] % change from bibliography to references
+\printbibliography
+% \nocite{*}
+% \bibliographystyle{apalike}
+% \bibliography{/home/jose/Documents/latex/preamble/references.bib}
+\end{document}

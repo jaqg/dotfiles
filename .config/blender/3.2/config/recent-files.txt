@@ -1,0 +1,2 @@
+/home/jose/Documents/Universidad/TFG/TRABAJO_FINAL/presentacion/animaciones/video.blend
+/home/jose/Documents/Universidad/TFG/TRABAJO_FINAL/presentacion/animaciones/amoniaco.blend

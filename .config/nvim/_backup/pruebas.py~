@@ -1,0 +1,63 @@
+import numpy as np
+import scipy.integrate as integrate
+from matplotlib import plt
+import matplotlib.animation as animation
+
+L = 20; h_cross = 1; m = 1/2;
+
+
+#Initial wave function of the particle (not normalised)
+def psi0(x):
+    if(x<=L and x>=0):
+        return 0.4*np.exp(-((x-5)**2)/20)*np.exp(complex(0,2*x));
+    else:
+        return 0;
+
+#stationary states (time independent part)
+def psi_n(x,n):
+    if(x>=0 and x<=L):
+        return np.sqrt(2/L)*np.sin(n*np.pi*x/L);
+    else:
+        return 0;
+
+#coefficients (first 30 states)
+c = np.zeros(30,dtype = np.complex_);
+
+#calculate co-efficients using fourier's trick
+for i in range(30):
+    n = i+1;
+    I_Real = lambda x: psi_n(x,n)*np.real(psi0(x));
+    I_Imag = lambda x: psi_n(x,n)*np.imag(psi0(x));
+    c[i] = complex(integrate.quad(I_Real,0,L)[0],integrate.quad(I_Imag,0,L)[0]);
+
+#Wave function at time t
+def PSI(x,t):
+    val = 0
+    for i in range(30):
+        n = i+1;
+        val+=c[i]*psi_n(x,n)*np.exp(complex(0,-(n**2)*(np.pi**2)*h_cross*t/(2*m*(L**2))))
+
+    return val;
+
+
+
+#plot and animate
+
+fig = plt.figure()
+ax = plt.axes(xlim=(0, L), ylim=(0.0, 0.4))
+
+
+x = np.linspace(0,L,100);
+PSI_SQ = np.zeros(100);
+
+#plots the probability density
+def plot_probability(frame_number):
+    t = frame_number/15;
+    for i in range(100):
+        PSI_SQ[i] = abs(PSI(x[i],t))**2; #probability density
+    p = plt.fill_between(x, PSI_SQ,color='orange');
+    return p,
+
+anim = animation.FuncAnimation(fig, plot_probability,frames=1000, interval=30, blit=True)
+
+plt.show()

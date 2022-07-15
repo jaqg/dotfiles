@@ -1,0 +1,299 @@
+# _____________________________________________________________________________
+# *****************************************************************************
+# Autor: José Antonio Quiñonero Gris
+# Fecha de creación: 7 de febrero de 2022
+# *****************************************************************************
+# -----------------------------------------------------------------------------
+
+# Animaciones de la particula en una caja unidimensional, bidimensional y
+# tridimensional
+
+# Librerias
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import axes3d
+import matplotlib.animation as animation
+from matplotlib import cm
+from math import factorial
+from scipy.special import hermite
+
+# Usar mi estilo para las graficas
+plt.style.use('mine')
+
+# *****************************************************************************
+# INICIO
+# *****************************************************************************
+
+fichero_datos_1 = '/home/jose/Documents/Universidad/TFG/practicas_QFA/osc_doble_pozo_3/data/in-osc_doble_pozo.dat'
+fichero_datos_2 = '/home/jose/Documents/Universidad/TFG/practicas_QFA/osc_doble_pozo_3/data/in-potencial.dat'
+fichero_potencial = '/home/jose/Documents/Universidad/TFG/practicas_QFA/osc_doble_pozo_3/data/out-potencial.dat'
+fichero_energias = '/home/jose/Documents/Universidad/TFG/practicas_QFA/osc_doble_pozo_3/data/out-conver_energias.dat'
+fichero_funciones_pares = '/home/jose/Documents/Universidad/TFG/practicas_QFA/osc_doble_pozo_3/data/out-funciones_pares.dat'
+fichero_funciones_impares = '/home/jose/Documents/Universidad/TFG/practicas_QFA/osc_doble_pozo_3/data/out-funciones_impares.dat'
+fichero_densidad_prob_pares = '/home/jose/Documents/Universidad/TFG/practicas_QFA/osc_doble_pozo_3/data/out-densidad_prob_pares.dat'
+fichero_densidad_prob_impares = '/home/jose/Documents/Universidad/TFG/practicas_QFA/osc_doble_pozo_3/data/out-densidad_prob_impares.dat'
+fichero_coeficientes_par = '/home/jose/Documents/Universidad/TFG/practicas_QFA/osc_doble_pozo_3/data/out-coeficientes_par.dat'
+fichero_coeficientes_impar = '/home/jose/Documents/Universidad/TFG/practicas_QFA/osc_doble_pozo_3/data/out-coeficientes_impar.dat'
+
+N, a, b = np.loadtxt(fichero_datos_1, unpack=True, skiprows=1)
+xmin, xmax, dx = np.loadtxt(fichero_datos_2, unpack=True, skiprows=1)
+x, V = np.loadtxt(fichero_potencial, unpack=True, skiprows=3)
+n, E, Nconver = np.loadtxt(fichero_energias, unpack=True, skiprows=1)
+x, Phi0, Phi2, Phi4 = np.loadtxt(fichero_funciones_pares, unpack=True, skiprows=3)
+x, Phi1, Phi3, Phi5 = np.loadtxt(fichero_funciones_impares, unpack=True, skiprows=3)
+x, dPhi0, dPhi2, dPhi4 = np.loadtxt(fichero_densidad_prob_pares, unpack=True, skiprows=3)
+x, dPhi1, dPhi3, dPhi5 = np.loadtxt(fichero_densidad_prob_impares, unpack=True, skiprows=3)
+n_par, cPhi0, cPhi2, cPhi4  = np.loadtxt(fichero_coeficientes_par, unpack=True, skiprows=1)
+n_impar, cPhi1, cPhi3, cPhi5  = np.loadtxt(fichero_coeficientes_impar, unpack=True, skiprows=1)
+
+def Vb(a,b):
+    res = b**2/(4*a)
+    return res
+
+def x1(n,a,b):
+    res = np.sqrt(np.sqrt(b**2-4*Vb(a,b)*a+4*E[n]*a)/a+b/a)/np.sqrt(2)
+    return res
+def x2(n,a,b):
+    res = np.sqrt(b/a-np.sqrt(b**2-4*Vb(a,b)*a+4*E[n]*a)/a)/np.sqrt(2)
+    return res
+
+# -- Definicion de constantes --
+# Realizo el calculo en unidades atomicas, por lo que
+hbar = 1                       # Constante de Planck reducida
+m = 1                          # Masa de la particula
+k = 1                          # Constante de fuerza
+omega = np.sqrt(k/m)           # Momento angular: omega = (k/m)^(1/2)
+
+n_barrera = 4
+
+# -- Definicion de las funciones --
+# Definicion de una constante 'alpha' para simplificar la formulacion
+alpha = (6*m*a/hbar**2)**(1/3)
+print("alpha =", alpha)
+# Valores propios de la energia
+def Eoa(n):
+    res = (n + 1/2) * hbar**2*alpha/m
+    return res
+
+# Variable de desplazamiento xi
+def xi(x):
+    return np.sqrt(alpha) * x
+
+# Constante de normalizacion
+def N(n):
+    return ( np.sqrt(alpha/np.pi) * (1/(2**n * factorial(n))) )**(1/2)
+
+# Funcion exponencial a diferenciar
+def diff_expo(x):
+    return np.exp(-xi(x)**2)
+
+# Funcion exponencial
+def expo(x):
+    return np.exp(-(xi(x)**2)/2)
+
+# Polinomios de Hermite
+def Hv(n,x):
+    herm = hermite(n)
+    P_v = herm(x)
+    return P_v
+
+# Componente temporal de funciones
+def time_expo(n,t):
+    return np.exp(-1j * Eoa(n) * t/hbar)
+
+# Funciones propias
+def phi(n,x,t):
+    return N(n) * expo(x) * Hv(n,x) * time_expo(n,t)
+
+# Densidad de probabilidad
+def dens_phi(n,x,t):
+    return np.conj(phi(n,x,t)) * phi(n,x,t)
+
+### -- FUNCIONES DE PRUEBA -- ###
+def Phi0(x,t):
+    res = 0
+    for i in np.arange(0,len(cPhi0)):
+        if abs(cPhi0[i])>0.09:
+            res = -cPhi0[i] * phi(2*i,x,t) + res
+    res = res
+    return res
+def dPhi0(x,t):
+    res = np.conj(Phi0(x,t)) * (Phi0(x,t))
+    return res
+
+def Phi1(x,t):
+    res = 0
+    for i in np.arange(0,len(cPhi1)):
+        if abs(cPhi1[i])>0.09:
+            res = cPhi1[i] * phi(2*i+1,x,t) + res
+    res = res
+    return res
+def dPhi1(x,t):
+    res = np.conj(Phi1(x,t)) * (Phi1(x,t))
+    return res
+
+def Phi2(x,t):
+    res = 0
+    for i in np.arange(0,len(cPhi2)):
+        if abs(cPhi2[i])>0.09:
+            res = cPhi2[i] * phi(2*i,x,t) + res
+    res = res
+    return res
+def dPhi2(x,t):
+    res = np.conj(Phi2(x,t)) * (Phi2(x,t))
+    return res
+
+def Phi3(x,t):
+    res = 0
+    for i in np.arange(0,len(cPhi3)):
+        if abs(cPhi3[i])>0.09:
+            res = -cPhi3[i] * phi(2*i+1,x,t) + res
+    res = res
+    return res
+def dPhi3(x,t):
+    res = np.conj(Phi3(x,t)) * (Phi3(x,t))
+    return res
+
+def Phi4(x,t):
+    res = 0
+    for i in np.arange(0,len(cPhi4)):
+        if abs(cPhi4[i])>0.09:
+            res = cPhi4[i] * phi(2*i,x,t) + res
+    res = res
+    return res
+def dPhi4(x,t):
+    res = np.conj(Phi4(x,t)) * Phi4(x,t)
+    return res
+#
+# fig,ax = plt.subplots()
+# ax.plot(x,Phi0(x,0).real, label=r'$\Phi_0$')
+# ax.plot(x,Phi1(x,0).real, label=r'$\Phi_1$')
+# ax.plot(x,Phi2(x,0).real, label=r'$\Phi_2$')
+# ax.plot(x,Phi3(x,0).real, label=r'$\Phi_3$')
+# # ax.plot(x,Phi4(x,0).real)
+# ax.legend()
+# plt.show()
+#
+
+def c0(alfa_grad):
+    res = 1/np.sqrt(2) * np.cos(alfa_grad*np.pi/180)
+    return res
+def c1(alfa_grd):
+    res = 1/np.sqrt(2) * np.cos(alfa_grad*np.pi/180)
+    return res
+def c2(alfa_grad):
+    res = 1/np.sqrt(2) * np.sin(alfa_grad*np.pi/180)
+    return res
+def c3(alfa_grad):
+    res = 1/np.sqrt(2) * np.sin(alfa_grad*np.pi/180)
+    return res
+
+# Creacion del paquete de ondas
+# NOTA: tiempo en picosegundos (ps)
+def Psi(x,t,alfa_grad):
+    res = c0(alfa_grad) * Phi0(x,t) + \
+          c1(alfa_grad) * Phi1(x,t) + \
+          c2(alfa_grad) * Phi2(x,t) + \
+          c3(alfa_grad) * Phi3(x,t)
+    return res
+def dPsi(x,t,alfa_grad):
+    res = np.conj(Psi(x,t,alfa_grad)) * Psi(x,t,alfa_grad)
+    return res
+
+def E_tot(alfa_grad):
+    res = c0(alfa_grad)**2*E[0] +\
+          c1(alfa_grad)**2*E[1] +\
+          c2(alfa_grad)**2*E[2] +\
+          c3(alfa_grad)**2*E[3]
+    return res
+# -----------------------------------------------------------------------------
+# Datos
+# -----------------------------------------------------------------------------
+# x_vec = np.linspace(xmin, xmax, 100)
+t0 = 0
+dt = 1/30
+nu = 1/(2 * np.pi) * np.sqrt(k/m)
+T = 1/nu
+T_frames = round(T/dt)
+
+numero_frames = 3 * T_frames
+lista_alfa_grad=[0,15,30,45,60,75,90]
+for i in lista_alfa_grad:
+    alfa_grad = i
+    # -----------------------------------------------------------------------------
+    # Animacion 1
+    # -----------------------------------------------------------------------------
+
+    xmin = -3
+    xmax = 3
+    ymin = 0
+    ymax = 10
+
+    # Creacion de la grafica
+    fig = plt.figure()
+    plt.axes()
+    ax = fig.gca()
+    # Creating color map
+    # my_cmap = plt.get_cmap('bone_r')
+    # Barra de color
+
+    # Funcion actualizar
+    def actualizar(i):
+        t = t0 + (dt * i)
+
+        multiplicador=3
+        y0   =  Psi(x,t,alfa_grad).real*multiplicador + E_tot(alfa_grad)
+        iy0  =  Psi(x,t,alfa_grad).imag*multiplicador + E_tot(alfa_grad)
+        dy0  = dPsi(x,t,alfa_grad).real*multiplicador + E_tot(alfa_grad)
+
+        # y1   =  Phi0(x,t).real  + E[0]
+        # iy1  =  Phi0(x,t).imag  + E[0]
+        # dy1  = dPhi0(x,t).real + E[0]
+
+        ax.clear()
+        # ax.axvline(x=0, lw=0.5,color='gray')
+
+        # ax.plot(x,iy0,  label=r'$\mathrm{Imag}\left\{ \left| \Psi\,(x,t) \right>\right\}$')
+        ax.plot(x,dy0,  label=r'$\left| \Psi\,(x,t) \right|^2$')
+        ax.plot(x,y0,  label=r'$\mathrm{Re}\left\{ \left| \Psi\,(x,t) \right>\right\}$')
+
+        # ax.plot(x,y1,  label=r'$\mathrm{Re}\left\{ \left| \Phi_0\,(x,t) \right>\right\}$')
+        # ax.plot(x,iy1,  label=r'$\mathrm{Imag}\left\{ \left| \Phi_0\,(x,t) \right>\right\}$')
+        # ax.plot(x,dy1,  label=r'$\left| \Phi_0\,(x,t) \right|^2$')
+
+        ax.plot(x,V,label=r'$V\,(x)$',color='gray',lw=1)
+
+        # Niveles energia
+        # Por debajo de la barrera
+        for i in np.arange(0,n_barrera):
+            ax.hlines(y = E[i], xmin=-x1(i,a,b), xmax=-x2(i,a,b), color='black', lw=1.0)
+            ax.hlines(y = E[i], xmin=x2(i,a,b), xmax=x1(i,a,b), color='black', lw=1.0)
+        # Por encima de la barrera
+        for i in np.arange(n_barrera,len(E)):
+            ax.hlines(y = E[i], xmin=-x1(i,a,b), xmax=x1(i,a,b), color='black', lw=1.0)
+
+        # plt.title(r'$V\,(x) = {}x^4 - {}x^2$,'.format(a,b) + '\t' + '$t = {:.1f}$'.format(t))
+        # plt.title(r'$t = {:.1f}$'.format(t))
+        plt.title(r'$\alpha = {:.0f}$'.format(alfa_grad))
+
+        ax.set_xlabel(r'$x\ (a_0)$')
+        ax.set_ylabel(r'$E\ (\mathrm{Ha})$')
+
+        ax.set_xlim(xmin,xmax)
+        ax.set_ylim(ymin,ymax)
+
+        plt.legend(loc='upper right')
+
+    # Llamada a la funcion animacion
+    # animation.FuncAnimation(<figura>,
+    #                         <funcion a iterar>,
+    #                         <numero de iteraciones>,
+    #                         interval=<delay en ms> )
+    anim = animation.FuncAnimation(fig, actualizar, numero_frames,
+                                  interval=1, repeat=True, blit=False)
+
+    # Guardar el archivo
+    anim.save('videos/prueba_NH3={}.mp4'.format(alfa_grad), fps=30, extra_args=['-vcodec', 'libx264'])
+
+    # plt.show()
+    # plt.close()

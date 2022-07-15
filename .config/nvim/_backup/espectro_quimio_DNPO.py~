@@ -1,0 +1,49 @@
+# _____________________________________________________________________________
+# *****************************************************************************
+# Autor: José Antonio Quiñonero gris
+# Fecha de creación: 7 de mayo de 2022
+# *****************************************************************************
+# -----------------------------------------------------------------------------
+
+# descripcion del programa
+
+# Librerias
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.style.use('mine')
+
+# *****************************************************************************
+# INICIO
+# *****************************************************************************
+
+nombre_grafica = 'espectro_quimio_DNPO.pdf'
+
+fichero_datos = '../tablas/xy_DNPO-quimio-1.txt'
+longitud_onda, A = np.loadtxt(fichero_datos, unpack=True, skiprows=1)
+
+
+# GRAFICA
+xmin = 320
+xmax = 720
+ymin = -1
+ymax = 40
+
+fig, ax = plt.subplots()
+fig.subplots_adjust(left=.15, bottom=.16, right=.99, top=.97)
+
+ax.plot(longitud_onda, A, label=r'$\mathrm{DNPO + H_2O_2}$')
+
+ax.set(xlabel=r'$\lambda$ (nm)', ylabel=r'$I$ (a.u.)')
+
+ax.set_xlim(xmin,xmax)
+ax.set_ylim(ymin,ymax)
+
+# ax.text(0.02, 0.975, 'a)', fontsize=14, bbox=dict(facecolor='white', alpha=0.8), horizontalalignment='left', verticalalignment='top', transform=ax.transAxes)
+
+ax.grid()
+
+ax.legend(loc='best')
+
+plt.savefig(nombre_grafica, transparent='True', bbox_inches='tight')
+# plt.show()

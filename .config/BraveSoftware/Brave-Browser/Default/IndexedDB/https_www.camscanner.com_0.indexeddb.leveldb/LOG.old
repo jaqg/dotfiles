@@ -1,0 +1,6 @@
+2022/05/26-16:27:58.511 24454 Creating DB /home/jose/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_www.camscanner.com_0.indexeddb.leveldb since it was missing.
+2022/05/26-16:27:58.577 24454 Reusing MANIFEST /home/jose/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_www.camscanner.com_0.indexeddb.leveldb/MANIFEST-000001
+2022/05/26-16:28:46.469 2c5b9 Level-0 table #5: started
+2022/05/26-16:28:46.472 2c5b9 Level-0 table #5: 1295 bytes OK
+2022/05/26-16:28:46.475 2c5b9 Delete type=0 #3
+2022/05/26-16:28:46.476 2c5b9 Manual compaction at level-0 from (begin) .. (end); will stop at (end)

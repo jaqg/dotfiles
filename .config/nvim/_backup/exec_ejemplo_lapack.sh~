@@ -1,0 +1,1 @@
+gfortran -L/usr/local/lib/ -o ejemplo_lapack ejemplo_lapack.f90 -llapack -lblas

@@ -1,0 +1,161 @@
+# Import packages
+import matplotlib.pyplot as plt
+import matplotlib as mpl
+import numpy as np
+import pandas as pd
+import tikzplotlib as tk
+
+from matplotlib.cm import get_cmap
+
+from scipy.interpolate import make_interp_spline, BSpline
+
+# Import my own plot style
+plt.style.use('mine')
+#plt.style.use('ggplot')
+#plt.style.use('seaborn')
+
+# Colores del cycler
+colores=['#008fd5', '#fc4f30', '#e5ae38', '#6d904f', '#8b8b8b', '#810f7c']
+
+# Grafico
+fig, axs = plt.subplots(1,3, figsize=(9.2, 9.2/3))
+# =========================
+### SIN OPTIMIZAR ALPHA ###
+# =========================
+# Data for plotting
+path_to_file_1 = '/home/jose/Documents/Universidad/TFG/practicas_QFA/convergencia_oscilador_cuartico_8_funciones/data/out-convergencia_oscilador_cuartico_8f_2.dat'
+d, N, W0, W1, W2, W3, W4, W5, W6, W7 = np.loadtxt(path_to_file_1, unpack=True, skiprows=1)
+
+alpha_value = 0.5
+## d=0.1 ##
+# Lineas grises
+lw_gris = 0.7
+grosor_izquierda = 0.2
+grosor_derecha = 0.2
+n_in = 0
+n_fin = 6
+for j in np.arange(n_in,n_fin,1):
+    axs[0].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W1[j],W1[j+1]), lw=lw_gris, linestyle='--', alpha=alpha_value, color='gray')
+
+# Lineas negras
+lw_negras = 1.5
+Ni = 0
+Nf = 7
+for i in np.arange(Ni, Nf, 1):
+    axs[0].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W1[i],W1[i]), lw=lw_negras, alpha=alpha_value, color='black')
+
+# Texto
+n_text = 6
+param_baj = 0.5
+# axs[0].text(N[n_text]+0.3, W1[n_text]-param_baj, r'$W_0$', fontsize=8)
+
+# ## d=0.5 ##
+# Lineas grises
+n_in = 7
+n_fin = 13
+for j in np.arange(n_in,n_fin,1):
+    axs[1].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W1[j],W1[j+1]), lw=lw_gris, linestyle='--', alpha=alpha_value, color='gray')
+
+# Lineas negras
+Ni = 7
+Nf = 14
+for i in np.arange(Ni, Nf, 1):
+    axs[1].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W1[i],W1[i]), lw=lw_negras, alpha=alpha_value, color='black')
+
+# ## d=1.0 ##
+# Lineas grises
+n_in = 14
+n_fin = 20
+for j in np.arange(n_in,n_fin,1):
+    axs[2].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W1[j],W1[j+1]), lw=lw_gris, linestyle='--', alpha=alpha_value, color='gray')
+
+# Lineas negras
+Ni = 14
+Nf = 21
+for i in np.arange(Ni, Nf, 1):
+    if i==Ni:
+        axs[2].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W1[i],W1[i]), lw=lw_negras, alpha=alpha_value, color='black', label=r'$W_1$')
+    else:
+        axs[2].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W1[i],W1[i]), lw=lw_negras, alpha=alpha_value, color='black')
+
+# =========================
+### OPTIMIZANDO ALPHA ###
+# =========================
+# Data for plotting
+path_to_file_2 = '/home/jose/Documents/Universidad/TFG/practicas_QFA/optimizacion_convergencia_oscilador_cuartico/data/out-optimizacion_convergencia_oscilador_cuartico_2.dat'
+d, N, W0, W1, W2, W3, W4, W5, W6, W7 = np.loadtxt(path_to_file_2, unpack=True, skiprows=1)
+
+## d=0.1 ##
+# Lineas grises
+lw_gris = 0.7
+grosor_izquierda = 0.2
+grosor_derecha = 0.2
+n_in = 0
+n_fin = 6
+for j in np.arange(n_in,n_fin,1):
+    axs[0].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W1[j],W1[j+1]), lw=lw_gris, linestyle='--', color='gray')
+
+# Lineas negras
+lw_negras = 1.5
+Ni = 0
+Nf = 7
+for i in np.arange(Ni, Nf, 1):
+    axs[0].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W1[i],W1[i]), lw=lw_negras, color='black')
+
+# ## d=0.5 ##
+# Lineas grises
+n_in = 7
+n_fin = 13
+for j in np.arange(n_in,n_fin,1):
+    axs[1].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W1[j],W1[j+1]), lw=lw_gris, linestyle='--', color='gray')
+
+# Lineas negras
+Ni = 7
+Nf = 14
+for i in np.arange(Ni, Nf, 1):
+    axs[1].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W1[i],W1[i]), lw=lw_negras, color='black')
+
+# ## d=1.0 ##
+# Lineas grises
+n_in = 14
+n_fin = 20
+for j in np.arange(n_in,n_fin,1):
+    axs[2].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W1[j],W1[j+1]), lw=lw_gris, linestyle='--', color='gray')
+
+# Lineas negras
+Ni = 14
+Nf = 21
+for i in np.arange(Ni, Nf, 1):
+    if i==Ni:
+        axs[2].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W1[i],W1[i]), lw=lw_negras, color='black', label=r'$W_1^{\,\mathrm{opt.}}$')
+    else:
+        axs[2].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W1[i],W1[i]), lw=lw_negras, color='black')
+
+# Otros
+axs[0].set(xlabel=r'$N$', ylabel=r'$W_0$', title=r'$d=0.1$')
+axs[1].set(xlabel=r'$N$', title=r'$d=0.5$')
+axs[2].set(xlabel=r'$N$', title=r'$d=1.0$')
+# axs[0].set_xlim(1.5,4.5)
+# Numero de ticks
+# axs[0].locator_params(axis="x", nbins=4)
+x_min = 1.5
+x_max = 8.5
+# axs[0].set_xlim(x_min, 8.99)
+# axs[0].set_ylim(0.54, 0.58)
+# axs[1].set_xlim(x_min, x_max)
+# axs[1].set_ylim(0.4, 1.0)
+# axs[2].set_xlim(x_min, x_max)
+# axs[2].set_ylim(0, 1.5)
+
+axs[2].legend(loc=(1.01, 0.5))
+for ax in axs.flat:
+    ax.set_xlim(1.1,8.9)
+    # ax.set_ylim(0.5, 0.6)
+    # ax.grid()
+    # ax.legend(loc=(1.01,0.1))
+    # Numero de ticks
+    ax.locator_params(axis="x", nbins=8)
+    # ax.locator_params(axis="y", nbins=2)
+
+plt.savefig('grafica_convergencia_oscilador_cuartico_optimizado_W1.pdf', transparent='True', bbox_inches='tight')
+# plt.show()

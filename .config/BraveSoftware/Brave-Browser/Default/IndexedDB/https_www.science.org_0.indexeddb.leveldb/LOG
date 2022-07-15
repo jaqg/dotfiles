@@ -1,0 +1,6 @@
+2022/07/12-18:33:39.826 50de2 Creating DB /home/jose/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_www.science.org_0.indexeddb.leveldb since it was missing.
+2022/07/12-18:33:39.838 50de2 Reusing MANIFEST /home/jose/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_www.science.org_0.indexeddb.leveldb/MANIFEST-000001
+2022/07/12-18:34:11.884 56270 Level-0 table #5: started
+2022/07/12-18:34:11.888 56270 Level-0 table #5: 1714 bytes OK
+2022/07/12-18:34:11.891 56270 Delete type=0 #3
+2022/07/12-18:34:11.891 56270 Manual compaction at level-0 from (begin) .. (end); will stop at (end)

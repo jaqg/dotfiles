@@ -1,0 +1,10 @@
+! Subrutina para calcular la altura de barrera del doble pozo
+subroutine altura_barrera(a, b, Vb)
+    real*8, intent(in) :: a,b
+    real*8, intent(out) :: Vb
+
+    ! Altura de la barrera, Vb
+    Vb = b**2/(4.*a)
+
+    return
+end subroutine altura_barrera

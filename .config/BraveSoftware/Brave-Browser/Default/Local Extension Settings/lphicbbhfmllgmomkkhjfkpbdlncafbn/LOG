@@ -1,0 +1,12 @@
+2022/07/14-15:56:11.670 1f3a Reusing MANIFEST /home/jose/.config/BraveSoftware/Brave-Browser/Default/Local Extension Settings/lphicbbhfmllgmomkkhjfkpbdlncafbn/MANIFEST-000001
+2022/07/14-15:56:11.672 1f3a Recovering log #115
+2022/07/14-15:56:11.699 1f3a Reusing old log /home/jose/.config/BraveSoftware/Brave-Browser/Default/Local Extension Settings/lphicbbhfmllgmomkkhjfkpbdlncafbn/000115.log 
+2022/07/15-15:52:21.856 5f010 Level-0 table #120: started
+2022/07/15-15:52:21.879 5f010 Level-0 table #120: 1019040 bytes OK
+2022/07/15-15:52:21.884 5f010 Delete type=0 #115
+2022/07/15-16:09:49.969 61d1a Compacting 1@1 + 1@2 files
+2022/07/15-16:09:50.028 61d1a Generated table #121@1: 39 keys, 299345 bytes
+2022/07/15-16:09:50.028 61d1a Compacted 1@1 + 1@2 files => 299345 bytes
+2022/07/15-16:09:50.032 61d1a compacted to: files[ 0 0 1 0 0 0 0 ]
+2022/07/15-16:09:50.032 61d1a Delete type=2 #117
+2022/07/15-16:09:50.032 61d1a Delete type=2 #120

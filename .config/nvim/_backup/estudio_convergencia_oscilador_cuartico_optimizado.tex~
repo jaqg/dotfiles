@@ -1,0 +1,423 @@
+\documentclass[12pt, final, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[spanish, es-tabla]{babel}
+\usepackage{amsmath, amssymb}
+
+\input{/home/jose/Documents/latex/preamble/paquetes1} %mis paquetes
+\input{/home/jose/Documents/latex/preamble/paquetesTikz} %mis paquetes
+\input{/home/jose/Documents/latex/preamble/tikzstyle} %Estilo para las gráficas
+
+\decimalpoint
+
+\graphicspath{{../grafica/}}
+
+\author{José Antonio Quiñonero Gris}
+\title{\textbf{Estudio de convergencia de un oscilador armónico perturbado cuárticamente.}\\
+        \vspace{5mm}
+        \large \textbf{Optimización del parámetro $\boldsymbol{\alpha}$.}}
+
+\date{29 de enero de 2022}
+
+% \date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introducción}%
+Hasta ahora hemos usado como funciones base las funciones propias del oscilador armónico, dadas por
+\begin{equation}
+    \varphi_v\ (x) = N_v\, e^{-\alpha x^2} H_n(\sqrt{\alpha}x)
+\end{equation}
+con
+\begin{equation}\label{ec:alpha oscilador}
+    \alpha = \frac{(km)^{1 /2}}{\hbar}
+\end{equation}
+
+Sin embargo, podemos tratar $\alpha$ como un parámetro variacional a optimizar. Siendo el hamiltoniano del sistema
+\begin{equation}
+    \hat{H} = -\frac{ \hbar^2}{2m} \frac{\dd^2}{\dd{x^2}} + \frac{k}{2} x^2 + dx^4
+\end{equation}
+escribimos la energía variacional como
+\begin{equation}\label{ec:variacional general}
+    W = -\frac{ \hbar^2}{2m} \Braket{v | \frac{ \dd^2}{ \dd{x^2}} | v} + \frac{k}{2} \Braket{v | x^2 | v} + d \Braket{v | x^4 | v}
+\end{equation}
+donde las integrales sobre $\dd^2 / \dd{x^2}$ vienen dadas por
+\begin{equation}\label{ec:integral derivada n n}
+    \Braket{n | \frac{ \dd^2}{ \dd{x^2}} | n} = -\alpha \left( n + \frac{1}{2} \right)
+\end{equation}
+\begin{equation}\label{ec:integral derivada n n+2}
+    \Braket{n | \frac{ \dd^2}{ \dd{x^2}} | n+2} = \alpha^2 \Braket{n | x^2 | n+2} = \frac{\alpha \left[ (n+1)(n+2) \right]^{1 /2}}{2}
+\end{equation}
+y sobre $x^2$ por
+\begin{equation}\label{ec:integral x^2 n n}
+    \Braket{n | x^2 | n} = \frac{\left( n + 1 /2 \right)}{\alpha}
+\end{equation}
+\begin{equation}\label{ec:integral x^2 n n+2}
+    \Braket{n | x^2 | n+2} = \frac{\left[ (n+1)(n+2) \right]^{1 /2}}{2 \alpha}
+\end{equation}
+Estas integrales, para una diferencia de niveles mayor de 2, valen (aproximadamente) cero.\\
+
+Sobre $x^4$ vienen dadas por
+\begin{equation}\label{ec:integral x^4 n n}
+    \Braket{n | x^4 | n} = \frac{3 \left( 2n^2 + 2n + 1 \right)}{4\alpha^2}
+\end{equation}
+\begin{equation}\label{ec:integral x^4 n n+2}
+   \Braket{n | x^4 | n+2} = \frac{\left( 2n+3 \right) \left[ \left( n+1 \right)\left( n+2 \right) \right]^{1 / 2}}{2\alpha^2}
+\end{equation}
+\begin{equation}\label{ec:integral x^4 n n+4}
+    \Braket{n | x^4 | n+4} = \frac{\left[ \left( n+1 \right)\left( n+2 \right)\left( n+3 \right)\left( n+4 \right) \right]^{1 / 2}}{4\alpha^2}
+\end{equation}
+
+\subsection{Optimización de $\alpha$}
+
+Sustituyendo \eqref{ec:integral derivada n n} y \eqref{ec:integral x^4 n n} en \eqref{ec:variacional general}
+\begin{equation}
+    W\,(\alpha) = \frac{ \hbar^2}{2m}  \left( n + \frac{1}{2} \right) \alpha + \frac{k}{2} \frac{\left( n + 1 /2 \right)}{\alpha} + \frac{3d \left( 2n^2 + 2n + 1 \right)}{4\alpha^2}
+\end{equation}
+hallamos la derivada
+\begin{equation}
+    \frac{\dd{W\,(\alpha)}}{ \dd{\alpha}} = \frac{ \hbar^2}{2m}  \left( n + \frac{1}{2} \right) - \frac{k \left(n + 1 /2\right)}{2 \alpha^{2}} - \frac{3d \left(2 n^{2} + 2 n + 1\right)}{2 \alpha^{3}}
+\end{equation}
+igualando a cero, llegamos a la siguiente ecuación cúbica en $\alpha$
+\begin{equation}
+    \hbar^2(n+1/2) \alpha^3 - km(n+1/2)\alpha - 3md(2n^2 + 2n + 1) = 0
+\end{equation}
+Para el estado fundamental, $n=0$
+\begin{equation}
+    \frac{ \hbar^2}{2} \alpha^3 - \frac{km}{2}\alpha - 3md = 0
+\end{equation}
+que reescribo como
+\begin{equation}
+        \hbar^2 \alpha^3 - km\alpha - 6md = 0
+\end{equation}
+cuya solución da dos raíces imaginarias y una real, que tomaremos como $\alpha_{\mathrm{opt.}}$:
+\begin{equation}\label{ec:alfa optimizado}
+    \alpha _{\mathrm{opt.}} = - \frac{\sqrt[3]{3m} \left(\sqrt[3]{3m} k + \left(- 27 d \hbar + \sqrt{- 3 m k^{3} + 243 d^{2} \hbar^{2}}\right)^{\frac{2}{3}}\right)}{3 \hbar \sqrt[3]{- 27 d \hbar + \sqrt{3} \sqrt{- m k^{3} + 243 d^{2} \hbar^{2}}}}
+\end{equation}
+Recojo el valor de $\alpha_{\mathrm{opt.}}$ para $m = \hbar = k = 1$ y los valores de $d$ empleados en los cálculos en la tabla \ref{tab:tabla valores alfa optimizado}.
+%
+{
+ \extrarowheight = -0.5ex  %espacio en blanco
+ \renewcommand{\arraystretch}{2.00}
+\begin{table}[h]
+    \caption{Valores de $\alpha_{\mathrm{opt.}}$ dados por la ecuación \eqref{ec:alfa optimizado} para los valores de $d$ empleados en los cálculos.}
+    \label{tab:tabla valores alfa optimizado}
+    \centering
+    \begin{tabular}{c c}
+        \hline
+        $d$ & $\alpha_{\mathrm{opt.}}$ \\
+        \hline
+
+        0.1 &  1.22120 \\
+        0.5 &  1.67170 \\
+        1.0 &  2.00000 \\
+
+         \hline
+    \end{tabular}
+\end{table}
+}
+
+\section{Cálculos}%
+
+Ahora, calcularemos las integrales del hamiltoniano $H_{nm}$ según la ecuación \eqref{ec:variacional general} sustituyendo, en cada caso, el parámetro $\alpha$ por $\alpha_{\mathrm{opt.}}$, de manera que
+\begin{equation}
+    H_{nn} = \frac{ \hbar^2}{2m}  \left( n + \frac{1}{2} \right) \alpha_{\mathrm{opt.}} + \frac{k}{2} \frac{\left( n + 1 /2 \right)}{\alpha_{\mathrm{opt.}}} + d \frac{3 \left( 2n^2 + 2n + 1 \right)}{4\alpha_{\mathrm{opt.}}^2}
+\end{equation}
+\begin{equation}
+    \begin{split}
+        H_{n,n+2} =& -\frac{ \hbar^2}{2m} \frac{\left[ (n+1)(n+2) \right]^{1 /2}\alpha_{\mathrm{opt.}} }{2} + \frac{k}{2} \frac{\left[ (n+1)(n+2) \right]^{1 /2}}{2 \alpha_{\mathrm{opt.}}} \\
+                   &+ d \frac{\left( 2n+3 \right) \left[ \left( n+1 \right)\left( n+2 \right) \right]^{1 / 2}}{2\alpha_{\mathrm{opt.}}^2}
+    \end{split}
+\end{equation}
+Para una diferencia entre niveles $z\ge 4$ ($z$ par), el parámetro $\alpha$ es el del oscilador armónico unidimensional [ecuación \eqref{ec:alpha oscilador}] y
+\begin{equation}
+    H_{n,n+z} = \frac{d\left[ \left( n+1 \right)\left( n+2 \right)\left( n+3 \right)\left( n+4 \right) \right]^{1 / 2}}{4\alpha^2}
+\end{equation}
+
+Realizo los cálculos para $N=8$ funciones base, y recojo los resultados en la tabla \ref{tab:tabla resultados optimizado}. Además, incluyo la tabla \ref{tab:tabla resultados no optimizado}, correspondiente a los valores de las energías variacionales sin optimizar el parámetro $\alpha$. Represento los valores de las energías variacionales en la figura \ref{fig:grafica}, en gris los valores correspondientes a las energías sin optimizar $\alpha$, y en negro los valores para $\alpha_{\mathrm{opt.}}$. \\
+
+También llevo a cabo el cálculo de la diferencia absoluta y relativa entre los valores de las energías variacionales tras la optimización del parámetro $\alpha$, y los incluyo en la tabla \ref{tab:tabla comparacion resultados}.
+
+\section{Resultados}%
+
+Atendiendo a la tablas \ref{tab:tabla resultados no optimizado} y \ref{tab:tabla resultados optimizado}, y a la figura \ref{fig:grafica} podemos ver cómo al optimizar el parámetro $\alpha$ de las funciones base la convergencia es más rápida. Esta reducción se puede observar claramente en la figura \ref{fig:grafica} para los valores de $W_7$. \\
+% TODO: completar la grafica
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{grafica_convergencia_oscilador_cuartico_optimizado.pdf}
+    \caption{Convergencia de las energías variacionales con ocho funciones base para distintos valores del parámetro perturbativo $d$. Se muestran en gris las energías variacionales sin optimizar el parámetro $\alpha$, y en negro las correspondientes a $\alpha_{\mathrm{opt.}}$.}
+    \label{fig:grafica}
+\end{figure}
+
+La optimización de este parámetro es más notable cuanto mayor es la energía y, para un mismo nivel energético, en el primer aumento del número de funciones base. En la tabla \ref{tab:tabla comparacion resultados} podemos ver cómo la diferencia relativa aumenta con el nivel energético y, especialmente, la primera vez que se aumenta el número de funciones base.
+
+% {
+%  \extrarowheight = -0.7ex  %espacio en blanco
+%  \renewcommand{\arraystretch}{1.70}
+% \begin{table}[h]
+% 	\centering
+%     \caption{Valores de la energía variacional, siendo $d=0.1$, para el parámetro $\alpha$ sin optimizar y optimizado, junto a la diferencia absoluta y relativa entre estos valores.}
+% 	\begin{tabular}{c c c c c c}
+% 		\hline
+%         \hline
+%         & $\boldsymbol{N}$  & $\boldsymbol{W_n\,(\alpha)}$    & $\boldsymbol{W_n\, (\alpha_{\mathrm{opt.}})}$   & $\boldsymbol{\Delta W_n}$  & $\boldsymbol{\Delta W_n\ (\%)}$\\
+%         \hline
+%         \multirow{4}{*}{$W_0$}  & 2	& 0.575	  &   0.56031	& 0.01469	& 2.55  \\
+%                                 & 4	& 0.55956 &   0.54905	& 0.01050	& 1.88  \\
+%                                 & 6	& 0.55939 &   0.54863	& 0.01076	& 1.92  \\
+%                                 & 8	& 0.55917 &   0.5483	& 0.01086	& 1.94  \\
+%         \hline
+%         \multirow{4}{*}{$W_1$}  & 2	& 1.875	  &   1.77339	& 0.10161	& 5.42  \\
+%                                 & 4	& 1.77095 &   1.64732	& 0.12363	& 6.98  \\
+%                                 & 6	& 1.77032 &   1.64571	& 0.12461	& 7.04  \\
+%                                 & 8	& 1.76971 &   1.64456	& 0.12515	& 7.07  \\
+%         \hline
+%         \multirow{4}{*}{$W_2$}  & 3	& 3.49044 &   3.14951	& 0.34093	& 9.77  \\
+%                                 & 4	& 3.49044 &   3.14951	& 0.34093	& 9.77  \\
+%                                 & 6	& 3.15478 &   2.75656	& 0.39822	& 12.62  \\
+%                                 & 8	& 3.13963 &   2.73436	& 0.40527	& 12.91  \\
+%         \hline
+%         \multirow{4}{*}{$W_3$}  & 4	& 5.47905 &   4.748	    & 0.73105	& 13.34  \\
+%                                 & 6	& 4.71108 &   3.92615	& 0.78493	& 16.66  \\
+%                                 & 7	& 4.71108 &   3.92615	& 0.78493	& 16.66  \\
+%                                 & 8	& 4.63146 &   3.8385	& 0.79296	& 17.12  \\
+%         \hline
+%         \multirow{3}{*}{$W_4$}  & 5	& 7.91084 &   6.59855	& 1.31229	& 16.59  \\
+%                                 & 6	& 7.91084 &   6.59855	& 1.31229	& 16.59  \\
+%                                 & 8	& 6.48286 &   5.20497	& 1.27789	& 19.71  \\
+%         \hline
+%         \multirow{2}{*}{$W_5$}  & 6	& 10.84359& 	8.69868	& 2.14491	& 19.78  \\
+%                                 & 8	& 8.53532 &   6.61923	& 1.91609	& 22.45  \\
+%         \hline
+%         \multirow{2}{*}{$W_6$}  & 7	& 14.31835& 	11.03888& 	3.27947	& 22.90  \\
+%                                 & 8	& 14.31835& 	11.03888& 	3.27947	& 22.90  \\
+%         \hline
+%         \multirow{1}{*}{$W_7$}  & 8	& 18.36351& 	13.60899& 	4.75452	& 25.89  \\
+%         \hline
+% 	\end{tabular}
+% 	\label{tab:tabla comparacion resultados}
+% \end{table}
+% }
+% {
+%  \extrarowheight = -0.7ex  %espacio en blanco
+%  \renewcommand{\arraystretch}{1.70}
+% \begin{sidewaystable}[h]
+% 	\centering
+%     \caption{Valores de la energía variacional, siendo $d=0.1$, para el parámetro $\alpha$ sin optimizar y optimizado, junto a la diferencia absoluta y relativa entre estos valores.}
+% 	\begin{tabular}{c c c c c c}
+%         \hline
+%         \hline
+%          & & \multicolumn{4}{c}{$\boldsymbol{d = 0.1}$}\\
+% 		\hline
+%         \hline
+%         & $\boldsymbol{N}$  & $\boldsymbol{W_n\,(\alpha)}$    & $\boldsymbol{W_n\, (\alpha_{\mathrm{opt.}})}$   & $\boldsymbol{\Delta W_n}$  & $\boldsymbol{\Delta W_n\ (\%)}$\\
+%         \hline
+%         \multirow{4}{*}{$\boldsymbol{W_0}$}  & 2	& 0.575	  &   0.56031	& 0.01469	& 2.55  \\
+%                                              & 4	& 0.55956 &   0.54905	& 0.01050	& 1.88  \\
+%                                              & 6	& 0.55939 &   0.54863	& 0.01076	& 1.92  \\
+%                                              & 8	& 0.55917 &   0.5483	& 0.01086	& 1.94  \\
+%         \hline
+%         \multirow{4}{*}{$\boldsymbol{W_1}$}  & 2	& 1.875	  &   1.77339	& 0.10161	& 5.42  \\
+%                                              & 4	& 1.77095 &   1.64732	& 0.12363	& 6.98  \\
+%                                              & 6	& 1.77032 &   1.64571	& 0.12461	& 7.04  \\
+%                                              & 8	& 1.76971 &   1.64456	& 0.12515	& 7.07  \\
+%         \hline
+%         \multirow{4}{*}{$\boldsymbol{W_2}$}  & 3	& 3.49044 &   3.14951	& 0.34093	& 9.77  \\
+%                                              & 4	& 3.49044 &   3.14951	& 0.34093	& 9.77  \\
+%                                              & 6	& 3.15478 &   2.75656	& 0.39822	& 12.62  \\
+%                                              & 8	& 3.13963 &   2.73436	& 0.40527	& 12.91  \\
+%         \hline
+%         \multirow{4}{*}{$\boldsymbol{W_3}$}  & 4	& 5.47905 &   4.748	    & 0.73105	& 13.34  \\
+%                                              & 6	& 4.71108 &   3.92615	& 0.78493	& 16.66  \\
+%                                              & 7	& 4.71108 &   3.92615	& 0.78493	& 16.66  \\
+%                                              & 8	& 4.63146 &   3.8385	& 0.79296	& 17.12  \\
+%         \hline
+%         \multirow{3}{*}{$\boldsymbol{W_4}$}  & 5	& 7.91084 &   6.59855	& 1.31229	& 16.59  \\
+%                                              & 6	& 7.91084 &   6.59855	& 1.31229	& 16.59  \\
+%                                              & 8	& 6.48286 &   5.20497	& 1.27789	& 19.71  \\
+%         \hline
+%         \multirow{2}{*}{$\boldsymbol{W_5}$}  & 6	& 10.84359& 	8.69868	& 2.14491	& 19.78  \\
+%                                              & 8	& 8.53532 &   6.61923	& 1.91609	& 22.45  \\
+%         \hline
+%         \multirow{2}{*}{$\boldsymbol{W_6}$}  & 7	& 14.31835& 	11.03888& 	3.27947	& 22.90  \\
+%                                              & 8	& 14.31835& 	11.03888& 	3.27947	& 22.90  \\
+%         \hline
+%         \multirow{1}{*}{$\boldsymbol{W_7}$}  & 8	& 18.36351& 	13.60899& 	4.75452	& 25.89  \\
+%         \hline
+%         \hline
+% 	\end{tabular}
+% 	\label{tab:tabla comparacion resultados}
+% \end{sidewaystable}
+% }
+{
+ \extrarowheight = -0.6ex  %espacio en blanco
+ \renewcommand{\arraystretch}{1.70}
+\begin{sidewaystable}[h]
+	\centering
+    \caption{Valores de la energías variacionales para el parámetro $\alpha$ sin optimizar ($W_n$) y optimizado ($W_n^{\prime}$), junto a la diferencia absoluta ($\Delta W_n$) y relativa $(\%)$ entre estos valores.}
+    \label{tab:tabla comparacion resultados}
+	\begin{tabular}{c c c c c c c c c c c c c c}
+        \hline
+        \hline
+         & & \multicolumn{4}{c}{$\boldsymbol{d = 0.1}$} & \multicolumn{4}{c}{$\boldsymbol{d = 0.5}$} & \multicolumn{4}{c}{$\boldsymbol{d = 1.0}$} \\
+		\hline
+        \hline
+        % & $\boldsymbol{N}$  & $\boldsymbol{W_n\,(\alpha)}$    & $\boldsymbol{W_n\, (\alpha_{\mathrm{opt.}})}$   & $\boldsymbol{\Delta W_n}$  & $\boldsymbol{\Delta W_n\ (\%)}$
+        % & $\boldsymbol{W_n\,(\alpha)}$    & $\boldsymbol{W_n\, (\alpha_{\mathrm{opt.}})}$   & $\boldsymbol{\Delta W_n}$  & $\boldsymbol{\Delta W_n\ (\%)}$
+        % & $\boldsymbol{W_n\,(\alpha)}$    & $\boldsymbol{W_n\, (\alpha_{\mathrm{opt.}})}$   & $\boldsymbol{\Delta W_n}$  & $\boldsymbol{\Delta W_n\ (\%)}$\\
+        % & $N$  & $W_n\,(\alpha)$    & $W_n\, (\alpha_{\mathrm{opt.}})$   & $\Delta W_n$  & $\Delta W_n\ (\%)$
+        % & $W_n\,(\alpha)$    & $W_n\, (\alpha_{\mathrm{opt.}})$   & $\Delta W_n$  & $\Delta W_n\ (\%)$
+        % & $W_n\,(\alpha)$    & $W_n\, (\alpha_{\mathrm{opt.}})$   & $\Delta W_n$  & $\Delta W_n\ (\%)$\\
+        & $N$  & $W_n$    & $W_n^{\prime}$   & $\Delta W_n$  & $(\%)$
+        & $W_n$    & $W_n^{\prime}$   & $\Delta W_n$  & $(\%)$
+        & $W_n$    & $W_n^{\prime}$   & $\Delta W_n$  & $(\%)$\\
+        \hline
+        \multirow{4}{*}{$\boldsymbol{W_0}$} & 2 & 0.57500  & 0.56031  & 0.01469 & 2.62     & 0.87500  & 0.70166  & 0.17334  & 24.70    & 1.25000   & 0.81250  & 0.43750  & 53.85    \\
+                                            & 4 & 0.55956  & 0.56031  & 0.00075 & 0.13     & 0.70630  & 0.70166  & 0.00464  & 0.66     & 0.85509   & 0.81250  & 0.04259  & 5.24     \\
+                                            & 6 & 0.55939  & 0.55919  & 0.00020 & 0.04     & 0.69754  & 0.69662  & 0.00092  & 0.13     & 0.80823   & 0.80461  & 0.00362  & 0.45     \\
+                                            & 8 & 0.55917  & 0.55915  & 0.00002 & 0.00     & 0.69745  & 0.69619  & 0.00126  & 0.18     & 0.80587   & 0.80380  & 0.00207  & 0.26     \\
+        \hline
+        \multirow{4}{*}{$\boldsymbol{W_1}$} & 2 & 1.87500  & 1.78150  & 0.09350 & 5.25     & 3.37500  & 2.37336  & 1.00164  & 42.20    & 5.25000   & 2.81250  & 2.43750  & 86.67    \\
+                                            & 4 & 1.77095  & 1.77267  & 0.00172 & 0.10     & 2.47367  & 2.33489  & 0.13878  & 5.94     & 3.27384   & 2.75307  & 0.52077  & 18.92    \\
+                                            & 6 & 1.77032  & 1.76992  & 0.00040 & 0.02     & 2.33814  & 2.32780  & 0.01034  & 0.44     & 2.84387   & 2.74377  & 0.10010  & 3.65     \\
+                                            & 8 & 1.76971  & 1.76951  & 0.00020 & 0.01     & 2.32644  & 2.32457  & 0.00187  & 0.08     & 2.75258   & 2.73828  & 0.01430  & 0.52     \\
+        \hline
+        \multirow{3}{*}{$\boldsymbol{W_2}$} & 4 & 3.49044  & 3.20386  & 0.28658 & 8.94     & 7.54370  & 4.58181  & 2.96189  & 64.64    & 12.64491  & 5.56250  & 7.08241  & 127.32   \\
+                                            & 6 & 3.15478  & 3.14242  & 0.01236 & 0.39     & 5.05197  & 4.33733  & 0.71464  & 16.48    & 7.38283   & 5.19395  & 2.18888  & 42.14    \\
+                                            & 8 & 3.13963  & 3.14031  & 0.00068 & 0.02     & 4.46875  & 4.33687  & 0.13188  & 3.04     & 5.86071   & 5.19392  & 0.66679  & 12.84    \\
+        \hline
+        \multirow{3}{*}{$\boldsymbol{W_3}$} & 4 & 5.47905  & 4.83622  & 0.64283 & 13.29    & 13.77633 & 7.36550  & 6.41083  & 87.04    & 24.22616  & 9.12193  & 15.10423 & 165.58   \\
+                                            & 6 & 4.71108  & 4.63265  & 0.07843 & 1.69     & 8.73898  & 6.60943  & 2.12955  & 32.22    & 13.86749  & 8.00055  & 5.86694  & 73.33    \\
+                                            & 8 & 4.63146  & 4.63265  & 0.00119 & 0.03     & 7.21335  & 6.59144  & 0.62191  & 9.44     & 10.30812  & 7.96047  & 2.34765  & 29.49    \\
+        \hline
+        \multirow{2}{*}{$\boldsymbol{W_4}$} & 6 & 6.71465  & 7.91084  & 1.19619 & 15.12    & 22.37550 & 10.85851 & 11.51699 & 106.06   & 40.55895  & 13.68895 & 26.87000 & 196.29   \\
+                                            & 8 & 6.23467  & 6.48286  & 0.24819 & 3.83     & 13.88985 & 9.18435  & 4.70550  & 51.23    & 23.37300  & 11.24110 & 12.13190 & 107.92   \\
+        \hline
+        \multirow{2}{*}{$\boldsymbol{W_5}$} & 6 & 10.84359 & 8.88425  & 1.95934 & 22.05    & 33.54788 & 15.19084 & 18.35704 & 120.84   & 62.03864  & 19.44318 & 42.59546 & 219.08   \\
+                                            & 8 & 8.53532  & 7.96225  & 0.57307 & 7.20     & 20.78047 & 12.16339 & 8.61708  & 70.84    & 36.38442  & 15.07520 & 21.30922 & 141.35   \\
+        \hline
+        \multirow{1}{*}{$\boldsymbol{W_6}$} & 8 & 14.31835 & 11.38707 & 2.93128 & 25.74    & 47.44395 & 20.45821 & 26.98574 & 131.91   & 88.96042  & 26.51118 & 62.44924 & 235.56   \\
+        \hline
+        \multirow{1}{*}{$\boldsymbol{W_7}$} & 8 & 18.36351 & 14.25555 & 4.10796 & 28.82    & 64.17975 & 26.72406 & 37.45569 & 140.16   & 121.55488 & 34.97605 & 86.57883 & 247.54   \\
+        \hline
+        \hline
+	\end{tabular}
+\end{sidewaystable}
+}
+{
+ \extrarowheight = -0.5ex  %espacio en blanco
+ \renewcommand{\arraystretch}{1.90}
+\begin{table}[h]
+	\caption{Energías variacionales de los ocho primeros estados del oscilador perturbado cuárticamente para distintos valores del parámetro de perturbación $d$ y número de funciones base $N$, usando el parámetro $\alpha$ del oscilador armónico unidimensional.}
+	\label{tab:tabla resultados no optimizado}
+	\centering
+	\begin{tabular}{c c c c c c c c c}
+        \multicolumn{9}{c}{Sin optimizar $\alpha$} \\
+		\hline
+		\hline
+        \multicolumn{9}{c}{$\boldsymbol{d = 0.1}$} \\
+	    \hline
+        \hline
+        $\boldsymbol{N}$  & $\boldsymbol{W_0}$    & $\boldsymbol{W_1}$   & $\boldsymbol{W_2}$ & $\boldsymbol{W_3}$ & $\boldsymbol{W_4}$ & $\boldsymbol{W_5}$ & $\boldsymbol{W_6}$ & $\boldsymbol{W_7}$ \\
+        \hline
+        2 &  0.57500 &  1.87500 &  - &   - &  - &   - &   - &   -  \\
+        % 3 &  0.55956 &  1.87500 &  3.49044 &   - &  - &   - &   - &   -  \\
+        4 &  0.55956 &  1.77095 &  3.49044 &   5.47905 &  - &   - &   - &   -  \\
+        % 5 &  0.55939 &  1.77095 &  3.15478 &   5.47905 &  7.91084 &   - &   - &   -  \\
+        6 &  0.55939 &  1.77032 &  3.15478 &   4.71108 &  7.91084 &  10.84359 &   - &   -  \\
+        % 7 &  0.55917 &  1.77032 &  3.13963 &   4.71108 &  6.48286 &  10.84359 &  14.31835 &   -  \\
+        8 &  0.55917 &  1.76971 &  3.13963 &   4.63146 &  6.48286 &   8.53532 &  14.31835 &  18.36351  \\
+        \hline
+        \hline
+        \multicolumn{9}{c}{$\boldsymbol{d = 0.5}$} \\
+        \hline
+        \hline
+        $\boldsymbol{N}$  & $\boldsymbol{W_0}$    & $\boldsymbol{W_1}$   & $\boldsymbol{W_2}$ & $\boldsymbol{W_3}$ & $\boldsymbol{W_4}$ & $\boldsymbol{W_5}$ & $\boldsymbol{W_6}$ & $\boldsymbol{W_7}$ \\
+        \hline
+        2 &  0.87500 &  3.37500 &  - &   - &  - &   - &   - &   -  \\
+        % 3 &  0.70630 &  3.37500 &  7.54370 &   - &  - &   - &   - &   -  \\
+        4 &  0.70630 &  2.47367 &  7.54370 &  13.77633 &  - &   - &   - &   -  \\
+        % 5 &  0.69754 &  2.47367 &  5.05197 &  13.77633 & 22.37550 &   - &   - &   -  \\
+        6 &  0.69754 &  2.33814 &  5.05197 &   8.73898 & 22.37550 &  33.54788 &   - &   -  \\
+        % 7 &  0.69745 &  2.33814 &  4.46875 &   8.73898 & 13.88985 &  33.54788 &  47.44395 &   -  \\
+        8 &  0.69745 &  2.32644 &  4.46875 &   7.21335 & 13.88985 &  20.78047 &  47.44395 &  64.17975  \\
+        \hline
+        \hline
+        \multicolumn{9}{c}{$\boldsymbol{d = 1.0}$} \\
+        \hline
+        \hline
+        $\boldsymbol{N}$  & $\boldsymbol{W_0}$    & $\boldsymbol{W_1}$   & $\boldsymbol{W_2}$ & $\boldsymbol{W_3}$ & $\boldsymbol{W_4}$ & $\boldsymbol{W_5}$ & $\boldsymbol{W_6}$ & $\boldsymbol{W_7}$ \\
+        \hline
+        2 &  1.25000 &  5.25000 &  - &   - &  - &   - &   - &   -  \\
+        % 3 &  0.85509 &  5.25000 & 12.64491 &   - &  - &   - &   - &   -  \\
+        4 &  0.85509 &  3.27384 & 12.64491 &  24.22616 &  - &   - &   - &   -  \\
+        % 5 &  0.80823 &  3.27384 &  7.38283 &  24.22616 & 40.55895 &   - &   - &   -  \\
+        6 &  0.80823 &  2.84387 &  7.38283 &  13.86749 & 40.55895 &  62.03864 &   - &   -  \\
+        % 7 &  0.80587 &  2.84387 &  5.86071 &  13.86749 & 23.37300 &  62.03864 &  88.96042 &   -  \\
+        8 &  0.80587 &  2.75258 &  5.86071 &  10.30812 & 23.37300 &  36.38442 &  88.96042 & 121.55488  \\
+		\hline
+        \hline
+	\end{tabular}
+\end{table}
+}
+{
+ \extrarowheight = -0.5ex  %espacio en blanco
+ \renewcommand{\arraystretch}{1.90}
+\begin{table}[h]
+	\caption{Energías variacionales de los ocho primeros estados del oscilador perturbado cuárticamente para distintos valores del parámetro de perturbación $d$ y número de funciones base $N$, usando el parámetro $\alpha$ optimizado.}
+	\label{tab:tabla resultados optimizado}
+	\centering
+	\begin{tabular}{c c c c c c c c c}
+        \multicolumn{9}{c}{Optimizando $\alpha$} \\
+		\hline
+		\hline
+        \multicolumn{9}{c}{$\boldsymbol{d = 0.1}$} \\
+	    \hline
+        \hline
+        $\boldsymbol{N}$  & $\boldsymbol{W_0}$    & $\boldsymbol{W_1}$   & $\boldsymbol{W_2}$ & $\boldsymbol{W_3}$ & $\boldsymbol{W_4}$ & $\boldsymbol{W_5}$ & $\boldsymbol{W_6}$ & $\boldsymbol{W_7}$ \\
+        \hline
+        2 & 0.56031 & 1.78150 & -       & -       & -       & -       & -        & -        \\
+        % 3 & 0.56031 & 1.78150 & 3.20386 & -       & -       & -       & -        & -        \\
+        4 & 0.56031 & 1.77267 & 3.20386 & 4.83622 & -       & -       & -        & -        \\
+        % 5 & 0.55919 & 1.77267 & 3.14242 & 4.83622 & 6.71465 & -       & -        & -        \\
+        6 & 0.55919 & 1.76992 & 3.14242 & 4.63265 & 6.71465 & 8.88425 & -        & -        \\
+        % 7 & 0.55915 & 1.76992 & 3.14031 & 4.63265 & 6.23467 & 8.88425 & 11.38707 & -        \\
+        8 & 0.55915 & 1.76951 & 3.14031 & 4.63265 & 6.23467 & 7.96225 & 11.38707 & 14.25555 \\
+        \hline
+        \hline
+        \multicolumn{9}{c}{$\boldsymbol{d = 0.5}$} \\
+        \hline
+        \hline
+        $\boldsymbol{N}$  & $\boldsymbol{W_0}$    & $\boldsymbol{W_1}$   & $\boldsymbol{W_2}$ & $\boldsymbol{W_3}$ & $\boldsymbol{W_4}$ & $\boldsymbol{W_5}$ & $\boldsymbol{W_6}$ & $\boldsymbol{W_7}$ \\
+        \hline
+        2 & 0.70166 & 2.37336 & -       & -       & -        & -        & -        & -        \\
+        % 3 & 0.70166 & 2.37336 & 4.58181 & -       & -        & -        & -        & -        \\
+        4 & 0.70166 & 2.33489 & 4.58181 & 7.36550 & -        & -        & -        & -        \\
+        % 5 & 0.69662 & 2.33489 & 4.33733 & 7.36550 & 10.85851 & -        & -        & -        \\
+        6 & 0.69662 & 2.32780 & 4.33733 & 6.60943 & 10.85851 & 15.19084 & -        & -        \\
+        % 7 & 0.69619 & 2.32780 & 4.33687 & 6.60943 & 9.18435  & 15.19084 & 20.45821 & -        \\
+        8 & 0.69619 & 2.32457 & 4.33687 & 6.59144 & 9.18435  & 12.16339 & 20.45821 & 26.72406 \\
+        \hline
+        \hline
+        \multicolumn{9}{c}{$\boldsymbol{d = 1.0}$} \\
+        \hline
+        \hline
+        $\boldsymbol{N}$  & $\boldsymbol{W_0}$    & $\boldsymbol{W_1}$   & $\boldsymbol{W_2}$ & $\boldsymbol{W_3}$ & $\boldsymbol{W_4}$ & $\boldsymbol{W_5}$ & $\boldsymbol{W_6}$ & $\boldsymbol{W_7}$ \\
+        \hline
+        2 & 0.81250 & 2.81250 & -       & -       & -        & -        & -        & -        \\
+        % 3 & 0.81250 & 2.81250 & 5.56250 & -       & -        & -        & -        & -        \\
+        4 & 0.81250 & 2.75307 & 5.56250 & 9.12193 & -        & -        & -        & -        \\
+        % 5 & 0.80461 & 2.75307 & 5.19395 & 9.12193 & 13.68895 & -        & -        & -        \\
+        6 & 0.80461 & 2.74377 & 5.19395 & 8.00055 & 13.68895 & 19.44318 & -        & -        \\
+        % 7 & 0.80380 & 2.74377 & 5.19392 & 8.00055 & 11.24110 & 19.44318 & 26.51118 & -        \\
+        8 & 0.80380 & 2.73828 & 5.19392 & 7.96047 & 11.24110 & 15.07520 & 26.51118 & 34.97605 \\
+		\hline
+        \hline
+	\end{tabular}
+\end{table}
+}
+\end{document}

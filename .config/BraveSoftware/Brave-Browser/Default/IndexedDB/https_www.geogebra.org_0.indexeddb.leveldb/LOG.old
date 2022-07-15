@@ -1,0 +1,33 @@
+2022/05/13-11:41:48.285 e22 Reusing MANIFEST /home/jose/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_www.geogebra.org_0.indexeddb.leveldb/MANIFEST-000001
+2022/05/13-11:41:48.285 e22 Recovering log #11
+2022/05/13-11:41:48.286 e22 Reusing old log /home/jose/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_www.geogebra.org_0.indexeddb.leveldb/000011.log 
+2022/05/13-11:41:48.348 e23 Level-0 table #15: started
+2022/05/13-11:41:48.352 e23 Level-0 table #15: 4024 bytes OK
+2022/05/13-11:41:48.355 e23 Delete type=0 #11
+2022/05/13-11:41:48.355 e23 Manual compaction at level-0 from '\x00\x04\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x05\x00\x00\x00' @ 0 : 0; will stop at '\x00\x04\x00\x00\x05' @ 339 : 1
+2022/05/13-11:41:48.355 e23 Compacting 1@0 + 1@1 files
+2022/05/13-11:41:48.359 e23 Generated table #16@0: 63 keys, 1846 bytes
+2022/05/13-11:41:48.359 e23 Compacted 1@0 + 1@1 files => 1846 bytes
+2022/05/13-11:41:48.363 e23 compacted to: files[ 0 1 1 0 0 0 0 ]
+2022/05/13-11:41:48.363 e23 Delete type=2 #15
+2022/05/13-11:41:48.363 e07 Manual compaction at level-0 from '\x00\x04\x00\x00\x05' @ 339 : 1 .. '\x00\x05\x00\x00\x00' @ 0 : 0; will stop at (end)
+2022/05/13-17:40:16.500 20cbd Level-0 table #18: started
+2022/05/13-17:40:16.505 20cbd Level-0 table #18: 1988 bytes OK
+2022/05/13-17:40:16.510 20cbd Delete type=0 #14
+2022/05/13-17:40:16.510 20cbd Delete type=2 #12
+2022/05/13-17:40:16.511 20cbd Manual compaction at level-0 from (begin) .. (end); will stop at '\x00\x03\x01\x02\x013\x00[\x00D\x00E\x00F\x00A\x00U\x00L\x00T\x00]\x00!\x001\x00:\x008\x009\x005\x002\x007\x000\x002\x001\x004\x006\x003\x006\x00:\x00w\x00e\x00b\x00:\x007\x00d\x00a\x00f\x004\x003\x002\x008\x008\x003\x00a\x008\x004\x006\x004\x000\x008\x004\x00f\x00e\x00c\x009' @ 365 : 1
+2022/05/13-17:40:16.511 20cbd Compacting 1@0 + 1@1 files
+2022/05/13-17:40:16.517 20cbd Generated table #19@0: 69 keys, 2019 bytes
+2022/05/13-17:40:16.517 20cbd Compacted 1@0 + 1@1 files => 2019 bytes
+2022/05/13-17:40:16.520 20cbd compacted to: files[ 0 1 1 0 0 0 0 ]
+2022/05/13-17:40:16.521 20cbd Delete type=2 #16
+2022/05/13-17:40:16.521 20cbd Delete type=2 #18
+2022/05/13-17:40:16.521 20cbd Manual compaction at level-0 from '\x00\x03\x01\x02\x013\x00[\x00D\x00E\x00F\x00A\x00U\x00L\x00T\x00]\x00!\x001\x00:\x008\x009\x005\x002\x007\x000\x002\x001\x004\x006\x003\x006\x00:\x00w\x00e\x00b\x00:\x007\x00d\x00a\x00f\x004\x003\x002\x008\x008\x003\x00a\x008\x004\x006\x004\x000\x008\x004\x00f\x00e\x00c\x009' @ 365 : 1 .. (end); will stop at (end)
+2022/05/13-17:40:16.522 20cbd Manual compaction at level-1 from (begin) .. (end); will stop at '\x00\x03\x01\x02\x013\x00[\x00D\x00E\x00F\x00A\x00U\x00L\x00T\x00]\x00!\x001\x00:\x008\x009\x005\x002\x007\x000\x002\x001\x004\x006\x003\x006\x00:\x00w\x00e\x00b\x00:\x007\x00d\x00a\x00f\x004\x003\x002\x008\x008\x003\x00a\x008\x004\x006\x004\x000\x008\x004\x00f\x00e\x00c\x009' @ 365 : 1
+2022/05/13-17:40:16.522 20cbd Compacting 1@1 + 1@2 files
+2022/05/13-17:40:16.526 20cbd Generated table #20@1: 36 keys, 1668 bytes
+2022/05/13-17:40:16.526 20cbd Compacted 1@1 + 1@2 files => 1668 bytes
+2022/05/13-17:40:16.531 20cbd compacted to: files[ 0 0 1 0 0 0 0 ]
+2022/05/13-17:40:16.531 20cbd Delete type=2 #9
+2022/05/13-17:40:16.531 20cbd Delete type=2 #19
+2022/05/13-17:40:16.532 20cbd Manual compaction at level-1 from '\x00\x03\x01\x02\x013\x00[\x00D\x00E\x00F\x00A\x00U\x00L\x00T\x00]\x00!\x001\x00:\x008\x009\x005\x002\x007\x000\x002\x001\x004\x006\x003\x006\x00:\x00w\x00e\x00b\x00:\x007\x00d\x00a\x00f\x004\x003\x002\x008\x008\x003\x00a\x008\x004\x006\x004\x000\x008\x004\x00f\x00e\x00c\x009' @ 365 : 1 .. (end); will stop at (end)

@@ -1,0 +1,108 @@
+\documentclass[12pt, a4paper, final]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[spanish, es-tabla]{babel}
+\usepackage{amsmath, amssymb}
+
+% Paquetes de configuracion
+\input{/home/jose/Documents/Universidad/TFG/TRABAJO_FINAL/configuracion/paquetes}
+\input{/home/jose/Documents/Universidad/TFG/TRABAJO_FINAL/configuracion/estilo}
+\input{/home/jose/Documents/Universidad/TFG/TRABAJO_FINAL/configuracion/bibliography_config}
+\input{/home/jose/Documents/Universidad/TFG/TRABAJO_FINAL/portada/info}
+
+% \usepackage{mathpazo}
+
+\bibliography{./bibliografia/bibliografia_TFG.bib}
+
+\graphicspath{{./figuras/}}
+
+\author{\authorname}
+\title{\textbf{\ttitle}}
+
+\hypersetup{
+pdfauthor={José Antonio Quiñonero Gris},
+pdftitle={Explorando el efecto túnel en la molécula de amoníaco},
+pdfsubject={Química cuántica},
+pdfkeywords={Quantum Chemistry, Theoretical Chemistry, tunneling, ammonia, spectroscopy}
+}
+
+% Fecha de creación: 7 de junio de 2022
+% \date{}
+
+\date{\today}
+
+%
+% --- INICIO DEL DOCUMENTO ---
+%
+\begin{document}
+\pagenumbering{roman} %begin roman numeral page numbers for the front matter
+%
+% --- Título ---
+%
+% \thispagestyle{empty}
+% \maketitle
+\input{portada/portada_3}\afterpage{\blankpage}
+% \includepdf[pages=-]{portada/portada_1_2.pdf}
+%
+% --- Dedicatoria ---
+%
+\begin{dedication}
+    A mis abuelos, Ana y Pablo.
+    \afterpage{\blankpage}
+\end{dedication}
+% \begin{flushright}
+% \thispagestyle{empty}
+%     A la memoria de Ana María Soler Asensio y Pablo Quiñonero Robles
+% \end{flushright}
+%
+% --- Documentación ---
+%
+\includepdf[pages=-]{documentacion/declaracion_originalidad.pdf}
+\includepdf[pages=-]{documentacion/compromiso_previo.pdf}
+\includepdf[pages=-]{documentacion/cronograma.pdf}
+%
+% --- Documentación ---
+%
+
+\input{secciones/1.-agradecimientos/agradecimientos} \clearpage
+\input{secciones/2.-abstract/abstract} \clearpage
+\input{secciones/3.-resumen/resumen} \clearpage
+
+\tableofcontents \afterpage{\blankpage} \clearpage
+% \listoftables
+% \listoffigures
+%
+% --- Capítulos ---
+%
+\pagenumbering{arabic} % start normal numbering on the first page of chapter 1
+\input{secciones/4.-introduccion/introduccion} \clearpage
+\input{secciones/5.-movimiento_inversion/movimiento_inversion} \clearpage
+\input{secciones/6.-determinacion_estados_estacionarios/determinacion_estados_estacionarios} \clearpage
+\input{secciones/7.-preparacion_estados_no_estacionarios/preparacion_estados_no_estacionarios} \clearpage
+\input{secciones/8.-dinamica_estados_no_estacionarios/dinamica_estados_no_estacionarios} \clearpage
+\input{secciones/9.-probabilidades_supervivencia_y_efecto_tunel/probabilidades_supervivencia_y_efecto_tunel} \clearpage
+\input{secciones/10.-conclusiones/conclusiones} \clearpage
+%
+% --- Bibliografía ---
+%
+\clearpage
+\newpage
+\addcontentsline{toc}{section}{Bibliografía}
+% \printbibliography[title={References}] % change from bibliography to references
+\printbibliography
+\nocite{*}
+% \bibliographystyle{apalike}
+% \bibliography{/home/jose/Documents/latex/preamble/references.bib}
+\clearpage
+%
+% --- Apéndice ---
+%
+\clearpage
+% \newpage
+\addcontentsline{toc}{section}{Apéndice}
+\appendix
+\input{secciones/11.-apendice/apendice}
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}

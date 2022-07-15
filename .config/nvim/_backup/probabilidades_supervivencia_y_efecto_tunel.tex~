@@ -1,0 +1,140 @@
+\graphicspath{{./secciones/9.-probabilidades_supervivencia_y_efecto_tunel/figuras/}}
+% ---
+\section{Probabilidades de supervivencia, valores medios y efecto túnel}
+% ---
+La probabilidad de supervivencia $P_s$ se define como la probabilidad de que el estado no estacionario coincida con el estado inicial y viene dada, por tanto, por
+\begin{equation}
+    P_s(t) = \left| \Braket{\Psi(x,0) | \Psi(x,t)} \right|^2.
+\end{equation}
+A partir de la \equatref{ec:valor_esperado_observable_A} se demuestra que
+\begin{equation}\label{ec:probabilidad_supervivencia_general}
+    P_s(t) = \sum_{i} \left| a_i \right|^4 + 2 \sum_{i}\sum_{j>i} \left| a_i \right|^2 \left| a_j \right|^2 \cos \frac{ \left( E_j - E_i \right) t}{\hbar }.
+\end{equation}
+La probabilidad de supervivencia para un estado no estacionario formado por la superposición de dos estados estacionarios [\equatref{ec:estado_no_estacionario_2ee}] se simplifica para dar
+\begin{equation}\label{ec:probabilidad_supervivencia_2_estados}
+    P_s(t) = \left| a_0 \right|^4 + \left| a_1 \right|^4 + 2\left| a_0 \right|^2 \left| a_1 \right|^2 \cos \frac{ \left( E_1 - E_0 \right)t}{\hbar }.
+\end{equation}
+
+Se define el tiempo de recurrencia $t_r$ como el tiempo que tarda el estado no estacionario en volver a su estado inicial, de manera que
+\begin{equation}\label{ec:definicion_tiempo_recurrencia}
+    P_s(t_r) = P_s(0).
+\end{equation}
+Para $t=0$, la \equatref{ec:probabilidad_supervivencia_2_estados} queda como sigue
+\begin{equation}
+    P_s(0) = \left| a_0 \right|^4 + \left| a_1 \right|^4 + 2\left| a_0 \right|^2\left| a_1 \right|^2 = \left( \left| a_0 \right|^2 + \left| a_1 \right|^2 \right)^2,
+\end{equation}
+y, usando la condición de normalización
+\begin{equation}\label{ec:normalizacion_a0_a1}
+    \left| a_0 \right|^2 + \left| a_1 \right|^2 = 1,
+\end{equation}
+tenemos, lógicamente, que
+\begin{equation}
+    P_s(0) = 1.
+\end{equation}
+Sustituyendo ahora $t=t_r$ en la \equatref{ec:probabilidad_supervivencia_2_estados} escribimos
+\begin{equation}
+        P_s(t_r) = \left| a_0 \right|^4 + \left| a_1 \right|^4 + 2\left| a_0 \right|^2 \left| a_1 \right|^2 \cos \frac{ \left( E_1 - E_0 \right)t_r}{\hbar },
+\end{equation}
+y usando estas dos expresiones en la definición del tiempo de recurrencia [\equatref{ec:definicion_tiempo_recurrencia}], nos queda
+\begin{equation}
+    \left| a_0 \right|^4 + \left| a_1 \right|^4 + 2\left| a_0 \right|^2 \left| a_1 \right|^2 \cos \frac{ \left( E_1 - E_0 \right)t_r}{\hbar } = 1,
+\end{equation}
+de donde, teniendo en cuenta la \equatref{ec:normalizacion_a0_a1}, obtenemos
+\begin{equation}
+    \cos \frac{ \left( E_1 - E_0 \right)t_r}{\hbar } = 1,
+\end{equation}
+y
+\begin{equation}
+    \frac{ \left( E_1 - E_0 \right)t_r}{\hbar } = 2 \pi l \qquad l=1,2,3,\ldots
+\end{equation}
+donde $l$ es el número de oscilaciones o \textit{recurrencias}.
+Despejando $t_r$ de la ecuación anterior llegamos a la siguiente expresión general para el tiempo de recurrencia
+\begin{equation}
+    t_r = \frac{2 \pi \hbar  l }{E_1 - E_0} = \frac{h l }{E_1 - E_0} = \frac{h}{\Delta E} l \qquad l=1,2,3,\ldots
+\end{equation}
+Nos interesa la primera recurrencia ($l=1$), cuyo tiempo de recurrencia viene dado por
+\begin{equation}\label{ec:tiempo_primera_recurrencia}
+    t_r = \frac{h}{E_1 - E_0} = \frac{h}{\Delta E}.
+\end{equation}
+Si nuestro estado no estacionario está formado por la superposición de dos estados estacionarios con la misma probabilidad descrito por la \equatref{ec:estado_no_estacionario_2ee_misma_probabilidad}, la probabilidad de supervivencia sustituyendo $a_0 = a_1 = 1 / \sqrt{2}$ en la \equatref{ec:probabilidad_supervivencia_2_estados} es
+\begin{equation}
+    P_s(t) = \left| \frac{1}{\sqrt{2} } \right|^4 + \left| \frac{1}{\sqrt{2} } \right|^4 + 2\left| \frac{1}{\sqrt{2} } \right|^2 \left| \frac{1}{\sqrt{2} } \right|^2 \cos \frac{ \left( E_1 - E_0 \right)t}{\hbar },
+\end{equation}
+que reescribo como
+\begin{equation}
+    P_s(t) = \frac{1}{2} \left\{ 1 + \cos \frac{ \left( E_1 - E_0 \right)t}{\hbar } \right\}.
+\end{equation}
+Para estados no estacionarios formados por una combinación lineal de más de dos estados estacionarios, como el de la \equatref{ec:estado_no_estacionario_mas_de_2_ee}, hay que usar la expresión general para calcular la probabilidad de supervivencia [\equatref{ec:probabilidad_supervivencia_general}].
+\clearpage\begin{figure}[t!]
+    \centering
+    \includegraphics[width=1.0\textwidth]{probabilidades_supervivencia}
+    \caption{Probabilidad de supervivencia para cada estado no estacionario calculada con la \equatref{ec:probabilidad_supervivencia_general}.}
+    \label{fig:probabilidades_supervivencia}
+\end{figure}\clearpage
+
+En nuestro caso, construimos distintos estados no estacionarios dados por la \equatref{ec:estados_no_estacionarios_alfa_completos}, por lo que usamos la expresión general para calcular la probabilidad de supervivencia [\equatref{ec:probabilidad_supervivencia_general}]. En la \figref{fig:probabilidades_supervivencia} representamos gráficamente la evolución de la probabilidad de supervivencia $P_s(t)$ con el tiempo, para cada estado no estacionario inicial.
+
+Como esperábamos de la \equatref{ec:probabilidad_supervivencia_general}, la probabilidad de supervivencia sigue una periodicidad, lo que se aprecia perfectamente de la gráfica correspondiente al estado estacionario límite $\Ket{\Psi_1(t)}$ ($\alpha = 0$). El tiempo para el que la probabilidad de supervivencia se hace máxima se corresponde con el tiempo de recurrencia. Lo primero que identificamos al observar las gráficas de la \figref{fig:probabilidades_supervivencia} es que, al aumentar $\alpha$, aparecen oscilaciones en los valores de $P_s(t)$ que se van haciendo mayores conforme aumentama $\alpha$.
+%
+{
+% \extrarowheight = -0.5ex  %espacio en blanco
+% \renewcommand{\arraystretch}{2.00}
+\begin{table}[t!]
+    \ra{1.2} % Spacing btween lines of table
+    \caption{Tiempo de recurrencia (primera recurrencia) para los estados no estacionarios límite dados por las \eqsref{ec:estado_no_estacionario_completo_limite_0} y \eqref{ec:estado_no_estacionario_completo_limite_90}, calculado con la \equatref{ec:tiempo_primera_recurrencia}.}
+    \label{tab:tiempos_recurrencia}
+    \centering
+    \begin{tabular}{@{}c c@{}}
+        \toprule
+        $\alpha$ & $t_r\ (\mathrm{ps})$ \\
+        \midrule
+
+        0            & 25.05548 \\
+        $90^{\circ}$ & 0.49251  \\
+
+        \bottomrule
+    \end{tabular}
+\end{table}
+}
+% \begin{figure}[htb]
+%     \centering
+%     \includegraphics[width=1.0\textwidth]{probabilidades_supervivencia}
+%     \caption{Probabilidad de supervivencia para cada estado no estacionario calculada con la \equatref{ec:probabilidad_supervivencia_general}.}
+%     \label{fig:probabilidades_supervivencia}
+% \end{figure}\clearpage
+
+Para poder explicar estas oscilaciones, calculamos el tiempo de la primera recurrencia en picosegundos\footnote{La escala de tiempo usada es de picosegundos (ps), $1\ \mathrm{ps} = 10^{-12}\ \mathrm{s}$.} para los estados no estacionarios límite dados por las \eqsref{ec:estado_no_estacionario_completo_limite_0} ($\alpha = 0$) y \eqref{ec:estado_no_estacionario_completo_limite_90} ($\alpha = 90^{\circ}$), que se incluye en la \tabref{tab:tiempos_recurrencia}.
+
+Atendiendo a los valores de la \tabref{tab:tiempos_recurrencia}, vemos que el tiempo de recurrencia para el estado no estacionario límite $\Ket{\Psi_2(t)}$ (correspondiente a $\alpha=90^{\circ}$) es $\sim 50$ veces menor que el del estado $\Ket{\Psi_1(t)}$ (correspondiente a $\alpha=0$). Este resultado muestra la dependencia de la anchura de la barrera en la penetración de la misma\footnote{Véase, por ejemplo, el capítulo 8 de \textit{Fundamentals of Quantum Chemistry}~\cite{house2003fundamentals} para una descripción del fenómeno de penetración de la barrera.}, siendo el tiempo de recurrencia (tiempo que tarda el estado no estacionario en desplazarse del pozo de la izquierda al de la derecha y volver a su posición inicial) mucho menor cuando la anchura de la barrera es menor (véase \tabref{tab:energias_paquetes_alfa}). Por tanto, teniendo en cuenta que los máximos de la probabilidad de supervivencia se corresponden a los múltiplos de $t_r$, debemos reducir la escala de tiempo para poder observar mejor la evolución de la probabilidad de supervivencia con el tiempo.
+\begin{figure}[t!]
+    \centering
+    \includegraphics[width=1.0\textwidth]{probabilidades_supervivencia_2}
+    \caption{Probabilidad de supervivencia para los estados no estacionarios $\alpha \ge 45^{\circ}$ calculada con la \equatref{ec:probabilidad_supervivencia_general}.}
+    \label{fig:probabilidades_supervivencia_2}
+\end{figure}
+
+En la \figref{fig:probabilidades_supervivencia_2} representamos la probabilidad de supervivencia para los estados no estacionarios de $\alpha \ge 45^{\circ}$ en una escala de 1 ps. Vemos cómo, en el estado no estacionario límite $\Ket{\Psi_2(t)}$ ($\alpha = 90^{\circ}$), la probabilidad de supervivencia varía periódicamente y de manera regular con el tiempo, sólo que a una escala de tiempo mucho menor que para el otro estado no estacionario límite $\Ket{\Psi_1(t)}$ ($\alpha=0$). Sin embargo, vemos que para el resto de estados no estacionarios hay oscilaciones en los valores de $P_s(t)$ respecto a la gráfica correspondiente a $\alpha=90^{\circ}$, que son claramente apreciables para $\alpha=45^{\circ}$. Teniendo en mente la definición de probabilidad de supervivencia, estas oscilaciones o cambios drásticos de $P_s(t)$ en pequeños intervalos entre $t$ y $t+ \dd{t}$ implican que la probabilidad de encontrar al estado no estacionario en su situación inicial varía drásticamente en un intervalo de tiempo muy pequeño. Es decir, fijándonos por ejemplo en la gráfica para $\alpha = 45^{\circ}$ de la \figref{fig:probabilidades_supervivencia_2}, en la región en torno a $t = 0.5$ ps, vemos cómo la probabilidad de supervivencia varía entre $\sim 0$ y $\sim 1$ en un pequeño intervalo de tiempo $ \dd{t}$. ¿Se corresponde este resultado, por tanto, a que el estado no estacionario se encuentra oscilando de un pozo a otro en intervalos de tiempo muy pequeños? Más bien, la interpretación de estos resultados implica que la totalidad del estado no estacionario no \textit{penetra} la barrera siempre que colisiona con la misma en estos estados no estacionarios intermedios, a diferencia de lo que ocurre en los estados no estacionarios límite, encontrándose deslocalizado entre los dos pozos. En el caso de los estados no estacionarios intermedios (por ejemplo, para $\alpha = 45^{\circ}$), el estado se desplaza desde el pozo de la izquierda, colisiona con la barrera, y sólo una pequeña parte (baja densidad de probabilidad) consigue penetrar la barrera y transmitirse hasta el pozo de la derecha, mientras el resto del estado continúa oscilando en el pozo de la izquierda. Conforme pasa el tiempo, el estado no estacionario habrá colisionado con la barrera un número de veces suficiente como para transmitirse al otro pozo (la densidad de probabilidad en el pozo de la derecha será mayor que en el de la izquierda) y podrá repetirse el proceso para su vuelta a la situación inicial. Esta deslocalización del estado explica las oscilaciones en los valores de $P_s(t)$.
+
+Para poder entender mejor estas observaciones, calculamos el valor esperado de la posición y su evolución temporal, para lo que necesitamos las integrales sobre las funciones base del oscilador armónico~\cite{sakurai2014modern}
+\begin{equation}
+    \begin{split}
+        \Braket{n' | x | n} &= \sqrt{ \frac{\hbar}{2m \omega}} \left( \sqrt{n} \delta_{n',n-1} + \sqrt{n+1}  \delta_{n',n+1} \right) \\
+                            &= \sqrt{ \frac{1}{2\alpha}} \left( \sqrt{n} \delta_{n',n-1} + \sqrt{n+1}  \delta_{n',n+1} \right).
+    \end{split}
+\end{equation}
+
+En la \figref{fig:valor_esperado_x}, representamos gráficamente el valor esperado de la posición para cada estado no estacionario calculado usando la \equatref{ec:valor_esperado_x_general}. Las líneas horizontales marcadas con $\pm x_1$ y $\pm x_2$ se corresponden a los puntos de corte (líneas negras), dados por las \eqsref{ec:punto_de_corte_1} y \eqref{ec:punto_de_corte_2}, y las marcadas con $\pm x_e$ a la posición de los pozos (líneas grises). Nos interesan especialmente las líneas más gruesas marcadas con $\pm x_2$, ya que se corresponden a los puntos de corte con la barrera. En la \figref{fig:valor_esperado_x}, vemos cómo, al igual que con la probabilidad de supervivencia, conforme aumenta $\alpha$ aparecen oscilaciones en el valor esperado de la posición del estado. En el caso límite $\Ket{\Psi_1(t)}$ ($\alpha = 0$), vemos cómo la evolución temporal del valor esperado de $x$ es regular, lo que nos permite imaginar que el movimiento entre los pozos de este estado no estacionario es regular. Es decir, que la totalidad del estado penetra y se transmite a través de la barrera al chocar con la misma.
+\clearpage\begin{figure}[t!]
+    \centering
+    \includegraphics[width=1.0\textwidth]{valor_esperado_x}
+    \caption{Valor esperado de la posición para cada estado no estacionario calculado con la \equatref{ec:valor_esperado_x_general}.}
+    \label{fig:valor_esperado_x}
+\end{figure}\clearpage
+ Sin embargo, como ya adelantábamos con la probabilidad de supervivencia, esto no es así para los estados no estacionarios intermedios. Las variaciones en el valor esperado de $x$ nos indican que el estado no estacionario se encuentra deslocalizado.
+\begin{figure}[t!]
+    \centering
+    \includegraphics[width=0.99\textwidth]{valor_esperado_x_2}
+    \caption{Valor esperado de la posición para los estados no estacionarios $\alpha \ge 45^{\circ}$ calculados con la \equatref{ec:valor_esperado_x_general}.}
+    \label{fig:valor_esperado_x_2}
+\end{figure}
+En la \figref{fig:valor_esperado_x_2}, reducimos la escala temporal a 1 ps. Vemos cómo, para el estado no estacionario límite $\Ket{\Psi_2(t)}$ ($\alpha=90^{\circ}$), obtenemos el resultado esperado. Sin embargo, para $\alpha = 45^{\circ}$, el valor esperado de la posición para esta escala temporal presenta oscilaciones y es menor de cero (posición del máximo de la barrera), variando en torno al punto de corte con la barrera (línea horizontal punteada en torno a $\approx -0.2$ \AA). Es decir, el estado no estacionario se encuentra oscilando en el pozo de la izquierda, chocando con la barrera y entrando en ella levemente. Para un tiempo suficiente, como podemos apreciar en la gráfica para $\alpha = 45^{\circ}$ de la \figref{fig:valor_esperado_x}, el estado termina transmitiéndose al otro pozo, y completando el movimiento de inversión. Para el resto de estados no estacionarios intermedios sucede algo análogo, sólo que con oscilaciones menores en el valor esperado de la posición.

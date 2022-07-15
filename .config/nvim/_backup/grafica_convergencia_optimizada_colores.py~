@@ -1,0 +1,148 @@
+# Import packages
+import matplotlib.pyplot as plt
+import matplotlib as mpl
+import numpy as np
+import pandas as pd
+import tikzplotlib as tk
+
+from matplotlib.cm import get_cmap
+
+from scipy.interpolate import make_interp_spline, BSpline
+
+# Import my own plot style
+plt.style.use('mine')
+#plt.style.use('ggplot')
+#plt.style.use('seaborn')
+
+# Colores del cycler
+colores=['#008fd5', '#fc4f30', '#e5ae38', '#2ca25f', '#8b8b8b', '#810f7c', '#9ecae1', '#fec44f']
+
+# Grafico
+fig, axs = plt.subplots(1,3, figsize=(9.2, 9.2/3))
+# =========================
+### SIN OPTIMIZAR ALPHA ###
+# =========================
+# Data for plotting
+path_to_file_1 = '/home/jose/Documents/Universidad/TFG/practicas_QFA/convergencia_oscilador_cuartico_8_funciones/data/out-convergencia_oscilador_cuartico_8f_2.dat'
+d, N, W0, W1, W2, W3, W4, W5, W6, W7 = np.loadtxt(path_to_file_1, unpack=True, skiprows=1)
+
+alpha_value = 0.5
+## d=0.1 ##
+# Lineas grises
+lw_gris = 1.5
+axs[0].plot(N[0:7], W0[0:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', alpha=alpha_value, color=colores[0])
+axs[0].plot(N[0:7], W1[0:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', alpha=alpha_value, color=colores[1])
+axs[0].plot(N[1:7], W2[1:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', alpha=alpha_value, color=colores[2])
+axs[0].plot(N[2:7], W3[2:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', alpha=alpha_value, color=colores[3])
+axs[0].plot(N[3:7], W4[3:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', alpha=alpha_value, color=colores[4])
+axs[0].plot(N[4:7], W5[4:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', alpha=alpha_value, color=colores[5])
+axs[0].plot(N[5:7], W6[5:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', alpha=alpha_value, color=colores[6])
+axs[0].plot(N[6:7], W7[6:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', alpha=alpha_value, color=colores[7])
+
+# Texto
+n_text = 6
+param_baj = 0.5
+axs[0].text(N[n_text]+0.3, W0[n_text]-param_baj, r'$W_0$', fontsize=8)
+axs[0].text(N[n_text]+0.3, W1[n_text]-param_baj, r'$W_1$', fontsize=8)
+axs[0].text(N[n_text]+0.3, W2[n_text]-param_baj, r'$W_2$', fontsize=8)
+axs[0].text(N[n_text]+0.3, W3[n_text]-param_baj, r'$W_3$', fontsize=8)
+axs[0].text(N[n_text]+0.3, W4[n_text]-param_baj, r'$W_4$', fontsize=8)
+axs[0].text(N[n_text]+0.3, W5[n_text]-param_baj, r'$W_5$', fontsize=8)
+axs[0].text(N[n_text]+0.3, W6[n_text]-param_baj, r'$W_6$', fontsize=8)
+axs[0].text(N[n_text]+0.3, W7[n_text]-param_baj, r'$W_7$', fontsize=8)
+
+# ## d=0.5 ##
+# Lineas grises
+lw_gris = 0.7
+axs[1].plot(N[0:7], W0[0:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', alpha=alpha_value, color=colores[0])
+axs[1].plot(N[0:7], W1[0:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', alpha=alpha_value, color=colores[1])
+axs[1].plot(N[1:7], W2[1:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', alpha=alpha_value, color=colores[2])
+axs[1].plot(N[2:7], W3[2:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', alpha=alpha_value, color=colores[3])
+axs[1].plot(N[3:7], W4[3:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', alpha=alpha_value, color=colores[4])
+axs[1].plot(N[4:7], W5[4:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', alpha=alpha_value, color=colores[5])
+axs[1].plot(N[5:7], W6[5:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', alpha=alpha_value, color=colores[6])
+axs[1].plot(N[6:7], W7[6:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', alpha=alpha_value, color=colores[7])
+
+# ## d=1.0 ##
+# Lineas grises
+lw_gris = 0.7
+axs[2].plot(N[0:7], W0[0:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', alpha=alpha_value, color=colores[0])
+axs[2].plot(N[0:7], W1[0:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', alpha=alpha_value, color=colores[1])
+axs[2].plot(N[1:7], W2[1:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', alpha=alpha_value, color=colores[2])
+axs[2].plot(N[2:7], W3[2:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', alpha=alpha_value, color=colores[3])
+axs[2].plot(N[3:7], W4[3:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', alpha=alpha_value, color=colores[4])
+axs[2].plot(N[4:7], W5[4:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', alpha=alpha_value, color=colores[5])
+axs[2].plot(N[5:7], W6[5:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', alpha=alpha_value, color=colores[6])
+axs[2].plot(N[6:7], W7[6:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', alpha=alpha_value, color=colores[7])
+
+# =========================
+### OPTIMIZANDO ALPHA ###
+# =========================
+# Data for plotting
+path_to_file_2 = '/home/jose/Documents/Universidad/TFG/practicas_QFA/optimizacion_convergencia_oscilador_cuartico/data/out-optimizacion_convergencia_oscilador_cuartico_2.dat'
+d, N, W0, W1, W2, W3, W4, W5, W6, W7 = np.loadtxt(path_to_file_2, unpack=True, skiprows=1)
+
+## d=0.1 ##
+# Lineas grises
+lw_gris = 0.7
+axs[0].plot(N[0:7], W0[0:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', color=colores[0])
+axs[0].plot(N[0:7], W1[0:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', color=colores[1])
+axs[0].plot(N[1:7], W2[1:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', color=colores[2])
+axs[0].plot(N[2:7], W3[2:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', color=colores[3])
+axs[0].plot(N[3:7], W4[3:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', color=colores[4])
+axs[0].plot(N[4:7], W5[4:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', color=colores[5])
+axs[0].plot(N[5:7], W6[5:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', color=colores[6])
+axs[0].plot(N[6:7], W7[6:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', color=colores[7])
+
+# ## d=0.5 ##
+# Lineas grises
+lw_gris = 0.7
+axs[1].plot(N[0:7], W0[0:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', color=colores[0])
+axs[1].plot(N[0:7], W1[0:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', color=colores[1])
+axs[1].plot(N[1:7], W2[1:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', color=colores[2])
+axs[1].plot(N[2:7], W3[2:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', color=colores[3])
+axs[1].plot(N[3:7], W4[3:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', color=colores[4])
+axs[1].plot(N[4:7], W5[4:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', color=colores[5])
+axs[1].plot(N[5:7], W6[5:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', color=colores[6])
+axs[1].plot(N[6:7], W7[6:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', color=colores[7])
+
+# ## d=1.0 ##
+# Lineas grises
+lw_gris = 0.7
+axs[2].plot(N[0:7], W0[0:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', color=colores[0])
+axs[2].plot(N[0:7], W1[0:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', color=colores[1])
+axs[2].plot(N[1:7], W2[1:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', color=colores[2])
+axs[2].plot(N[2:7], W3[2:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', color=colores[3])
+axs[2].plot(N[3:7], W4[3:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', color=colores[4])
+axs[2].plot(N[4:7], W5[4:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', color=colores[5])
+axs[2].plot(N[5:7], W6[5:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', color=colores[6])
+axs[2].plot(N[6:7], W7[6:7], lw=lw_gris, linestyle='-', marker='o', ms=0, markeredgecolor='None', color=colores[7])
+
+# Otros
+axs[0].set(xlabel=r'$N$', ylabel=r'$W_n$', title=r'$d=0.1$')
+axs[1].set(xlabel=r'$N$', title=r'$d=0.5$')
+axs[2].set(xlabel=r'$N$', title=r'$d=1.0$')
+# axs[0].set_xlim(1.5,4.5)
+# Numero de ticks
+# axs[0].locator_params(axis="x", nbins=4)
+x_min = 1.5
+x_max = 8.5
+axs[0].set_xlim(x_min, 8.99)
+axs[0].set_ylim(-22/11, 22)
+axs[1].set_xlim(x_min, x_max)
+axs[1].set_ylim(-80/11, 80)
+axs[2].set_xlim(x_min, x_max)
+axs[2].set_ylim(-150/11, 150)
+
+for ax in axs.flat:
+    # ax.set_xlim(1.5,8.9)
+    # ax.set_ylim(0, 2)
+    # ax.grid()
+    # ax.legend(loc=(1.01,0.1))
+    # Numero de ticks
+    ax.locator_params(axis="x", nbins=8)
+    # ax.locator_params(axis="y", nbins=2)
+
+
+plt.savefig('grafica_convergencia_oscilador_cuartico_optimizado_colores.pdf', transparent='True', bbox_inches='tight')
+# plt.show()

@@ -1,0 +1,43 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[spanish, es-tabla]{babel}
+\usepackage{amsmath, amssymb}
+
+\input{/home/jose/Documents/latex/preamble/paquetes1} %mis paquetes
+\input{/home/jose/Documents/latex/preamble/bibliography_config} %configuracion para l bibliografia
+\input{/home/jose/Documents/latex/preamble/paquetesTikz} %mis paquetes
+\input{/home/jose/Documents/latex/preamble/tikzstyle} %Estilo para las gráficas
+
+\decimalpoint
+
+\graphicspath{{../figuras/}}
+
+\author{José Antonio Quiñonero Gris}
+\title{\textbf{Exámenes Arturo}}
+
+% \date{}
+
+\date{\today}
+
+\begin{document}
+% \maketitle
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[height=1.0\textheight]{IMG-20210131-WA0167.jpg}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{IMG-20210131-WA0168.jpg}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{IMG-20210131-WA0171.jpg}
+\end{figure}
+
+\end{document}

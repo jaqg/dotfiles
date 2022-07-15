@@ -1,0 +1,6 @@
+2022/05/15-22:10:50.288 4a1d1 Creating DB /home/jose/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_bibbase.org_0.indexeddb.leveldb since it was missing.
+2022/05/15-22:10:50.320 4a1d1 Reusing MANIFEST /home/jose/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_bibbase.org_0.indexeddb.leveldb/MANIFEST-000001
+2022/05/15-22:13:28.388 4c5fa Level-0 table #5: started
+2022/05/15-22:13:28.404 4c5fa Level-0 table #5: 194967 bytes OK
+2022/05/15-22:13:28.409 4c5fa Delete type=0 #3
+2022/05/15-22:13:28.410 4c5fa Manual compaction at level-0 from (begin) .. (end); will stop at (end)

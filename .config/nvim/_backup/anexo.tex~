@@ -1,0 +1,100 @@
+\renewcommand{\appendixpagename}{Anexo}
+\renewcommand{\appendixtocname}{Anexo}
+\renewcommand{\appendixname}{Anexo}
+
+\begin{appendices}
+\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+\makeatletter
+\addtocontents{toc}{%
+\begingroup
+\let\protect\l@chapter\protect\l@section
+\let\protect\l@section\protect\l@subsection
+}
+
+% ------------------
+\section{Oxidación del antraceno con péroxido de hidrógeno catalizada por un complejo de vanadio}
+% ------------------
+
+\begin{landscape}
+\begin{figure}[h]
+    \centering
+    \includegraphics[height=0.6\textheight]{VO_acac_2_-G8.pdf}
+    \caption{Espectro IR del \ch{[VO(acac)2]}.}
+    \label{fig:VO_acac_2-G8-pdf}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[height=0.6\textheight]{IR-Antraceno-Antraquinona-G3.pdf}
+    \caption{Espectro IR de la mezcla de reacción antraceno/antraquinona del Grupo 3.}
+    \label{fig:IR-Antraceno-Antraquinona-G3-pdf}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[height=1.0\textheight]{G8-AQ_1H-RMN.pdf}
+    \caption{Espectro \ch{^1H} RMN de la mezcla de reacción antraceno/antraquinona.}
+    \label{fig:G8-AQ_1H-RMN-pdf}
+\end{figure}
+\end{landscape}
+
+% ------------------
+\section{Isomerización catalítica del 1-hepteno}
+% ------------------
+\begin{figure}[h]
+    \centering
+    \includegraphics[height=0.9\textheight]{cromatograma_y_masas}
+    \caption{Cromatograma junto a espectros de masas correspondientes al 1-hepteno (a), (E)-3-hepteno (b), (Z)-3-hepteno (c), (E)-2-hepteno (d) y (Z)-2-hepteno (e).}
+    \label{fig:cromatograma_y_masas}
+\end{figure}
+\begin{landscape}
+\begin{figure}[h]
+    \centering
+    \includegraphics[height=1.0\textheight]{NiL4-1H.pdf}
+    \caption{Espectro \ch{^1H} RMN del precursor del catalizador \precatalizadorniquel.}
+    \label{fig:NiL4-1H-pdf}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[height=1.0\textheight]{NiL4_31P.pdf}
+    \caption{Espectro $\mathrm{^{31}P\{^1H\}}$ RMN del precursor del catalizador \precatalizadorniquel.}
+    \label{fig:NiL4_31P-pdf}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[height=1.0\textheight]{NiHL4_+_1H_POEt.pdf}
+    \caption{Espectro \ch{^1H} RMN del precursor del catalizador protonado \precatalizadorniquelprotonado.}
+    \label{fig:NiHL4_+_1H_POEt-pdf}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[height=1.0\textheight]{NiHL4_+_1H_hidruro.pdf}
+    \caption{Espectro \ch{^1H} RMN del precursor del catalizador protonado \precatalizadorniquelprotonado $ $ en la zona de los hidruros metálicos.}
+    \label{fig:NiHL4_-_1H_hidruro-pdf}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[height=1.0\textheight]{NiHL4_+_31P.pdf}
+    \caption{Espectro $\mathrm{^{31}P\{^1H\}}$ RMN del precursor del catalizador protonado \precatalizadorniquelprotonado.}
+    \label{fig:NiHL4_+_31P-pdf}
+\end{figure}
+\end{landscape}
+
+% ------------------
+\section{Reacción de Sonogashira: Síntesis y caracterización de un alquino}
+% ------------------
+\begin{landscape}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[height=1.0\textheight]{RMN_G8-alquino.pdf}
+        \caption{Espectro \ch{^1H} RMN del alquino obtenido como producto.}
+        \label{fig:RMN_G8-alquino-pdf}
+    \end{figure}
+\end{landscape}
+
+\addtocontents{toc}{\endgroup}
+\end{appendices}

@@ -1,0 +1,305 @@
+! _____________________________________________________________________________
+! *****************************************************************************
+! Autor: José Antonio Quiñonero Gris
+! Fecha de creación: 15 de febrero de 2022
+! *****************************************************************************
+! -----------------------------------------------------------------------------
+
+! -----------------------------------------------------------------------------
+! PROGRAMA PRINCIPAL
+! -----------------------------------------------------------------------------
+program osc_cuart_diag
+
+    ! Oscilador cuartico
+    ! Ĥ = -hbar**2/(2*m) <v|d2/dx2|v> + d <v|x4|v>
+
+    ! Programa para calcular las energias y parametros variacionales
+    ! diagonalizando la matriz del hamiltoniano, de manera que
+    ! Hc = Ec
+    ! donde H es una matriz real simetrica de elementos Hij=<i|Ĥ|j>
+    ! Obtendremos como autovalores las energias variacionales, E
+    ! y como autovectores los coeficientes variacionales c
+
+    ! IMPLICIT REAL*8(A-H,O-Z)
+    ! IMPLICIT INTEGER(I-N)
+
+    implicit none
+
+    ! =======================
+    ! Definicion de variables
+    ! =======================
+
+    integer :: i,j,l,jj
+
+    COMMON k,hbar,m
+    ! Constante k
+    real*8 :: k=1.0
+    ! Unidades atomicas
+    real*8 :: hbar=1.0, m=1.0
+    ! Numero de funciones base
+    integer :: N, Nmax, Npar, Nimpar
+    integer :: n_val, m_val
+    ! Valores para el parametro de perturbacion cuartica
+    integer, parameter :: rango_d=3
+    real*8, dimension(rango_d) :: valores_d
+    ! Parametro de perturbacion cuartica
+    real*8 :: d
+    ! Resultado de la funcion para el parametro alpha
+    real*8 :: alpha
+    ! Resultado de la funcion para la integral sobre d2/dx2
+    real*8 :: derivada
+    ! Resultado de la funcion para la integral sobre x2
+    real*8 :: cuadratica
+    ! Resultado de la funcion para la integral sobre x4
+    real*8 :: cuartica
+    ! Integrales del hamiltoniano, elementos Hij
+    real*8 :: H
+    ! Matriz del hamiltoniano
+    real*8, dimension(:,:), allocatable :: H_mat
+    ! Array para los valores propios de la energia
+    real*8, dimension(:), allocatable :: E
+    ! Array necesaria para la subrutina de diagonalizacion
+    real*8, dimension(:), allocatable :: work
+    ! Declaracion de parametros necesarios para la subrutina que calcula los
+    ! eigenvalues
+    integer :: nr, lwork, info
+    real*8, dimension(21,4) :: E_tabla
+    logical :: F
+
+    ! ===================
+    ! INICIO DEL PROGRAMA
+    ! ===================
+
+    ! Evitar units=0,5,6
+    ! Apertura y lectura del fichero con los datos iniciales
+    open(unit=1, file="data/in-osc_cuart_diag.dat")
+    ! Omite la primera linea del archivo de datos de entrada
+    read(1,*)
+    ! Lee los datos de entrada
+    read(1,*) Nmax, valores_d(1), valores_d(2), valores_d(3)
+    close(1)
+
+    ! Apertura del fichero de resultados
+    open(unit=2, file="data/out-energias_variacionales.dat")
+    open(unit=3, file="data/out-parametros_variacionales.dat")
+    open(unit=4, file="data/out-parametros_variacionales_2.dat")
+    open(unit=7, file="data/out-energias_variacionales_N100.dat")
+    open(unit=8, file="data/out-energias_variacionales_d01.dat")
+    open(unit=9, file="data/out-energias_variacionales_d05.dat")
+    open(unit=10, file="data/out-energias_variacionales_d10.dat")
+
+    ! Documento para la grafica
+    write(4,9986)
+    9986 format(2x, 'd', 5x,'Phi_0', 5x,'Phi_1', 5x,'Phi_2', 5x,'Phi_3', &
+                5x,'Phi_4', 5x,'Phi_5')
+
+    ! Documento que contiene los valores de las energias variacionales de los
+    ! n=20 primeros niveles energeticos, para N=100 funciones base
+    write(7,9985)
+    9985 format(3x, 'n', 7x, 'Wn(d=0.1)', 6x, 'Wn(d=0.5)', 6x, 'Wn(d=1.0)')
+
+    9983 format('====================================================&
+                    =============================')
+    9982 format('----------------------------------------------------&
+                    -----------------------------')
+    9984 format(1x, 'N' , 9x, 'W0', 13x, 'W1', 13x, 'W2', 13x, 'W3', 13x, 'W4',  &
+                13x, 'W5', 13x, 'W6', 12x, 'W7', 13x, 'W8', 13x, 'W9', 13x, 'W10', &
+                12x, 'W11', 12x, 'W12', 12x, 'W13', 12x, 'W14', 12x, 'W15',       &
+                12x, 'W16', 12x, 'W17', 12x, 'W18', 12x, 'W19', 12x, 'W20')
+    ! Escribe las primeras lineas de los ficheros 8 a 10
+    do i=8,10,1
+        ! write(i,9983)
+        ! write(i,'("d= ", f5.2)') d
+        ! write(i,9982)
+        write(i,9984)
+    end do
+
+    ! Bucle principal:
+    ! Para cada valor de d
+    !   Para N funciones base
+    !       Crea y escribe la matriz H
+    !       Halla los valores y vectores propios
+    !       Escribe los resultados
+    do_valores_d: do l=1, rango_d, 1
+        d = valores_d(l)
+        ! Calcula el valor de alpha optimizado para la perturbacion d
+        call alpha_opt(d, alpha)
+        ! Escribe la primera fila de las tablas
+        write(2,9983)
+        write(2,'(34x, "d =", f5.2)') d
+        write(2,9982)
+        write(2,9998)
+        9998 format (2x, 'N', 8x, 'W0', 13x, 'W1', 13x, 'W2', 13x, 'W3', 13x,&
+                    'W4', 13x, 'W5', 13x, 'W6', 13x, 'W7')
+
+        ! Halla los resultados para cada valor de N
+        do_N: do n=2, Nmax, 1
+            ! Da dimensiones a la matriz del hamiltoniano
+            allocate(H_mat(n,n))
+            ! de las matrices para la rutina de valores propios
+            allocate(E(n))
+            ! y del array 'work'
+            allocate(work(3*n))
+            ! Crear la matriz del hamiltoniano atendiendo a las propiedades
+            ! de simetria (primero las funciones pares y, a continuacion, las
+            ! impares
+            H_mat(:,:) = 0.0
+            do_filas: do i=1, n, 1
+                do_columnas: do j=1, n, 1
+                    ! Si N es par, el numero de funciones base pares e impares
+                    ! sera N/2. Si N es impar, el numero de funciones base
+                    ! pares sera (N/2)+1 (ya que son numeros enteros), y de
+                    ! funciones base impares, N - ((N/2)+1)
+                    ! Si btest(i,0) = F, i es par
+                    if (btest(n,0).eqv.F) then
+                        ! Filas
+                        if (i<=n/2) then
+                            ! Asigna valores pares
+                            n_val = 2*(i-1)
+                        else
+                            ! Asigna valores impares
+                            n_val = 2*(i-(n/2)) - 1
+                            ! n_val = 2*(i-1) - 1
+                        end if
+                        ! Columnas
+                        if (j<=n/2) then
+                            ! Asigna valores pares
+                            m_val = 2*(j-1)
+                        else
+                            ! Asigna valores impares
+                            m_val = 2*(j-(n/2)) - 1
+                            ! m_val = 2*(j-1) - 1
+                        end if
+                    ! Si Nmax es impar
+                    else
+                        ! Filas
+                        if (i<=(n/2)+1) then
+                            ! Asigna valores pares
+                            n_val = 2*(i-1)
+                        else
+                            ! Asigna valores impares
+                            n_val = 2*(i-((n/2)+1)) - 1
+                            ! n_val = 2*(i-1) - 1
+                        end if
+                        ! Columnas
+                        if (j<=(n/2)+1) then
+                            ! Asigna valores pares
+                            m_val = 2*(j-1)
+                        else
+                            ! Asigna valores impares
+                            m_val = 2*(j-((n/2)+1)) - 1
+                            ! m_val = 2*(j-1) - 1
+                        end if
+                    end if
+                    ! Calcula los elementos de la matriz y almacenalos
+                    H_mat(i,j) = H(n_val,m_val,d,alpha)
+                end do do_columnas
+                ! Escribe la matriz
+                ! write(*,'(100g15.5)') ( H_mat(i,j), j=1,N )
+            end do do_filas
+            ! write(*,*) '---'
+            ! Rutina para calcular los valores propios
+            lwork = 3*n
+            call dsyev ( 'V', 'U', n, H_mat, n, E, work, lwork, info )
+            ! Los valores propios de la energia son guardados en E
+            ! Los vectores propios, los coeficientes de la combinacion lineal,
+            ! son guardados en la matriz H_mat a la salida
+            ! Cada columna de la matriz H_mat, a la salida, da un eigenvector
+            ! H_mat(j,i)
+            !   j = indice de la funcion base
+            !   i = indice del valor propio
+
+            ! Si la diagonalizacion ha funcionado, info = 0
+            if (info/= 0) then
+                write(*,*) 'H-matrix diagonalization failed'
+                write(*,*) 'INFO =', info
+                stop
+            end if
+
+            ! Escribe las 7 primeras energias variacionales cuando N>=8
+            jj = N  ! Variable auxiliar
+            if (jj<=8) then
+                write(2,' (i3.1, 100f15.5)') N, ( E(i), i=1,N ), &
+                                             ( j*0., j=1,8-jj )
+            else
+                write(2,' (i3.1, 100f15.5)') N, ( E(i), i=1,8 )
+            end if
+
+            ! write(2,' (i3.1, 100f15.5)') N, ( E(i), i=1,2 )
+
+            if (N==Nmax) then
+                write(3,9983)
+                write(3,'(34x, "d =", f5.2)') d
+                write(3,9982)
+                write(3,9989)
+                9989 format(3x,'Phi_0', 5x,'Phi_1', 5x,'Phi_2', 5x,'Phi_3', &
+                            5x,'Phi_4', 5x,'Phi_5')
+                do j=1, n, 1
+                    ! Escribe los coeficientes para las 4 primeros estados
+                    write(3,'(100f10.5)') ( H_mat(j,i), i=1,6 )
+                    ! Documento para la grafica
+                    write(4,'(f5.2,100f10.5)') d, ( H_mat(j,i), i=1,6 )
+                end do
+            end if
+            ! Escribe los valores de las energias variacionales para los
+            ! n=20 primeros niveles energeticos, para N=100 funciones base,
+            ! para cada valor del parametro perturbativo, en columnas
+            ! Para ello, creo el array 'E_tabla', que posteriormente escribire
+            ! en un fichero externo
+            if (N==Nmax) then
+                do i=1, 21, 1
+                    ! La primera columna de la tabla se corresponde al nivel
+                    ! energetico, n
+                    E_tabla(i,1) = float(i-1)
+                    ! El resto de columnas se corresponden a los valores de
+                    ! las energias para cada valor de d
+                    E_tabla(i,l+1) = E(i)
+                end do
+            end if
+            ! Escribe los resultados en los archivos 6 a 8
+            ! Para N<20, no podemos calcular las energias de los 21 primeros
+            ! niveles, asi que introduzco la siguiente condicion
+            if (jj<=20) then
+                if (l==1) then
+                    write(8,' (i3.1, 100f15.5)') N, ( E(i), i=1,N ), &
+                                                 ( j*0., j=1,21-jj )
+                elseif (l==2) then
+                    write(9,' (i3.1, 100f15.5)') N, ( E(i), i=1,N ), &
+                                                 ( j*0., j=1,21-jj )
+                elseif (l==3) then
+                    write(10,'(i3.1, 100f15.5)') N, ( E(i), i=1,N ), &
+                                                 ( j*0., j=1,21-jj )
+                end if
+            else
+                if (l==1) then
+                    write(8,' (i3.1, 100f15.5)') N, ( E(i), i=1,21 )
+                elseif (l==2) then
+                    write(9,' (i3.1, 100f15.5)') N, ( E(i), i=1,21 )
+                elseif (l==3) then
+                    write(10,'(i3.1, 100f15.5)') N, ( E(i), i=1,21 )
+                end if
+            end if
+            ! borra las matrices
+            deallocate(H_mat)
+            deallocate(E)
+            deallocate(work)
+        end do do_N
+    end do do_valores_d
+
+    ! Escribo la tabla del array E_tabla
+    do i=1, 21, 1
+        write(7,'(i4.1, 3f15.5)') int(E_tabla(i,1)), ( E_tabla(i,j), j=2,4 )
+    end do
+
+    close(2)
+    close(3)
+    close(4)
+    close(7)
+    close(8)
+    close(9)
+    close(10)
+
+    write(*,*) 'El programa ha finalizado'
+
+    stop
+endprogram osc_cuart_diag

@@ -1,0 +1,36 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[spanish, es-tabla]{babel}
+\usepackage{amsmath, amssymb}
+
+\input{/home/jose/Documents/latex/preamble/paquetes1} %mis paquetes
+\input{/home/jose/Documents/latex/preamble/paquetesTikz} %mis paquetes
+\input{/home/jose/Documents/latex/preamble/tikzstyle} %Estilo para las gráficas
+
+\usepackage{mathptmx}
+\renewcommand{\baselinestretch}{1.5}
+
+\begin{document}
+
+% TITULO
+\begin{center}
+	\textbf{\Large{``El descubrimiento del agujero de ozono en la Antártida'',}} \\ %\vspace{-1.5mm}
+	\large{\textit{The discovery of the Antarctic ozone hole}, S. Solomon, Nature, \textbf{575}, 46 (2019)} \\ \vspace{5mm}
+
+	\large{José Antonio Quiñonero Gris} \\ \vspace{1mm}
+\end{center}
+
+% INICIO DEL DOCUMENTO
+
+En 1985, tras 20 años sin reportar cambios en los valores de ozono, Joe Farman, Brian Gardiner y Jonathan Shanklin descrubrieron un descenso en un tercio del espesor de la capa de ozono estratosférico sobre las estaciones de Halley y Faraday, en la Antártida, durante los meses de primavera austral. Lo denominaron \textit{agujero de ozono} y comprendía una región extensa de hasta 20 millones de kilómetros cuadrados, teniendo influencia sobre los vientos y temperaturas en la estratosfera, parte baja de la troposfera y otras latitudes de la Antártida. El principal causante son los clorofluorocarbonos (CFCs), provenientes de la actividad humana, y los óxidos de cloro (ClO y OClO) producidos a partir de los mismos.\\
+
+Además, Farman et al. propusieron que el carácter estacional  de este cambio se podía deber a que, dadas las temperaturas extremadamente bajas durante el invierno y la primavera en la Antártida, esta región podría ser especialmente sensible al cloro producido a partir de los CFCs. En 1986, se encontró una abundancia de ClO y OClO 100 veces mayor del valor esperado sobre la Antártida, junto a un aumento del ClO que acompañaba la disminución del ozono, lo que confirma la propuesta de Farman, y lleva a la creación del Protocolo de Montreal sobre las sustancias que reducen la capa de ozono en 1987.\\
+
+Asimismo, este hecho permite explicar por qué las simulaciones computacionales resultaban erróneas, ya que no consideraban la activación por ClO de las reacciones de destrucción del ozono, que resultaron ser clave. Igualmente, esta dependencia de la temperatura hace que en el Ártico, donde la temperatura es más cálida que en la Antártida, la disminución de ozono sea menor. También se descubrió que el acoplamiento de especies que contenían cloro con especies que contenían bromo era esencial.\\
+
+El agujero de ozono de la Antártida se está recuperando lentamente, haciendo que el Protocolo de Montreal sea un éxito de la política ambiental a nivel global. Los CFCs persisten en la atmósfera 50 años o más, por lo que la atmósfera no se recuperará completamente hasta, como mínimo, 2050. Además, actualmente se siguen usando dispositivos que hacen uso de CFCs y hay evidencias de una continua producción de triclorofluorometano, un tipo de CFC que, si bien no es suficiente para revertir la recuperación del agujero de ozono, lo está ralentizando.
+
+\end{document}

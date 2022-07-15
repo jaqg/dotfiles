@@ -1,0 +1,74 @@
+# _____________________________________________________________________________
+# *****************************************************************************
+# Autor: José Antonio Quiñonero gris
+# Fecha de creación: 3 de marzo de 2022
+# *****************************************************************************
+# -----------------------------------------------------------------------------
+
+# Grafica para el oscilador con una perturbacion cuartica
+
+# Librerias
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+plt.style.use('mine')
+
+# *****************************************************************************
+# INICIO
+# *****************************************************************************
+
+# Creacion del dataframe
+file1 = '../data/out-energias_variacionales_d01.dat'
+file2 = '../data/out-energias_variacionales_d05.dat'
+file3 = '../data/out-energias_variacionales_d10.dat'
+
+archivo = file3
+
+# Grafico
+fig, ax = plt.subplots(figsize=(5,5))
+N, W0, W1, W2, W3, W4, W5, W6, W7, W8, W9, W10, W11, W12, W13, W14, W15, W16, W17, W18, W19, W20 = np.loadtxt(archivo, unpack=True, skiprows=1)
+
+if archivo==file1:
+    nombre_grafica = 'grafica_osc_cuart_diagonalizacion_d01.pdf'
+    titulo = r'$d=0.1$'
+elif archivo==file2:
+    nombre_grafica = 'grafica_osc_cuart_diagonalizacion_d05.pdf'
+    titulo = r'$d=0.5$'
+elif archivo==file3:
+    nombre_grafica = 'grafica_osc_cuart_diagonalizacion_d10.pdf'
+    titulo = r'$d=1.0$'
+
+grosor=1.2
+ax.plot(N[0:100],  W0[0:100] , lw=grosor, label=r'$W_0$'      )
+ax.plot(N[0:100],  W1[0:100] , lw=grosor, label=r'$W_1$'      )
+ax.plot(N[1:100],  W2[1:100] , lw=grosor, label=r'$W_2$'      )
+ax.plot(N[2:100],  W3[2:100] , lw=grosor, label=r'$W_3$'      )
+ax.plot(N[3:100],  W4[3:100] , lw=grosor, label=r'$W_4$'      )
+ax.plot(N[4:100],  W5[4:100] , lw=grosor, label=r'$W_5$'      )
+ax.plot(N[5:100],  W6[5:100] , lw=grosor, label=r'$W_6$'      )
+ax.plot(N[6:100],  W7[6:100] , lw=grosor, label=r'$W_7$'      )
+ax.plot(N[7:100],  W8[7:100] , lw=grosor, label=r'$W_8$'      )
+ax.plot(N[8:100],  W9[8:100] , lw=grosor, label=r'$W_9$'      )
+ax.plot(N[9:100], W10[9:100] , lw=grosor, label=r'$W_{10}$'   )
+ax.plot(N[10:100],W11[10:100], lw=grosor, label=r'$W_{11}$'   )
+ax.plot(N[11:100],W12[11:100], lw=grosor, label=r'$W_{12}$'   )
+ax.plot(N[12:100],W13[12:100], lw=grosor, label=r'$W_{13}$'   )
+ax.plot(N[13:100],W14[13:100], lw=grosor, label=r'$W_{14}$'   )
+ax.plot(N[14:100],W15[14:100], lw=grosor, label=r'$W_{15}$'   )
+ax.plot(N[15:100],W16[15:100], lw=grosor, label=r'$W_{16}$'   )
+ax.plot(N[16:100],W17[16:100], lw=grosor, label=r'$W_{17}$'   )
+ax.plot(N[17:100],W18[17:100], lw=grosor, label=r'$W_{18}$'   )
+ax.plot(N[18:100],W19[18:100], lw=grosor, label=r'$W_{19}$'   )
+ax.plot(N[19:100],W20[19:100], lw=grosor, label=r'$W_{20}$'   )
+
+ax.set_xlim(-5,105)
+ax.set_ylim(min(W0)-max(W20)/20,max(W20)+max(W20)/20)
+# if archivo==file3:
+#     handles, labels = ax.get_legend_handles_labels()
+#     ax.legend(handles[::-1], labels[::-1], loc=(1.03,0.03))
+ax.set(title=titulo,xlabel=r'$N$', ylabel=r'$E$ (Ha)')
+# ax.text(0.9,0.95, r'$d=0.1$', horizontalalignment='center', verticalalignment='center', transform=ax.transAxes, bbox=dict(facecolor='none'))
+
+plt.savefig(nombre_grafica, transparent='True', bbox_inches='tight')
+# plt.show()

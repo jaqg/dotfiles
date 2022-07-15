@@ -1,0 +1,1832 @@
+\chapter{Nociones de Mecánica Estadística. Estadística de Maxwell-Boltzmann. Deducción de magnitudes termodinámicas.}
+
+\section{Introducción}
+
+Vamos a comenzar el tema analizando qué es la termodinámica estadística o mecánica estadística.\\
+
+Para ello, recordemos primero la termodinámica clásica. Estudia el calor o las transferencias de energía desde un punto de vista macroscópico o fenomenológico de un sistema, el cual se encuentra en un estado. Un estado viene descrito por unas variables de estado o funciones de estado (por ejemplo, presión, volumen y temperatura). Si conocemos la ecuación de estado de ese sistema $ f( \mathrm{T,V,P})=0$, nos bastarán dos variables de estado para definirlo.\\
+
+\begin{ejemplo}
+	Gas ideal definido por $ \mathrm{P,V,T}$. Si $ \mathrm{PV-}n \mathrm{RT} = 0$ y conozco $ \mathrm{P,V}$ podemos calcular $ \mathrm{T}$.
+\end{ejemplo}
+
+El problema de la termodinámica clásica es que no podemos calcular de forma absoluta las magnitudes como la entalpía, entropía, energía interna, energía de Gibbs, energía de Helmholtz, etc.\\
+
+La termodinámica estadística estudia también los procesos de transferencia de energía, incluido el calor, desde un punto de vista microscópico o molecular. Sin embargo, la termodinámica clásica no tiene en cuenta las peculiaridades a nivel microscópico, lo que sí tiene en cuenta la termodinámica estadística.\\
+
+La mecánica estadística estudia sistema de un gran número de partículas atendiendo a la estructura de estas partículas (necesitando la mecánica cuántica). Como hay un gran número de partículas, se debe usar el concepto de probabilidad y media.\\
+
+En termodinámica clásica diferenciábamos los siguientes tipos de sistemas [\ref{tab:T1-tipos de sistema}]:\hfill \break\\
+
+{
+	\extrarowheight = -0.5ex  %espacio en blanco
+	\renewcommand{\arraystretch}{2.00}
+	\begin{table}[h!]
+		\begin{center}
+			\begin{tabular}{ m{2cm} m{5cm} m{3.3cm} }
+				\caption{Tipos de sistema definidos en la termodinámica clásica.}
+				\label{tab:T1-tipos de sistema}\\
+				\hline %línea horizontal
+				\centering \bfseries{Sistema} & \centering \bfseries{Descripción} &   \bfseries{Magnitudes características}\\
+
+				\hline %línea horizontal
+
+				Aislado & Sistema cerrado con paredes rígidas e inmóviles, a través de las cuales no puede pasar masa ni energía  & $ E, N, \mathrm{V}$ \\
+
+				Cerrado & Sistema cerrado con paredes rígidas e inmóviles, sin transferencia de materia pero sí de energía & $ \mathrm{T}, N, \mathrm{V}$ \\
+
+				Abierto & Sistema abierto que permite la transferencia de materia y energía & $ \mathrm{T}, \mathrm{V}, \mu$ \\
+
+				\hline %línea horizontal
+				\multicolumn{3}{l}{$E$: energía interna, $ N$: número de partículas, $ \mathrm{V}$: volumen, $ \mathrm{T}$: temperatura, }\\
+				\multicolumn{3}{l}{$ \mu$: energía de Gibbs molar parcial o potencial químico.}
+			\end{tabular}
+		\end{center}
+	\end{table}
+}
+\smallskip
+A su vez, los sistemas pueden ser: %
+\begin{itemize}
+	\item Homogéneos: aquellos cuyas propiedades intensivas son idénticas en cualquier parte del mismo ($ \mathrm{T,P}$). P.Ej: un gas, mezcla de gases, una disolución ideal, etc.
+	\item Heterogéneo: formado por dos o más fases, con lo que se crea una interfase. Las propiedades intensivas varían según la parte o fase del sistema.
+\end{itemize}
+También, podemos clasificar las variables en: %
+\begin{itemize}
+	\item Variables macroscópicas: aquellas magnitudes de la termodinámica clásica que son fácilmente medibles, como $ \mathrm{P,T,V}$. Lo son, también, las funciones de estado como $ H,S,G,A,$ etc.
+	\item Variables microscópicas: aquellas que caracterizan a cada uno de los constituyentes del sistema. P.Ej: la estructura de una partícula, la masa de la partícula, la frecuencia de vibración fundamental de una molécula, el momento de inercia en la rotación de una molécula, etc.
+\end{itemize}
+En mecánica estadística, un sistema es una parte del Universo a estudiar, simplemente. Se introduce el concepto de colectivo: %
+\begin{itemize}
+	\item \textbf{Colectivo}: gran número de sistemas reales o imaginarios. Pueden ser: %
+	\begin{itemize}
+		\item Gran canónico o macrocanónico: está formado por sistemas abiertos.
+		\item Canónico: está formado por un gran número de sistemas cerrados idénticos.
+		\item Microcanónico: está formado por un gran número de sistemas aislados idénticos.
+	\end{itemize}
+\end{itemize}
+Nosotros nos moveremos en un sistema dentro del colectivo microcanónico, es decir, un sistema aislado.\\
+
+Debemos tener en cuenta que un colectivo canónico degenerado es igual que un colectivo microcanónico. Un sistema degenerado es un sistema en el que la energía es la misma (degeneración: energía idéntica).\\
+
+Un sistema dentro del colectivo microcanónico debe cumplir los siguientes requisitos (en equilibrio termodinámico):
+\begin{enumerate}
+	\item \textbf{Partículas idénticas} (P.Ej: gases, $ \mathrm{H_2, He, CO_2, CH_4,}$ etc.)\\
+	Se pueden tratar clásicamente o cuánticamente.\\
+
+	Clásicamente, las partículas idénticas pueden estudiarse como distinguibles, mientras que cuánticamente, las partículas idénticas son \textbf{indestinguibles} por el principio de incertidumbre $ \Delta x \Delta p \geqslant \hbar/2$.\\
+	Clásicamente podemos conocer la posición $ x$ y momento $ p$ de la partícula a la vez, mientras que cuánticamente rige dicho principio de incertidumbre, por el que no podemos conocer a la vez y con total exactitud la posición y el momento de una partícula.\\
+
+	Una partícula está definida, en el espacio tridimensional, por su posición $ (x,y,z)$ y su momento $ (p_x,p_y,p_z)$, en el mundo clásico. Es decir, para una partícula, encontramos 6 variables. Por tanto, si tenemos $ n$ partículas, necesitaremos $ 6n$ variables para describirlo. Siendo que en nuestro sistema $ n$ es del orden del número de Avogadro ($N_A=6.022\cdot 10^{23}$), $ n \sim 10^{23}$, lo que lo hace muy difícil de estudiar clásicamente. Es por esto que utilizaremos la mecánica estadística para estudiar estos sistemas.
+
+	\item \textbf{Permanentes}\\
+	El número de partículas es siempre constante e igual a $ N$: %
+	\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+		N= \sum_{i} n_i = \mathrm{cte}
+	\end{empheq}
+
+	\item En \textbf{estado estacionario}\\
+	La función de onda de la partícula $ i$ en el sistema no es función del tiempo: %
+	\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+		 \psi_i \not= \psi_i(t) \qquad i=1,2,3,...,N
+	\end{empheq}
+
+	\item \textbf{Independientes}, es decir, \textbf{partículas no interactuantes}\\
+	No existen atracciones ni repulsiones entre ellas. Si la prtícula $ i$ tiene una energía $ \varepsilon_i$ y $ n$ partículas tienen una energía $ \varepsilon_n = \sum_{i}^{n} \varepsilon_i$, la energía interna $ E$ es: %
+	\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+		E = \sum_{i}n_i \varepsilon_i
+	\end{empheq}
+	Donde ahora $ i$ se refiere al nivel energético en el que se encuentra la partícula [\ref{fig:T1-representacion niveles}], $ \varepsilon_i$ es la energía de cada partícula que se encuentre en un nivel $ i$, y $ n$ el número de partículas.\\ %
+
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.5\textwidth]{Imágenes/T1_niveles,i}
+		\caption{Representación de los niveles $ i$.}
+		\label{fig:T1-representacion niveles}
+	\end{figure}
+
+	La no presencia de atracciones ni repulsiones implica que el hamiltoniano del sistema $ H_{\mathrm{sistema}}$ sea la suma de los hamiltonianos $ H_i$ de todas las partículas $ i$, ya que son independientes: %
+	\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+		H_{ \mathrm{sistema}} = H = \sum_{i}^{N} H_i \qquad i=1,2,3,...,N
+	\end{empheq}
+	Además, la función de onda se puede escribir como combinaciones lineales de productos de las funciones de onda de las partículas si estas son indiscernibles: %
+	\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+		\text{\textbf{Indiscernibles}} \Rightarrow \psi_{ \mathrm{sistema}} = \sum_{i} 	\left( \psi_1 \psi_2 \dots \psi_N \right)
+	\end{empheq}
+	Y será el producto de las funciones de onda si son discernibles:
+	\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+		\text{\textbf{Discernibles}} \Rightarrow \psi_{ \mathrm{sistema}} =  \psi_1 \psi_2 	\dots \psi_N
+	\end{empheq}
+\end{enumerate}
+Recordando que todos estos requisitos son para \textbf{partículas idénticas}.\\
+
+Veamos otras definiciones:
+
+%TODO: COMPLETAR DEFINICIÓN
+
+\begin{itemize}
+	\item El número total de microestados del sistema es igual a la suma del número total de distribuciones.
+
+	\item Distribución más probable: aquella para la cuál el número de microestados es máximo.
+
+	\begin{ejemplo}
+		Sistema compuesto de 3 partículas y 3 cajas idénticas, en el que consideramos las partículas como discernibles. %
+	\begin{equation}\label{ec:T1-N y E para ejemplo distribuciones}
+		N=3 \qquad E= \sum n_i \varepsilon_i = 3\varepsilon\ \mathrm{ua\ (unidades\ arbitrarias)}
+	\end{equation}
+	Veamos las distribuciones posibles: %
+
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.7\textwidth]{Imágenes/T1_Ejemplo_distribuciones}
+		\caption{Distribuciones $ D_i$ posibles para tres partículas discernibles (representadas en tres colores diferentes).}
+		\label{fig:T1-ejemplos distribuciones}
+	\end{figure}
+
+	En este caso, las cajas son \textbf{estados}\footnotemark.\\
+	\footnotetext{Estados: situaciones equienergéticas}
+
+	Encontramos 10 formas (distribuciones diferentes $ D_i$) de distribuir las 3 partículas en estados. Como todas tienen la misma energía $ \varepsilon$ y el número de partículas es constante, la energía será la dada por la [\equatref{ec:T1-N y E para ejemplo distribuciones}].\\
+
+	Ahora, el número de microestados será [\ref{fig:T1-números de microestados}]:\\ %
+
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.8\textwidth]{Imágenes/T1_numero_microestados}
+		\caption{Número de microestados $ \Omega $.}
+		\label{fig:T1-números de microestados}
+	\end{figure}
+
+	\end{ejemplo}
+
+	Veamos ahora otra situación:
+
+	\begin{ejemplo}\label{ej:T1-ejemplo a usar}
+	Un sistema con $ N=2$ y $ E=2\ \mathrm{ua}$ y que consta de 3 niveles de energía. Las posibles distribuciones para $ E=2$ son [\ref{fig:T1-numero de microestados ejemplo 2}]:\\ %
+
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.8\textwidth]{Imágenes/T1_numero_microestados_ejemplo_2}
+		\caption{Número de microestados $ \Omega $}
+		\label{fig:T1-numero de microestados ejemplo 2}
+	\end{figure}
+
+	La distribución $ D_1$ tiene $ 3^2$ microestados, porque las partículas son distinguibles, $ \Omega_2=2$ y $ \Omega_1=9$. Si las partículas fuesen indistinguibles, $ \Omega_2=1$ y $ \Omega_1=6$.
+	\end{ejemplo}
+
+\end{itemize}
+
+\subsection{Postulados del colectivo microcanónico}
+
+\begin{description}
+	\item[POSTULADO 1.] Principio de equiprobabilidad a priori.\\
+	Dada una distribución determinada, todos los microestados posibles dentro de ella (que cumple unas restricciones macroscópicas determinadas, $ N$ fijo y $ E$ fijo) tienen la misma probabilidad.\\
+
+	Se denomina \textbf{probabilidad termodinámica} de una distribución al número de microestados de la misma.\\
+	Se denomina \textbf{probabilidad matemática} de una distribución al número de microestados de una distribución dividido por el número de microestados totales.\\
+
+	Para el último ejemplo [\ejemref{ej:T1-ejemplo a usar}], la probabilidad termodinámica y matemática es [\ref{tab:T1-probs termodinamica y matematica ejemplo}]:\\
+	 %
+	{
+		\extrarowheight = -0.5ex  %espacio en blanco
+		\renewcommand{\arraystretch}{2.00}
+		\begin{table}[h!]
+			\begin{center}
+				\begin{tabular}{ c c c }
+					\caption{Valor de la probabilidad teromdinámica y matemática para el \ejemref{ej:T1-ejemplo a usar}.}
+					\label{tab:T1-probs termodinamica y matematica ejemplo}\\
+					\hline %línea horizontal
+					\bfseries{Distribución} & \bfseries{Probabilidad Termodinámica} & \bfseries{Probabilidad Matemática}\\
+					\hline %línea horizontal
+
+					 $ D_1\ ( \Omega_1=9)$ &  $ 9$ &  $ 9/11$ \\
+
+					 $ D_2\ ( \Omega_2=2)$ &  $ 2$ &  $ 2/11$ \\
+
+					\hline %línea horizontal
+				\end{tabular}
+			\end{center}
+		\end{table}
+	}
+
+	\item[POSTULADO 2.] El número de microestados de un sistema en equilibrio termodinámico, para un valor determinado de sus variables microscópicas, tiene a ser el máximo posible.\\
+
+	Otra forma de enunciarlo sería:\\
+
+	Un sistema en equilibrio termodinámico tiende a estar en la distribución más probable.
+
+	\item[POSTULADO 3.] Principio de correspondencia:\\
+
+	Todas las variables que determinamos mediante la termodinámica estadística deben ser compatibles con los valores experimentales, o, con los valores determinados con la termodinámica clásica. Todo debe coincidir.
+\end{description}
+
+No olvidemos que todos estos principios sólo rigen en sistemas con un gran número de partículas, del orden de $ n \sim 10^{23}$.\\
+
+\section{Estadística de Maxwell-Boltzmann}
+
+Nosotros estudiaremos todos los sistemas con gran $ N$ desde el punto de vista clásico. Aplicaremos la estadística de Maxwell-Boltzmann.\\
+
+Se puede estudiar los sistemas desde 3 puntos de vista: %
+$$
+	{
+		\extrarowheight = -0.5ex  %espacio en blanco
+		\renewcommand{\arraystretch}{2.00}
+		\text{Estadísticas} \left\{\begin{matrix}
+		\text{Clásica} \rightarrow \text{\textbf{Maxwell-Boltzmann (M-B)}}\\
+		\text{Cuántica} \left\{\begin{matrix}
+			\text{Fermi-Dirac (F-D)}\\
+			\text{Bose-Einstein (B-E)}
+		\end{matrix}\right.
+	\end{matrix}\right.
+	}
+$$
+
+\subsection{Estadística clásica de Maxwell-Boltzmann}
+
+La estadística M-B, aunque estudia las partículas distinguibles (estadística clásica), nosotros las trataremos desde el punto de visa cuántico, con niveles de energía discretos y distintos estados dentro de los niveles.\\
+
+La función de onda del sistema de una serie de partículas $ i=1,2,3,...,N$ en unos estados $ a,b,...,X$ será la misma que vimos para partículas distinguibles: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+	 \psi = \psi_1(a) \psi_2(b) \dots \psi_N (X)
+\end{empheq}
+Por ejemplo, en el caso de dos partículas distinguibles $ 1,2$ en dos estados $ a,b$: %
+\begin{equation}
+	 \psi = \psi_1(a) \psi_2 (b)
+\end{equation}
+\textbf{No tiene requerimientos de simetría.}\\
+
+Podemos cambiar los estados, pero cambia la función de onda porque tratamos las partículas como distinguibles: %
+\begin{equation}
+	{
+		\extrarowheight = -0.5ex  %espacio en blanco
+		\renewcommand{\arraystretch}{2.00}
+		\left.\begin{matrix}
+		 \psi = \psi_1(a) \psi_2(b) \\
+		 \psi' = \psi_1(b) \psi_2(a)
+	\end{matrix}\right\} \psi \not= \psi'
+	}
+\end{equation}
+También la aplicaremos a partículas indistinguibles cuando estén suficientemente alejadas, cuando su función de onda no solapa, es decir, que la integral de solapamiento sea nula: %
+\begin{equation}
+	S = \int_{\forall} \psi_1 \psi_2 = 0
+\end{equation}
+Aunque sean indistinguibles las podríamos tratar como distinguibles.
+
+\subsection{Estadística cuántica de Fermi-Dirac}
+
+En la estadística F-D, las partículas son \textbf{fermiones} \footnotemark
+\footnotetext{Fermión: cualquier partícula con espín semientero, como electrones y protones, o molécula con espín semientero.} indistinguibles. Rige el principio de Pauli, por lo que ahora no son aceptables las funciones de onda: %
+\begin{equation}
+{
+	\extrarowheight = -0.5ex  %espacio en blanco
+	\renewcommand{\arraystretch}{2.00}
+		\left.\begin{matrix}
+			\psi = \psi_1 (a) \psi_2 (b) \\
+			\psi' = \psi_1 (b) \psi_2 (a)
+		\end{matrix}\right\} \psi = \psi'
+}
+\end{equation}
+Ya que ahora las partículas son indistinguibles, por lo que no diferenciamos el cambio de estado. La función de onda tiene que ser \textbf{antisimétrica}:
+\begin{equation}
+	{
+		\extrarowheight = -0.5ex  %espacio en blanco
+		\renewcommand{\arraystretch}{2.00}
+		\left.\begin{matrix}
+			\psi = \psi_1 (a) \psi_2 (b) - \psi_1(b) \psi_2 (a) \\
+			\psi' = \psi_1 (b) \psi_2 (a) - \psi_1 (a) \psi_2 (b)
+		\end{matrix}\right\} \psi' = -\psi \Rightarrow \text{Asimétrica}
+	}
+\end{equation}
+La función de onda será una combinación lineal del producto de las funciones de onda de las partículas, por ejemplo: %
+\begin{equation}
+	\psi = \psi_1 (a) \psi_2 (b) - \psi_1(b) \psi_2 (a)
+\end{equation}
+
+\subsection{Estadística cuántica Bose-Einstein}
+
+La estadística B-E estudia \textbf{bosones} \footnotemark \footnotetext{Bosones: partículas con espín cero o número entero, como fotones, fonones, o cualquier molécula con espín cero o número entero.} que, de nuevo, son indistinguibles.\\
+
+Para dos bosones, la función de onda aceptable será: %
+\begin{equation}
+	\begin{matrix}
+		\psi = \psi_1 (a) \psi_2 (a) \\
+		\psi = \psi_1 (b) \psi_2 (b) \\
+		\psi = \psi_1 (a) \psi_2 (b) + \psi_1 (b) \psi_2 (b)
+	\end{matrix}
+\end{equation}
+Son aceptables porque al cambiar los dos bosones de estado, $ \psi$ no cambia.\\
+
+Así, para $ N$ \textbf{fermiones}, utilizamos el \textbf{determinante de Slater}: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+	 \psi = \begin{vmatrix}
+	 	 \psi_1 (a) & \dots & \psi_1 (x) \\
+	 	 \vdots  &  & \vdots \\
+	 	 \psi_N (a) \psi_N (b) & \dots & \psi_N (x)
+	 \end{vmatrix}
+\end{empheq}
+Y, para $ N$ \textbf{bosones}, se utiliza el \textbf{determinante \textit{S} permanente} (espín):
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+	\psi = \begin{vmatrix}
+		\psi_1 (a) & \dots & \psi_1 (x) \\
+		\psi_2 (a) & \dots & \psi_2 (x) \\
+		\vdots &  & \vdots \\
+		\psi_N (a) & \dots & \psi_N (x)
+	\end{vmatrix}
+\end{empheq}
+También lo sería: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+	 \psi = \psi_1 (a) \psi_2 (a) \psi_3 (a) \dots \psi_N (a)
+\end{empheq}
+Por tanto: %
+$$
+	 \psi\ {
+	 	\extrarowheight = -0.5ex  %espacio en blanco
+	 	\renewcommand{\arraystretch}{2.00}
+	 	\left\{\begin{matrix}
+	 	\text{\textbf{fermiones}} & \rightarrow & \text{\textbf{antisimétrica} con el intercambio}\\
+	 	 \text{\textbf{bosones}} & \rightarrow & \text{\textbf{simétrica} con el intercambio}
+
+	 \end{matrix}\right.
+	 }
+$$
+Si las partículas son distinguibles independientes, la función de onda es simétrica: %
+\begin{equation}
+	 \psi = \psi_1(a) \psi_2(b) \dots \psi_N (x)
+\end{equation}
+Y el hamiltoniano del sistema $ H$ será la suma de los hamiltonianos de las partículas $ H_i$ para las coordenadas $ i$: %
+\begin{equation}
+	H = \sum_{i=1}^{N} H_i
+\end{equation}
+
+Ahora, vamos a plantear el siguiente sistema: un recipiente sumergido en un baño termostático que contiene $ N$ partículas [\ref{fig:T1-baño termostático}]. Primero, tendremos nuestras partículas de gas contenidas en una de las mitades de este recipiente (situación (a)). Como la energía de las partículas depende de la temperatura $ \mathrm{T}$, fijando una temperatura (con el baño termostático), la energía de las partículas será constante:\\ %
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Imágenes/T1_baño_termostático}
+	\caption{Recipiente sumergido en un baño termostático que contiene $ N$ partículas, a una temperatura constante $ T$.}
+	\label{fig:T1-baño termostático}
+\end{figure}
+
+\begin{equation}
+	E = \dfrac{3}{2} \mathrm{RT}
+\end{equation}
+Para 1 mol de moléculas o átomos, la energía es: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+	 \varepsilon = \dfrac{3}{2} k_B \mathrm{T}
+\end{empheq}
+Donde $ k_B$ es la constante de Boltzmann y: %
+\begin{equation}
+	 \sum_{i=1}^{N} n_i = N \qquad E = \sum_{i=1}^{N} n_i \varepsilon_i = N \varepsilon
+\end{equation}
+Es un sistema degenerado cuánticamente.\\
+
+Ahora, quitamos la barrera y dejamos que el gas se expanda durante un tiempo lo suficientemente largo (situación (b)). Las partículas de gas se distribuirán homogéneamente por todo el recipiente, de forma que a la izquierda quedarán $ N/2$ de las partículas, y a la derecha el otro $ N/2$ restante.\\
+
+Este ejemplo lo hacemos con la siguiente finalidad:\\
+En el equilibrio, un sistema termodinámico, de todas las distribuciones posibles en que puede estar, elige estar en la más probable. Hay una distribución muchísimo más probable que el resto. Es, prácticamente, la única distribución posible.
+\begin{ejemplo}\label{ej:T1-ejemplo distribuciones}
+	Tenemos un sistema degenerado de $ N=10$ partículas distinguibles y $ E = 10 \varepsilon$ en el que hay dos estados posibles. Veamos las posibles distribuciones [\ref{fig:T1-distribuciones ejemplo}]:\\ %
+
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.9\textwidth]{Imágenes/T1_Ejemplo_distribuciones_2}
+		\caption{Distribuciones posibles para el \ejemref{ej:T1-ejemplo distribuciones}.}
+		\label{fig:T1-distribuciones ejemplo}
+	\end{figure}
+
+	Recordatorio: los estados son equienergéticos, es decir, que encontramos un número dado de estados $ 1,2,3,...,n$ dentro de un nivel $ i$, para cualquier nivel $ i=1,2,3,...,j$. En el siguiente ejemplo [\ref{fig:T1-recordatorio sobre niveles}]:\\ %
+
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.7\textwidth]{Imágenes/T1_ejemplo_niveles}
+		\caption{Recordatorio sobre los niveles.}
+		\label{fig:T1-recordatorio sobre niveles}
+	\end{figure}
+
+	Encontramos 3 estados en el nivel 1.\\
+
+	Bien, vemos que el número de distribuciones para este tipo de sistema con 2 estados es igual al número de partículas $ N$ más 1, ya que sólo hay dos estados posibles: %
+	\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+		 \text{2 estados posibles} \Rightarrow D = N + 1
+	\end{empheq}
+	Veamos el número de microestados [\ref{fig:T1-numero micrestados ejemplo}]:\\ %
+
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.4\textwidth]{Imágenes/T1_microestados_ejemplo_7}
+		\caption{Número de microestados para las distribuciones $ D_1,D_2$.}
+		\label{fig:T1-numero micrestados ejemplo}
+	\end{figure}
+
+	Para $ D_1$ sólo hay un microestado posible, con lo que $ \Omega_1 = 1$.\\
+	Para $ D_2$ encontramos 10 microestados posibles, es decir, $ \Omega_2 = 10$, ya que, como siempre quedan 9 moléculas a la izquierda y 1 a la derecha, podremos colocar cada una de las 10 partículas en la derecha, y las otras 9 en la izquierda sin que se altere la distribución. IDEM $ D_3, D_4, D_5, D_6, D_7, D_8, D_9, D_{10}, D_{11}$.\\
+	Podríamos hacer la cuenta anterior para el resto de distribuciones, pero, si nos paramos un segundo a pensar, podemos ver que el número de microestados siguen la siguiente relación: %
+	\begin{equation}
+		\Omega = \dfrac{N! \, }{N_1! \,  (N-N_1)! \, }
+	\end{equation}
+	Siendo $ N$ el número de partículas total y $ N_1$ el número de partículas a la izquierda, con lo que el número de partículas a la derecha será $ N-N_1$.\\
+
+	Vemos que, haciendo uso de esta relación, se cumple el número de microestados para las distribuciones $ D_1$ y $ D_2$, que hallamos razonando: %
+	$$
+		 \begin{matrix}
+		 	\Omega_1 = \dfrac{10! \, }{10! \,  (10-10)! \, } = 1\\
+		 	\Omega_2 = \dfrac{10! \, }{9! \,  (10-9)! \, } = 10
+		 \end{matrix}
+	$$
+	Aplicamos ahora esta relación para el resto de distribuciones y recogemos los resultados en la siguiente tabla [\ref{tab:T1-numero de microestados}]: %
+	{
+		\extrarowheight = -0.5ex  %espacio en blanco
+		\renewcommand{\arraystretch}{2.00}
+		\begin{table}[h!]
+			\begin{center}
+				\begin{tabular}{ c c c }
+					\caption{Número de microestados, siendo la $ DMP = \Omega_6$.}
+					\label{tab:T1-numero de microestados}\\
+					\hline %línea horizontal
+					\bfseries{Distribución} & \bfseries{$ \boldsymbol{N_1}$} & \bfseries{$ \boldsymbol{\Omega = N! \, /(N_1! \, (N-N_1)! \, )}$}\\
+					\hline %línea horizontal
+
+					 $ D_1$ & 10 & 1 \\
+
+					 $ D_2$ & 9 & 10 \\
+
+					 $ D_3$ & 8 & 40 \\
+
+					 $ D_4$ & 7 & 120 \\
+
+					 $ D_5$ & 6 & 210 \\
+
+					 $ \boldsymbol{D_6}$ & \textbf{5} & \textbf{252} \\
+
+					 $ D_7$ & 4 & 210 \\
+
+					 $ D_8$ & 3 & 120 \\
+
+					 $ D_9$ & 2 & 40 \\
+
+					 $ D_{10}$ & 1 & 10 \\
+
+					 $ D_{11}$ & 0 & 1 \\
+
+					\hline %línea horizontal
+				\end{tabular}
+			\end{center}
+		\end{table}
+	}
+
+	Vemos que la $ DMP$ no es mucho más probable que el resto de distribuciones, pero eso es porque sólo hemos tratado con 10 partículas. Nosotros estudiaremos sistemas con $ N \sim 10^{23}$, y en estos sistemas la diferencia será muchísimo más notable.
+\end{ejemplo}
+
+Generalicemos este caso:
+
+\subsection{Generalización del sistema con dos posibles estados}
+
+En un sistema de 2 componentes de $ N$ partículas con la misma energía $ \varepsilon$, el número de microestados para una distribución cualquiera $ D$ vale: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation} \label{ec:T1-numero de microestados}
+	\Omega_D = \dfrac{N! \, }{N_1! \,  (N-N_1)! \, } \qquad N_1 \leqslant N
+\end{empheq}
+El número de microestados total será el sumatorio para todas las distribuciones posibles del número de microestados de cada distribución: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+	 \Omega_T= \sum_{N_1=0}^{N_1=N} \left( \dfrac{N! \, }{N_1! \,  (N - N_1)! \, } \right) = 2^N
+\end{empheq}
+Desarrollando el sumatorio encontramos que el número total de microestados es igual al número de estados (en este caso, 2) elevado al número de partículas $ N$.\\
+
+Cuando $ N$ es muy elevado, la distribución en la cual existen $ N/2$ moléculas a la izquierda y $ N/2$ a la derecha es la $ DMP$. Es decir, que $ N_1=N/2$ y $ N-N_1 = N/2$.\\
+
+Cojamos el número de microestados de una distribución [\equatref{ec:T1-numero de microestados}]. El número de microestados máximo vendrá dado por el valor de $ N_1$ que hace que $ \Omega_D$ sea máximo, y llamaremos $ N_1^*$: %
+\begin{equation}\label{ec:T1-derivada microestados}
+	\left(\dfrac{d \Omega_D}{dN_1} \right)_{N_1 = N_1^*} = 0
+\end{equation}
+Pretendemos calcular $ N_1^*$ para el que se cumple la ecuación anterior, pero no sabemos calcular las derivadas de un factorial $ N! \, $ muy grande. Utilizaremos la demostración de Stirling (importante, la utilizaremos mucho).
+
+\subsubsection{Demostración de Stirling ($*$)}
+ %
+ \begin{empheq}[box={\mybluebox[5pt]}]{equation}\label{ec:T1-demostracion de Stirling}
+ 	\ln x! \,  = x\ln x - x \qquad \text{si}\ x \ggg 1
+ \end{empheq}
+Hallamos así la derivada de la \equatref{ec:T1-derivada microestados}, para lo que tomaremos logaritmos de la expresión para $ \Omega_D$ [\equatref{ec:T1-numero de microestados}] y hallaremos su derivada. Primero hagamos un inciso y recordemos la derivada de la función logaritmo (preguntaron en clase(...)):\\
+
+\textit{Inciso:} %
+$$
+	\dfrac{d\ln f(x)}{dx} = \dfrac{1}{f(x)} \dfrac{df(x)}{dx}
+$$
+
+Ahora: %
+\begin{equation}\label{ec:T1-derivada microestados = 0}
+	\begin{split}
+		\dfrac{d\ln \Omega_D}{dN_1} &= \left(\dfrac{1}{ \Omega_D} \dfrac{d \Omega_D}{dN_1} \right)_{N_1=N_1^*} = 0\\
+		&= C\left(\dfrac{d \Omega_D}{dN_1} \right)_{N_1=N_1^*} = 0
+	\end{split}
+\end{equation}
+El valor de $ N_1^*$ que hace que se cumpla la \equatref{ec:T1-derivada microestados = 0} es el mismo que hace que $ 1/ \Omega_D = C = \text{cte} = 0$.\\
+
+Tomamos logaritmo de $ \Omega_D$: %
+\begin{equation}
+	\begin{split}
+		\ln \Omega_D & = \ln \dfrac{N! \, }{N_1! \, (N-N_1)! \, } = \ln N! \,  - \ln \left[N_1! \,  (N-N_1)! \,  \right] = \\
+		& = \ln N! \,  - \ln N_1! \,  - \ln (N-N_1)! \,
+	\end{split}
+\end{equation}
+Aplicando la demostración de Stirling [\equatref{ec:T1-demostracion de Stirling}]: %
+\begin{equation}
+	\begin{matrix}
+		\ln N! \,  = N\ln N - N\\
+		\ln N_1! \,  =N_1\ln N_1 + N_1\\
+		\ln (N-N_1)! \,  = (N-N_1)\ln (N-N_1) + (N-N_1)
+	\end{matrix}
+\end{equation}
+Tenemos: %
+\begin{equation}
+	\begin{split}
+		\ln \Omega_D & = N\ln N - \cancel{N} - N_1\ln N_1 + \cancel{N_1} - (N-N_1)\ln (N-N_1) + (\cancel{N}-\cancel{N_1}) = \\
+		& = N\ln N - N_1\ln N_1 - (N-N_1)\ln (N-N_1)
+	\end{split}
+\end{equation}
+Así, encontramos que: %
+\begin{equation}
+	\ln \Omega_D = N\ln N - N_1\ln N_1 - (N-N_1)\ln (N-N_1)
+\end{equation}
+Teniendo en cuenta que $ N$ es el número de partículas y es constante $ N = \text{cte} \sim 10^{20}$.\\
+
+Ahora, la derivada valdrá: %
+\begin{equation}
+	\begin{split}
+		\dfrac{d\ln \Omega_D}{dN_1} &= \underbrace{\dfrac{dN\ln N}{dN_1}}_{0} - \underbrace{\dfrac{dN_1\ln N_1}{dN_1}}_{1\ln N_1 + N_1 \frac{ 1}{N_1}} - \underbrace{\dfrac{d(N-N_1)\ln (N-N_1)}{dN_1}}_{(-1)\ln (N-N_1) + (N-N_1)\frac{1}{(N-N_1)}(-1)} = \\
+		&= - \ln N_1  \cancel{-1} + \ln (N-N_1)  \cancel{+1} = \\
+		&=\ln (N-N_1) - \ln N_1 = \\
+		&= \ln \left(\dfrac{N-N_1}{N_1} \right)
+	\end{split}
+\end{equation}
+Encontramos que: %
+\begin{equation}
+	\dfrac{d\ln \Omega_D}{dN_1} = \ln \left(\dfrac{N-N_1}{N_1} \right)_{N_1 = N_1^*} = 0
+\end{equation}
+Para que la derivada se anule, el logaritmo tiene que ser cero, $ \ln (1) = 0$, es decir que el interior del logaritmo ha de ser la unidad: %
+\begin{equation}
+	\begin{split}
+		& \dfrac{N-N_1}{N_1} = 1\\
+		& N-N_1 = N_1\\
+		&2N_1 = N
+	\end{split}
+\end{equation}
+Resulta: %
+\begin{equation}
+	N_1^* = \dfrac{N}{2}
+\end{equation}
+Entonces, $ \Omega_D$ será máximo cuando $ N_1 = N_1^* = N/2$. En la \equatref{ec:T1-numero de microestados}: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+	 \Omega_{ \text{máx}} = \dfrac{N! \, }{(N/2)! \,  (N/2)! \, } = \Omega_{DMP}
+\end{empheq}
+Vemos que se cumple la lógica de que la distribución más probable será en la que se repartan las partículas equitativamente en los dos estados. Nos falta comprobar que este valor de $ N_1$ corresponde al máximo. Para ello, comprobamos que se cumpla: %
+\begin{equation}
+	\left(\dfrac{d^2 \Omega_D}{dN_1^2} \right)_{N_1=N/2} < 0
+\end{equation}
+Para que, de verdad, sea mínima.\\
+
+Hacemos la derivada: %
+\begin{equation*}
+	\begin{split}
+		\dfrac{d}{dN_1} \left[\ln \left(\dfrac{N-N_1}{N_1} \right) \right]_{N_1 = N/2} &= \dfrac{1}{(N-N_1)/N_1} \dfrac{d}{dN_1} \left(\dfrac{N-N_1}{N_1} \right) = \\
+		&= \dfrac{1}{(N-N_1)/N_1} \dfrac{\cancel{-N_1}-N+\cancel{N_1}}{N_1^2} = \\
+		&= \dfrac{N_1}{N-N_1} \dfrac{-N}{N_1^2} = \\
+		&= -\dfrac{N\cancel{N_1}}{N_1^{\cancel{2}}(N-N_1)} = \\
+		&= -\dfrac{N}{N_1(N-N_1)} = \qquad [N_1=N/2]\\
+		&= -\dfrac{N}{(N/2)(N-(N/2))} =\\
+		&= -\dfrac{N}{(N/2)(N/2)} =\\
+		&= -\dfrac{N}{N^2/4} =\\
+		&= -\dfrac{4\cancel{N}}{N^{\cancel{2}}} =\\
+		&= -\dfrac{4}{N}
+	\end{split}
+\end{equation*}
+Y encontramos: %
+\begin{equation}\label{ec:T1-segunda derivada microestados}
+	\dfrac{d}{dN_1} \left[\ln \left(\dfrac{N-N_1}{N_1} \right) \right]_{N_1 = N/2} =-\dfrac{4}{N} < 0
+\end{equation}
+Con lo que, efectivamente, para $ N_1=N/2$, $ \Omega_D$ se hace máximo.\\
+
+Ahora, vamos a demostrar que la $ DMP$ es mucho más probable cuando $ N$ es elevado:
+
+\subsection{Demostración probabilidad de $ DMP$ con $ N$}
+
+Primero, recordemos el desarrollo de Taylor:
+
+\subsubsection{Desarrollo de Taylor:}
+
+Para el punto $ x=a$: %
+\begin{equation}
+	f(x) = f(a) + \dfrac{f'(a)}{1! \, } (x-a) + \dfrac{f''(a)}{2! \, } (x-a)^2 + \dfrac{f'''(a)}{3! \, } (x-a)^3 + \dots
+\end{equation} %
+\begin{equation}
+	f(x=a) = f(x=a) + \left(\dfrac{df(x)}{dx} \right)_{x=a} \dfrac{(x-a)}{1! \, } + \left(\dfrac{d^2f(x)}{dx^2} \right)_{x=a} \dfrac{(x-a)^2}{2! \, } +  \dots
+\end{equation}
+Desarrollemos ahora $ \ln \Omega(N_1)$ con respecto al punto $ N_1 = N/2 = N_1^*$:
+\begin{equation}
+	\begin{split}
+		\ln \Omega(N_1=N_1^*=N/2) =& \ln \Omega(N_1=N_1^*=N/2) +\\
+		&+ \left(\dfrac{d\ln \Omega(N_1)}{dN_1} \right)_{N_1=N_1^*=N/2} \dfrac{(N_1-N_1^*)}{1! \, } +\\
+		&+ \left(\dfrac{d^2\ln \Omega(N_1)}{dN_1^2} \right)_{N_1=N_1^*=N/2} \dfrac{(N_1-N_1^*)^2}{2! \, } + \dots
+	\end{split}
+\end{equation}
+Que reescribo, por simplicidad, como:
+\begin{equation}\label{ec:T1-desarrollo Taylor microestados 2}
+	\resizebox{.9\hsize}{!}{$\ln \Omega(N_1^*) = \ln \Omega(N_1^*) + \underbrace{\left(\dfrac{d\ln \Omega(N_1)}{dN_1} \right)_{N_1^*}}_{0} \dfrac{(N-N_1^*)}{1! \, } + \underbrace{\left(\dfrac{d^2\ln \Omega(N_1)}{dN_1^2} \right)_{N_1^*}}_{-4/N} \dfrac{(N-N_1^*)^2}{2! \, } + \dots$}
+\end{equation}
+Ahora, si $ \Omega = \Omega_{DMP}$, implica que $ \Omega$ (y $ \ln \Omega$) se hace máximo (como ya vimos), así que asumimos que $ \left(d\ln \Omega(N_1) / dN_1 \right)_{N_1=N_1^*} = 0$. Además, hemos hallado que $ \left(d^2\ln \Omega(N_1) / dN_1^2 \right)_{N_1=N_1^*} = -4/N $ [\equatref{ec:T1-segunda derivada microestados}]. Reescribimos entonces la \equatref{ec:T1-desarrollo Taylor microestados 2} (tomando solo hasta el término cuadrático, ya que para los sistemas que trataremos de $ N$ elevado, $ \Omega$ también será elevado, y podemos despreciar el resto de términos) como: %
+\begin{equation}
+	\ln \Omega(N_1) = \ln \Omega (N_1^*) - \dfrac{4}{N} \dfrac{(N_1-N_1^*)^2}{2! \, }
+\end{equation}
+Que manipulamos: %
+\begin{equation*}
+	\begin{split}
+		\ln \Omega(N_1) &= \ln \Omega (N_1^*) - \dfrac{4}{N} \dfrac{(N_1-N_1^*)^2}{2! \, }\\
+		\ln \Omega(N_1) - \ln \Omega (N_1^*) &= - \dfrac{2}{N} (N_1-N_1^*)^2\\
+		\ln \left(\dfrac{ \Omega(N_1)}{ \Omega(N_1^*)} \right) &= - \dfrac{2}{N} (N_1-N_1^*)^2\\
+		\dfrac{ \Omega(N_1)}{ \Omega(N_1^*)} &= e^{- \dfrac{2}{N} (N_1-N_1^*)^2}
+	\end{split}
+\end{equation*}
+Hasta obtener: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}\label{ec:T1-expresión gaussiana microestados}
+	\Omega(N_1) = \Omega(N_1^*) e^{- \dfrac{2}{N} (N_1-N_1^*)^2}
+\end{empheq}
+Se trata de una función gaussiana, del tipo:
+
+\subsubsection{Función gaussiana} %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}\label{ec:T1-función gaussiana}
+	y(x) = \dfrac{1}{2 \pi \sigma } e^{-\dfrac{(x-x^*)^2}{2 \sigma^2}}
+\end{empheq}
+Si comparamos nuestra expresión encontrada para el número de microestados [\equatref{ec:T1-expresión gaussiana microestados}] con la gaussiana [\equatref{ec:T1-función gaussiana}] , vemos que: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+	\sigma = \dfrac{\sqrt{N}}{2}
+\end{empheq}
+La desviación estándar en nuestra expresión gaussiana para $ \Omega$ [\equatref{ec:T1-expresión gaussiana microestados}] será de $ \sqrt{N}/2$.\\
+
+En base a esto, vamos a representar la \equatref{ec:T1-expresión gaussiana microestados} con una ligera modificación: %
+\begin{equation}\label{ec:T1-función microestados a representar}
+	\dfrac{ \Omega(N_1)}{ \Omega(N_1^*)} = e^{- \dfrac{2}{N} (N_1-N_1^*)^2}
+\end{equation}
+Esta modificación la hacemos para representar $ \Omega(N_1)/ \Omega(N_1^*)$ frente a $ N_1/N$, ya que así tanto la ordenada como la abscisa varía entre 0 y 1. Así, cuando la ordenada se hace 1, el número de microestados será el de la $ DMP$, $ \Omega(N_1) = \Omega(N_1^*)$, mientras que cuando se hace 0, el número de microestados se hace 0. Para la abscisa, se hace 1 cuando todas las partículas se encuentran a la izquierda, $ N=N_1$ y se hace 0 cuando no hay partículas. En el eje de las abscisas hay un punto importante a resaltar, y es el punto $ N_1/N = 1/2$, ya que corresponde al punto $ N_1=N/2 = N_1^*$, que ha de corresponder al máximo, es decir, al punto en el que $ \Omega(N_1) = \Omega(N_1^*)$ y $ \Omega(N_1)/ \Omega(N_1^*) = 1$.\\
+También podemos representar $ \Omega(N_1)$ frente a $ N_1$ con la función de la \equatref{ec:T1-expresión gaussiana microestados}, pero prefiero hacerlo así.\\
+
+Por tanto, representamos la función [\equatref{ec:T1-función microestados a representar}] para, por ejemplo, $ N=50,\ 300,\ 10000$ [\ref{fig:T1-gráfica distribucion microestados}].\\
+
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}[scale=1.2]
+		\def \title{ };%Título
+		\def \xLabel {$N_1/N$}; % leyenda eje x
+		\def \yLabel {$\dfrac{\Omega (N_1)}{\Omega (N_1^*)}$}; % leyenda eje y
+		\def \xMin{0.0};
+		\def \xMax{1.0};
+		\def \yMin{0.0};
+		\def \yMax{1.0};
+		\def \stepGrid{2cm}; % pas de la grille
+		\def \titleWidth {10cm}; % largeur de la vignette de titre
+		\begin{axis}[
+			xlabel={\footnotesize \xLabel},
+			ylabel={\footnotesize \yLabel},
+			grid=major,
+			axis x line=bottom,
+			axis y line=left,
+			xtick={0,0.5,1},
+			xticklabels={{\tiny 0, \tiny 1/2, \tiny 1}},
+			ytick={0, 1},
+			yticklabels={\tiny 0, \tiny 1},
+			xmin=\xMin,
+			xmax=\xMax,
+			ymin=\yMin,
+			ymax=\yMax,]
+
+			\addplot+[name path=A,thick,mark=none,smooth,domain=\xMin:\xMax]{ exp(-2*(((x*50) - (50/2))^2)/50)};
+			\addlegendentry{\scriptsize $N=50$};
+			\addplot+[name path=B,thick,mark=none,smooth,domain=\xMin:\xMax]{ exp(-2*(((x*300) - (300/2))^2)/300)};
+			\addlegendentry{\scriptsize $N=300$};
+			\addplot+[name path=C,thick,mark=none,smooth,domain=\xMin:\xMax]{ exp(-2*(((x*10000) - (10000/2))^2)/10000)};
+			\addlegendentry{\scriptsize $N=10000$};
+
+
+		\end{axis}
+	\end{tikzpicture}
+	\caption{Gráfica de la distribución gaussiana del número de microestados.}
+	\label{fig:T1-gráfica distribucion microestados}
+\end{figure}
+
+Vemos en la gráfica que, al aumentar $ N$, la $ DMP$ se hace muchísimo más probable, ya que la mayoría de número de microestados se recogen entrono al $ N$ para el $ \Omega_{DMP}$, y se va haciendo más estrecha con el aumento de $ N$.\\
+
+También lo podemos razonar de la expresión gaussiana para $ \Omega$ [\equatref{ec:T1-expresión gaussiana microestados}], ya que cuando $ N$ es muy grande, el exponente tiene a 0, y $ \Omega(N_1) \to \Omega(N_1^*)$: %
+\begin{equation}
+	\resizebox{.9\hsize}{!}{$\lim_{N \to +\infty} \Omega(N_1) = \lim_{N \to +\infty} \Omega(N_1^*) e^{- \dfrac{2(N_1-N_1^*)^2}{N} } = \Omega(N_1^*) \cancelto{e^0=1}{e^{- \dfrac{2(N_1-N_1^*)^2}{+\infty}}} = \Omega(N_1^*) $}
+\end{equation}
+Propongamos un ejemplo:
+\begin{ejemplo}\label{ej:T1-ejemplo microestados y niveles}
+
+	Supongamos ahora un sistema con $ N=5$ partículas distinguibles y $ E=5\ \mathrm{ua}$ y 4 niveles de energía. Las distribuciones posibles son las siguientes [\ref{fig:T1-distribuciones y niveles}]:\\ %
+
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.9\textwidth]{Imágenes/T1_distribuciones_y_niveles}
+		\caption{Distribuciones posibles para el \ref{ej:T1-ejemplo microestados y niveles}.}
+		\label{fig:T1-distribuciones y niveles}
+	\end{figure}
+
+	Todas las distribuciones han de cumplir que $ E = \sum n_i \varepsilon_i = 5\ \mathrm{ua}$\\
+
+	El número de microestados de una distribución $ D$, si tenemos $ j$ niveles, es: %
+	\begin{equation}
+		 \Omega_D = \dfrac{N! \, }{n_0! \,  n_1! \,  n_2! \, \dots n_j! \, } \qquad \sum n_j = N
+	\end{equation}
+	Calculemos así el número de microestados para cada distribución del ejemplo: %
+	\begin{equation*}
+		\begin{split}
+			& \Omega_1 = \dfrac{5! \, }{3! \, 0! \, 1! \, 1! \, } = \dfrac{5! \, }{3! \, } = 20\\
+			& \Omega_2 = \dfrac{5! \, }{0! \, 5! \, 0! \, 0! \, } = \dfrac{5! \, }{5! \, } = 1\\
+			& \Omega_3 = \dfrac{5! \, }{2! \, 2! \, 0! \, 1! \, } = \dfrac{5! \, }{2! \, 2! \, } = 30\\
+			& \Omega_4 = \dfrac{5! \, }{2! \, 1! \, 2! \, 0! \, } = \dfrac{5! \, }{2! \, 2! \, } = 30\\
+			& \Omega_5 = \dfrac{5! \, }{1! \, 3! \, 1! \, 0! \, } = \dfrac{5! \, }{3! \, } = 20\\
+		\end{split}
+	\end{equation*}
+	Cuando tengamos $ N$ partículas para distribuir en 2 estados o niveles, la expresión para el número de microestados será: %
+	\begin{equation}
+		 \Omega_D = \dfrac{N! \, }{n_1! \,  n_2! \, } \qquad n_1+n_2 = N
+	\end{equation}
+\end{ejemplo}
+Generalizando, cuando tengamos $ j$ niveles o estados y $ N$ partículas: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}\label{ec:T1-microestados para una configuracion}
+	\Omega_D = \dfrac{N! \, }{n_1! \,  n_2! \,  \dots n_j! \, } \qquad n_1+n_2+\dots+n_j = N
+\end{empheq}
+Sí y sólo sí son estados: es decir, si todas las \textit{cajas} tienen la misma energía, de forma que $ E=N \varepsilon$, la $ DMP$ es, para 2 \textit{cajas}: %
+\begin{equation}
+	\Omega_{DMP} = \dfrac{N! \, }{( (N/2)! \, )^2}
+\end{equation}
+Y, en general, para $ N$ partículas y $ j$ cajas, el número de microestados para la distribución más probable viene dado por: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+	 \Omega_{DMP} = \dfrac{N! \, }{( (N/j)! \, )^j}
+\end{empheq}
+Y el número de microestados total por: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+	 \Omega_{TOT} = j^N
+\end{empheq}
+Recordemos que vimos que, en el caso de tener 2 cajas, el número total de microestados era $ 2^N$, con lo que cumple la relación obtenida.
+\begin{ejemplo}
+	Ahora, supongamos que en el \ejemref{ej:T1-ejemplo microestados y niveles}, el nivel 1 está 6 veces degenerado [\ref{fig:T1-ejemplo con nivel degenerado 6 veces}].\\ %
+
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.6\textwidth]{Imágenes/T1_ejemplo_con_nivel_degenerado}
+		\caption{Mismo sistema que en el \ejemref{ej:T1-ejemplo microestados y niveles}, pero el nivel 1 está 6 veces degenerado.}
+		\label{fig:T1-ejemplo con nivel degenerado 6 veces}
+	\end{figure}
+
+	Recordando que, en ese caso, $ \Omega_2 = 1$. Ahora encontramos degeneración en uno de los niveles, con lo que el número de microestados cambia. Ahora, para la distribución $ D_2$ encontramos: %
+	\begin{equation}
+		 \Omega_{D_2} = 6^5 = 7776
+	\end{equation}
+	Tendremos que modificar la \equatref{ec:T1-microestados para una configuracion} para este caso, ya que tendremos que sumar el número de microestados debidos a la degeneración. Ahora:
+	\begin{equation*}
+		\begin{split}
+			& \Omega_1 = \dfrac{5! \, \cdot 6^0}{3! \, 0! \, 1! \, 1! \, } = \dfrac{5! \, }{3! \, } = 20\\
+			& \Omega_2 = \dfrac{5! \,  \cdot 6^5}{0! \, 5! \, 0! \, 0! \, } = \dfrac{5! \, \cdot 6^5}{5! \, } = 7776\\
+			& \Omega_3 = \dfrac{5! \,  \cdot 6^2}{2! \, 2! \, 0! \, 1! \, } = \dfrac{5! \, \cdot 6^2}{2! \, 2! \, } = 1080\\
+			& \Omega_4 = \dfrac{5! \, \cdot 6^1}{2! \, 1! \, 2! \, 0! \, } = \dfrac{5! \, \cdot 6}{2! \, 2! \, } = 180\\
+			& \Omega_5 = \dfrac{5! \,  \cdot 6^3}{1! \, 3! \, 1! \, 0! \, } = \dfrac{5! \, \cdot 6^3}{3! \, } = 4320\\
+		\end{split}
+	\end{equation*}
+	Esta aportación por las degeneraciones en el segundo nivel energético son igual al número de degeneraciones (6) elevado al número de partículas que encontremos en este nivel (0 para $ D_1$, 5 para $ D_2$, 2 para $ D_3$, etc.).\\
+
+	Ahora, la expresión para el cálculo del número de microestados es: %
+	\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+		\Omega_D = \dfrac{N! \, \cdot g_k^{n_k}}{n_1! \,  n_2! \,  \dots n_j! \, } \qquad n_1+n_2+\dots+n_j = N
+	\end{empheq}
+	Donde he simbolizado con $ g_k$ el número de degeneraciones y con $ n_k$ al número de partículas que se encuentran en un nivel $ k$.\\
+
+\end{ejemplo}
+Una vez asentadas estas nociones sobre microestados, vamos a enunciar el principio de Boltzmann:
+
+\section{Principio de Boltzmann}
+
+Si consideramos varios subsistemas aislados, por ejemplo, 2 subsistemas (1 y 2), y separados [\ref{fig:T1-principio Boltzmann}].\\ %
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.15\textwidth]{Imágenes/T1_principio_Boltzmann}
+	\caption{Sistema compuesto de dos subsistemas aislados 1 y 2, cuya entropía es $ S_1,S_2$, y contienen un número de microestados $ \Omega_1, \Omega_2$.}
+	\label{fig:T1-principio Boltzmann}
+\end{figure}
+
+La entropía (desde el punto de vista macroscópico) de este sistema es la suma de la entropía de cada subsistema:
+\begin{equation}
+	S = S_1 + S_2
+\end{equation}
+Desde el punto de vista microscópico, cada subsistema tiene $ \Omega_1$ y $ \Omega_2$ microestados, con lo que la probabilidad total será el producto de las probabilidades de cada subsistema: %
+\begin{equation}
+	 \Omega = \Omega_1 \Omega_2
+\end{equation}
+La función matemática que nos relaciona la suma de entropías con el producto de microestados es el \textbf{Principio de Boltzmann}:
+\begin{empheq}[box={\mymath[colback=red!30,drop lifted shadow, sharp corners]}]{equation}\label{ec:T1-principio de Boltzmann}
+	S = k_B\ln \Omega
+\end{empheq}
+Donde $ k_B = 1.38\ \mathrm{JK^{-1}mol\acute{e}cula^{-1}}$, es una magnitud molecular, que no debe confundirse con una magnitud molar.\\
+
+Comprobamos fácilmente que se cumple: %
+\begin{equation*}
+	\begin{split}
+		S =S_1 + S_2 &= k_B\ln \Omega_1 + k_B \ln \Omega_2 =\\
+		&= k_B\left[\ln \Omega_1 + \ln \Omega_2 \right] = \\
+		&= k_B \ln \Omega_1 \Omega_2 =\\
+		&= k_B\ln \Omega
+	\end{split}
+\end{equation*}
+Esta ecuación es muy importante, ya que relaciona el mundo macroscópico, con una magnitud macroscópica como la entropía, con el mundo micrscópico, mediante el número de microestados. Esto le da la característica a la termodinámica estadística que le permite calcular valores absolutos de magnitudes como la entropía, que con la termodinámica clásica no podíamos.\\
+
+En el cero absoluto (0 K) las partículas no se moverán, ni vibrarán, ni habrá ningún tipo de dinámica. Podemos suponer que, por tanto, en el cero absoluto solo habrá un microestado posible para la partícula: %
+\begin{equation}
+	 \Omega_{0 \mathrm{K}} = 1
+\end{equation}
+Y, por tanto, según la \equatref{ec:T1-principio de Boltzmann}, la entropía en el cero absoluto será: %
+\begin{equation}
+	S_{0 \mathrm{K}} = 0
+\end{equation}
+Se trata del \textbf{Tercer Principio de la Termodinámica.}
+
+\section{Dinámica traslacional}
+
+Vamos a estudiar el gas ideal, en el que las moléculas o átomos que lo componen no están sometidos a ninguna fuerza central. Solamente tienen energía cinética $ \varepsilon_c$ ($ \varepsilon_c$: energía cinética de cada molécula/átomo/partícula).
+
+\subsection{Degeneración traslacional 3D}
+
+Tenemos que estudiar la traslación desde un punto de vista cuántico. Utilizaremos el modelo de la \textbf{partícula encerrada en una caja de potencial tridimensional} [\ref{fig:T1-caja de potencial 3D}], en el que la energía viene dada por: %
+\begin{equation}
+	 \varepsilon= \dfrac{h^2}{8m} \left[\dfrac{n_x^2}{a^2} + \dfrac{n_y^2}{b^2} + \dfrac{n_z^2}{c^2}\right]
+\end{equation}
+
+ \begin{figure}[h!]
+ 	\centering
+ 	\includegraphics[width=0.4\textwidth]{Imágenes/T1_caja_3D_potencial}
+ 	\caption{Caja de potencial tridimensional, de dimensiones $ a,b,c$.}
+ 	\label{fig:T1-caja de potencial 3D}
+ \end{figure}
+
+Donde $ a,b,c$ son las dimensiones de la caja, y $ n_x,n_y,n_z$ los tres números cuánticos que, recordemos, son números enteros positivos que van desde 1 hasta $ +\infty$.\\
+
+Si la caja no es cúbica, $ a,b,c$ no serán iguales simultáneamente y no habrá degeneración. Sin embargo, si la caja es cúbica $ a=b=c$ y la energía será: %
+\begin{equation}\label{ec:T1-energía 1}
+	 \varepsilon= \dfrac{h^2}{8ma^2} \left(n_x^2 + n_y^2 + n_z^2 \right)
+\end{equation}
+Sí habrá degeneración.\\
+
+El volumen de este cubo es $ V=a^3$, con lo que: %
+\begin{equation}
+	a^2 = V^{2/3}
+\end{equation}
+Que sustituimos en la \equatref{ec:T1-energía 1} y nos queda: %
+\begin{equation}
+	\varepsilon= \dfrac{h^2}{8mV^{2/3}} \left(n_x^2 + n_y^2 + n_z^2 \right)
+\end{equation}
+Donde $ h$ es la constante de Planck, $ m$ la masa de la partícula y $ V$ el volumen de la caja. Como los números cuánticos $ n_x,n_y,n_z$ son adimensionales, $ h^2/(8mV^{2/3})$ tiene unidades de energía, con lo que podemos determinar una nueva energía adimensional ($ \varepsilon_{ \text{adimensional}}$) multiplicando la energía $ \varepsilon$ por la inversa de este término: %
+\begin{equation}
+	 \varepsilon_{ \text{adimensional}} = \varepsilon \dfrac{8ma^2}{h^2} = n_x^2 + n_y^2 + n_z^2
+\end{equation}
+Si representamos $ 8mV^{2/3}/h^2$ frente a $ n_x,n_y,n_z$ y simbolizamos con $ g$ la degeneración, encontramos que, para algunas combinaciones de $ n$ las degeneraciones son [\ref{tab:T1-tabla degeneraciones}]:\\
+ %
+{
+	\extrarowheight = -0.5ex  %espacio en blanco
+	\renewcommand{\arraystretch}{2.00}
+	\begin{table}[h!]
+		\begin{center}
+			\begin{tabular}{ c c c c c }
+				\caption{Número de degeneraciones $ g$ y valores de la energía adimensional $ \varepsilon_{ \text{ad}}$ para diferentes combinaciones de los números cuánticos $ n_x,n_y,n_z$.}
+				\label{tab:T1-tabla degeneraciones}\\
+				\hline %línea horizontal
+				\bfseries{$\boldsymbol{ \varepsilon_{ \text{ad}} = 8mV^{2/3} \varepsilon/h^2 = n_x^2+n_y^2+n_z^2}$} & \bfseries{$\boldsymbol{n_x}$} & \bfseries{$\boldsymbol{n_y}$} & \bfseries{$\boldsymbol{n_z}$} & \bfseries{$\boldsymbol{g}$} \\
+				\hline %línea horizontal
+
+				3 & 1 & 1 & 1 & 1 \\
+
+				6 & 2 & 1 & 1 & 3 \\
+
+				9 & 2 & 2 & 1 & 3 \\
+
+				14 & 3 & 2 & 1 & 6 \\
+
+				\vdots & \vdots & \vdots & \vdots & \vdots \\
+
+				\hline %línea horizontal
+			\end{tabular}
+		\end{center}
+	\end{table}
+}
+
+Es fácil ver que el número de degeneraciones $ g$ en función de las combinaciones de $ n_x,n_y,n_z$ sólo pueden ser 3:
+\begin{empheq}[box={\mybluebox[5pt]}]{equation*}
+	\begin{matrix}
+		\text{a)}\ n_x = n_y = n_z \Rightarrow \boldsymbol{g=1}\\
+		\text{b)}\ n_x = n_y \not= n_z \Rightarrow \boldsymbol{g=3}\\
+		\text{c)}\ n_x \not= n_y \not= n_z \Rightarrow \boldsymbol{g=6}
+	\end{matrix}
+\end{empheq}
+La energía variará dependiendo de los valores de los números cuánticos, pero la degeneración será la dada por el criterio anterior, independientemente del valor de cada número cuántico.\\
+
+Ahora, la caja es muy grande, y la masa de la partícula muy pequeña (del orden de $ 10^{-20}\ \mathrm{kg}$). Un volumen grande de la caja podría ser, por ejemplo, de 1 $ \mathrm{cm^3}$.\\
+Con estas suposiciones, veremos que $ \varepsilon_{ \mathrm{ad}}$ es muy grande, lo que indica que la suma de los números cuánticos será también muy grande. Esto hace que la diferencia de energía adimensional $ \Delta \varepsilon_{ \mathrm{ad}}$ entre dos niveles de energía sea prácticamente cero, es decir, que la energía puede considerarse contínua\footnotemark \footnotetext{A esta deducción ya llegamos en la primera parte, dedicada a la química cuántica. Cuando un sistema tiene un número cuántico elevado, la diferencia de energía entre niveles es prácticamente inapreciable, y la energía parece un contínuo. Es lo que sucede con los objetos macroscópicos, para los que el número cuántico es muy elevado.}.\\
+
+Ahora, para una molécula de gas ideal, la energía vale: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+	 \varepsilon = \dfrac{3}{2} \dfrac{ \mathrm{RT}}{N_A}
+\end{empheq}
+Siendo $ N_A = 6.022\cdot 10^{23}\ \mathrm{mol\acute{e}culas^{-1}}$ el número de Avogadro.\\
+
+Vemos que la energía es proporcional a la temperatura y, de hecho, a temperatura ambiente ya es bastante elevada.\\
+
+Los niveles discretos pasan a ser contínuos también con el aumento de $ \mathrm{T},m, \mathrm{V}$. Mientras que $ \mathrm{T,V}$ son magnitudes macroscópicas, pero $ m$ es una magnitud microscópica.\\
+
+Bien, como ya hemos acordado que para los sistemas que vamos a estudiar la energía puede tomarse como continua, vamos a decir que: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}\label{ec:T1-ecuación esfera para n}
+	 \varepsilon_{ \mathrm{ad}} = n_x^2 + n_y^2 + n_z^2 = R^2
+\end{empheq}
+Con: %
+\begin{equation}
+	R^2 = \dfrac{8mV^{2/3} \varepsilon}{h^2}
+\end{equation}
+Y, por tanto, %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+	R=\dfrac{(8m)^{1/2}V^{1/3} \varepsilon^{1/2}}{h}
+\end{empheq}
+Vemos que la \equatref{ec:T1-ecuación esfera para n} es la ecuación para la superficie de una esfera centrada en el origen de coordenadas [\ref{fig:T1-esfera}].\\ %
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.5\textwidth]{Imágenes/T1_esfera}
+	\caption{Esfera centrada en el origen de coordenadas $ (n_x,n_y,n_z)=0$.}
+	\label{fig:T1-esfera}
+\end{figure}
+
+Como $ n_x,n_y,n_z$ van elevados al cuadrado, da igual que sus valores sean positivos o negativos, aunque sabemos que los números cuánticos son enteros y positivos, por lo que nos quedaremos con un octante de la esfera, para el que $ n_x,n_y,n_z>0$ [\ref{fig:T1-octante esfera}].\\ %
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.5\textwidth]{Imágenes/T1_octante_esfera}
+	\caption{Representación del octante de esfera para $ n_x,n_y,n_z>0$.}
+	\label{fig:T1-octante esfera}
+\end{figure}
+
+Todos los puntos de este octante tiene una energía $ \varepsilon$, y, por tanto, una energía adminesional dada por: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+	 \varepsilon_{ \mathrm{ad}} = \dfrac{8mV^{2/3} \varepsilon}{h^2}
+\end{empheq}
+Es decir, que un octante de la esfera, un octante de su superficie ($(1/8)(4\pi R^2)$), tiene una energía $ \varepsilon$.\\
+
+Lo que a nosotros nos interesa es el número de estados con energía menor o igual que $ \varepsilon$, o energía adimensional menor o igual que $ \varepsilon_{ \mathrm{ad}}$. Si toda la superficie del octante tiene una energía $ \varepsilon$, el interior del octante tendrá una energía menor que $ \varepsilon$, que representa el número de estados. Simbolizamos con $ \boldsymbol{\phi}$ al \textbf{número de estados}: %
+\begin{equation*}
+	 \phi \equiv \text{nº de estados con energía} \leqslant \varepsilon\ \text{o con energía adimensional} \leqslant \varepsilon_{ \mathrm{ad}}
+\end{equation*}
+\begin{equation}
+	 \phi( \text{energía} \leqslant \varepsilon) = \dfrac{1}{8} \underbrace{\left(\dfrac{4}{3} \pi R^3 \right)}_{V_{ \text{esfera}}} = \dfrac{1}{8} \dfrac{4 \pi}{3} \left[\dfrac{(8m)^{1/2}V^{1/3} \varepsilon^{1/2}}{h} \right]^3
+\end{equation} %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+	 \phi( \text{energía} \leqslant \varepsilon) = \dfrac{1}{6} \pi \dfrac{(8m)^{3/2} \varepsilon^{3/2}}{h^3} V
+\end{empheq}
+Entonces, ¿cuál es la "degeneración" de este sistema?\\
+Se trata ya de un sistemas clásico, donde la degeneración cobra otro significado: %
+\begin{itemize}
+	\item Cuántica: el número de estados presentan la misma energía.
+	\item Clásica: el número de estados con energía comprendida entre $ \varepsilon$ y $ \varepsilon + d \varepsilon$.
+\end{itemize}
+Lo llamamos $ \omega ( \varepsilon)$, siendo: %
+\begin{equation}
+	\omega( \varepsilon) d \varepsilon = d \phi( \varepsilon)
+\end{equation} %
+Hallamos $ \omega ( \varepsilon)$ como:
+\begin{equation*}
+	 \begin{split}
+	 	 \omega ( \varepsilon ) = \dfrac{d \phi}{d \varepsilon} &= \dfrac{\pi}{6} \dfrac{(8m)^{3/2}}{h^3} V \dfrac{3}{2} \varepsilon^{1/2} d \varepsilon = \\
+	 	&= \dfrac{\pi}{4} \dfrac{(8m)^{3/2}}{h^3} V \varepsilon^{1/2} d \varepsilon
+	 \end{split}
+\end{equation*} %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+	\omega( \varepsilon) = \dfrac{\pi}{4} \dfrac{(8m)^{3/2}}{h^3} V \varepsilon^{1/2}
+\end{empheq}
+Se trata de la \textbf{degeneración traslacional en 3D}, $ \boldsymbol{\omega( \varepsilon)}$.
+
+\subsection{Degeneración traslacional 2D}
+
+Ahora vamos a estudiar la degeneración en un sistema \textbf{bidimensional}. Lo haremos de una manera análoga a la usada para el sistema tridimensional. La energía de la partícula en una caja de potencial bidimensional será: %
+\begin{equation}
+	 \varepsilon = \dfrac{h^2}{8ma^2} (n_x^2+n_y^2)
+\end{equation}
+Donde, la superficie de la caja será $ S=a^2$. La energía adimensional será: %
+\begin{equation}\label{ec:T1-e ad 2D}
+	 \varepsilon_{ \mathrm{ad}} = \dfrac{8mS}{h^2} \varepsilon = n_x^2 + n_y^2
+\end{equation}
+La masa $ m$ y la superficie $ S$ de la caja son grandes. Además, según la ecuación: %
+\begin{equation}
+	 \varepsilon = \dfrac{3}{2} k_B T
+\end{equation}
+La energía también será grande, por lo que, de nuevo, la asumimos como un continuo. Los números cuánticos $ n_x,n_y$ serán, por tanto, muy grandes. Ahora escribimos: %
+\begin{equation}\label{ec:T1-ec circunferencia}
+	n_x^2 + n_y^2 = R^2
+\end{equation}
+De donde, el valor de $ R$ lo despejamos de la \equatref{ec:T1-e ad 2D}: %
+\begin{equation}
+	R^2 = \dfrac{8mS}{h^2} \varepsilon \Rightarrow R = \dfrac{(8m)^{1/2}S^{1/2}}{h} \varepsilon^{1/2}
+\end{equation}
+Queremos conocer $ \omega( \varepsilon)$ en 2D. La \equatref{ec:T1-ec circunferencia} es la ecuación de una circunferencia centrada en el origen [\ref{fig:T1-circunferencia}].\\ %
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Imágenes/T1_circunferencia}
+	\caption{Circunferencia de radio $ R$ de ecuación $ n_x^2 + n_y^2 = R^2$ centrada en el origen de coordenadas.}
+	\label{fig:T1-circunferencia}
+\end{figure}
+
+Los números cuánticos tiene que ser positivos y enteros, por lo que nos quedamos con el cuadrante de la circunferencia en el que se cumple $ n_x,n_y > 0$ [\ref{fig:T1-cuadrante positivo circunferencia}]. %
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Imágenes/T1_cuarto_de_circunferencia}
+	\caption{Cuadrante de la circunferencia en el que $ n_x,n_y > 0$. Los puntos que se encuentran en la curva tienen una energía constante $ \varepsilon$, por lo que llamamos $ \phi( \varepsilon)$ a todos los puntes que encierra esta curva.}
+	\label{fig:T1-cuadrante positivo circunferencia}
+\end{figure}
+
+Los puntos que están en la curva según la \equatref{ec:T1-ec circunferencia} tiene una energía $ \varepsilon$ constante.\\
+
+Ahora, los estados con energía menor o igual a $ \varepsilon$ serán los que estén por debajo de dicha curva, que simbolizamos con $ \phi( \varepsilon)$, y son: %
+\begin{equation}
+		 \phi( \text{energía} \leqslant \varepsilon) = \dfrac{1}{4} \underbrace{\pi R^2}_{S_{ \mathrm{circ}}} = \dfrac{\pi}{4}  \dfrac{8mS}{h^2} \varepsilon = \dfrac{2\pi mS}{h^2} \varepsilon
+\end{equation}
+El número de estados entre $ \varepsilon$ y $ \varepsilon + d \varepsilon$ viene dado por $ \omega( \varepsilon) d \varepsilon = d \phi $, así que $ \omega ( \varepsilon)$ vale: %
+\begin{equation}
+	 	\omega ( \varepsilon) = \dfrac{d \phi}{d \varepsilon} = \dfrac{d}{d \varepsilon} \left[\dfrac{2\pi mS}{h^2} \varepsilon \right] = \dfrac{2\pi mS}{h^2} \dfrac{d}{d \varepsilon} \left(\varepsilon \right) = \dfrac{2\pi mS}{h^2}
+\end{equation}
+Llegamos a: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}\label{ec:T1-omega 2D}
+	 \omega  \not= \omega ( \varepsilon) = \dfrac{2\pi mS}{h^2}
+\end{empheq}
+Se trata de la \textbf{degeneración traslacional en 2D}, $ \boldsymbol{\omega( \varepsilon)}$. Vemos que, en este caso, no es función de la energía $ \varepsilon$.
+
+\subsection{Degeneración traslacional 1D}
+
+Por último, vamos a estudiar la degeneración en un sistema \textbf{unidimensional}. De nuevo, operaremos análogamente a los dos sistemas anteriores. La energía de la partícula en una caja de potencial unidimensional es: %
+\begin{equation}
+	 \varepsilon = \dfrac{h^2}{8ma^2} n_x^2
+\end{equation}
+La energía adimensional será: %
+\begin{equation}\label{ec:T1-e ad 1D}
+	 \varepsilon_{ \mathrm{ad}} = \dfrac{8ma^2}{h^2} \varepsilon = n_x^2
+\end{equation}
+Suponiendo, como en los dos casos anteriores, que tomamos la energía como continua, el número cuántico $ n_x$ será muy grande. Ahora escribimos: %
+\begin{equation}
+	n_x^2 = L^2
+\end{equation}
+Lo simbolizamos como $ L$ en vez de $ R$ porque, al tratarse de una caja unidimensional, se trata de una longitud y no del radio de una circunferencia o esfera como en los casos anteriores.\\
+
+Despejamos el valor de $ L$ de la \equatref{ec:T1-e ad 1D}: %
+\begin{equation}
+	L^2 = \dfrac{8ma^2}{h^2} \varepsilon \Rightarrow L = \dfrac{(8m)^{1/2}a}{h} \varepsilon^{1/2}
+\end{equation}
+El número de estados con energía exactamente igual a $ \varepsilon$ son todos los estados que se encuentren entre 0 y $ L$ [\ref{fig:T1-caja potencial 1D}].\\ %
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.4\textwidth]{Imágenes/T1_caja_1D}
+	\caption{Caja unidimensional de longitud $ L$, en la que se encuentran todos los posibles estados $ \phi( \varepsilon)$ de energía menor o igual a $ \varepsilon$, para un valor de número cuántico $ n_x$.}
+	\label{fig:T1-caja potencial 1D}
+\end{figure}
+
+Vendrán dados por: %
+\begin{equation}
+	 \phi ( \varepsilon) = L = \dfrac{(8m)^{1/2}a}{h} \varepsilon^{1/2}
+\end{equation}
+Con lo que, la degeneración traslacional $ \omega ( \varepsilon)$ vale: %
+\begin{equation}
+	 \omega ( \varepsilon) = \dfrac{d \phi}{d \varepsilon} = \dfrac{d}{d \varepsilon} \left[ \dfrac{(8m)^{1/2}a}{h} \varepsilon^{1/2}\right] = \dfrac{(8m)^{1/2}a}{h} \dfrac{d}{d \varepsilon}\left(\varepsilon^{1/2} \right) = \dfrac{(8m)^{1/2}a}{h} \dfrac{1}{2} \varepsilon^{-1/2} = \dfrac{(8m)^{1/2}a}{2h \varepsilon^{1/2}}
+\end{equation}
+Llegamos a: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}\label{ec:T1-omega 1D}
+	 \omega ( \varepsilon) = \dfrac{(2m)^{1/2} L}{h \varepsilon^{1/2}}
+\end{empheq}
+Se trata de la \textbf{degeneración traslacional en 1D}, $ \boldsymbol{\omega( \varepsilon)}$.
+
+\subsection{Resumen}
+
+ %
+ {
+ 	\extrarowheight = -0.3ex  %espacio en blanco
+ 	\renewcommand{\arraystretch}{3.00}
+ 	\begin{table}[h!]
+ 		\begin{center}
+ 			\begin{tabular}{ c c c }
+ 				\caption{Cuadro resumen sobre la dinámica traslacional.}
+ 				\label{tab:T1-cuadro resumen dinámica traslacional}\\
+ 				\hline %línea horizontal
+ 				\bfseries{3D} & \bfseries{2D} & \bfseries{1D}\\
+ 				\hline %línea horizontal
+
+ 				  $ \phi ( \varepsilon) = \dfrac{1}{6} \pi \dfrac{(8m)^{3/2} \varepsilon^{3/2}}{h^3} V $ &  $ \phi ( \varepsilon) = \dfrac{2\pi mS}{h^2} \varepsilon$ &  $ \phi ( \varepsilon) = \dfrac{(8m)^{1/2}a}{h} \varepsilon^{1/2}$ \\
+
+ 				 \rowcolor{myblue}$ \omega( \varepsilon) = \dfrac{\pi}{4} \dfrac{(8m)^{3/2}}{h^3} V \varepsilon^{1/2}$ &  $ \omega( \varepsilon) = \dfrac{2\pi mS}{h^2}$ &  $ \omega( \varepsilon) = \dfrac{(2m)^{1/2} L}{h \varepsilon^{1/2}} $ \\
+
+
+ 				 \includegraphics[width=45mm]{Imágenes/T1_graficas_dinamica_traslacional_1} & \includegraphics[width=40mm]{Imágenes/T1_graficas_dinamica_traslacional_2} & \includegraphics[width=40mm]{Imágenes/T1_graficas_dinamica_traslacional_3}\\
+
+ 				\hline %línea horizontal
+ 			\end{tabular}
+ 		\end{center}
+ 	\end{table}
+ }
+
+\section{Cálculo de la constante de Boltzmann $ k_B$}
+
+Trabajamos cn la expansión isotérmica de un gas ideal.\\
+
+La termodinámica clásica dice que la energía interna $ E$ es: %
+\begin{equation}
+	dE = TdS - PdV
+\end{equation}
+Si la expansión es isotérmica, la temperatura se mantiene constante, y $ dE = 0$, con lo que: %
+\begin{equation}
+	TdS = PdV
+\end{equation}
+Que reescribimos como: %
+\begin{equation}\label{ec:T1-ecuacion dS}
+	dS=\dfrac{P}{T} dV
+\end{equation}
+Para 1 mol de gas ideal: %
+\begin{equation}
+	PV=RT \Rightarrow P/T = R/V
+\end{equation}
+Sustituyendo en la \equatref{ec:T1-ecuacion dS}: %
+\begin{equation}
+	dS=R \dfrac{dV}{V}
+\end{equation}
+Entre dos estados 1 y 2, en los que el volumen es $ V_2$ y $ V_1$, respectivamente, integramos: %
+\begin{equation}
+	 	\int_{1}^{2} dS = R\int_{V_1}^{V_2} \dfrac{dV}{V} = R \left[\ln V \right]_{V_1}^{V_2} = \ln V_2 - \ln V_1
+\end{equation}
+Y llegamos a: %
+\begin{equation}\label{ec:T1-diferencia entropias clasicas}
+	S_2 - S_1 = R\ln \dfrac{V_2}{V_1}
+\end{equation}
+Veíamos que el número de microestados era proporcional a la energía interna, que es constante, de la forma: %
+\begin{equation}
+	 \omega (E) = C E^{3N/2} V^N
+\end{equation}
+Por lo que el número de micrestados a una energía itnerna $ E $ depende del volumen (ya que el número de partículas es constante).\\
+
+Ahora, según el principio de Boltzmann [\equatref{ec:T1-principio de Boltzmann}], podemos escribir la diferencia de entropía entre 2 estados como: %
+\begin{equation*}
+	\begin{split}
+		S_2 - S_1 &= k_B \ln \Omega_2 - k_B \ln \Omega_1 =\\
+		&= k_B \ln \dfrac{ \Omega_2}{ \Omega_1} = \qquad [ \Omega_i = CE^{3N_A/2}V_i^{N_A} = C' V_i^{N_A}]\\
+		&= k_B \ln \dfrac{C'V_2^{N_A}}{C'V_1^{N_A}} =\\
+		&= k_B \ln \dfrac{V_2^{N_A}}{V_1^{N_A}} =\\
+		&= k_B \ln \left(\dfrac{V_2}{V_1} \right)^{N_A}
+	\end{split}
+\end{equation*}
+\begin{equation}\label{ec:T1-diferencia entropias por ppio Boltzmann}
+S_2 - S_1 = k_B N_A \ln \dfrac{V_2}{V_1}
+\end{equation}
+Igualando la \equatref{ec:T1-diferencia entropias clasicas} con la \equatref{ec:T1-diferencia entropias por ppio Boltzmann} encontramos: %
+\begin{equation}
+	R \ln \dfrac{V_2}{V_1} = k_B N_A \ln \dfrac{V_2}{V_1}
+\end{equation}
+De donde obtenemos el valor de la constante de Boltzmann: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+	k_B = \dfrac{R}{N_A} = \dfrac{8.314\ \mathrm{Jmol^{-1}K^{-1}}}{6.022\cdot 10^{23}\ \text{molécula/mol}} = 1.38\cdot 10^{-23}\ \mathrm{JK^{-1}}(/ \text{molécula})
+\end{empheq}
+Tendrá las unidades de $ R$.\\
+
+Si para 1 mol de gas ideal, la energía es: %
+\begin{equation}
+	E = \dfrac{3}{2} RT
+\end{equation}
+Y en un mol hay $ N_A$ moléculas, la energía de 1 molécula es: %
+\begin{equation}
+	 \varepsilon = \dfrac{E}{N_A} = \dfrac{3}{2} \dfrac{R}{N_A} T = \dfrac{3}{2} k_B T
+\end{equation}
+Hagamos un pequeño ejercicio:
+
+\noindent\rule{1.0\textwidth}{0.1mm}
+\begin{ejercicio}
+	Para 1 molécula de $ \mathrm{H_2}$ a 300 K en una caja tridimensional de 1 $ \mathrm{cm^3}$ de volumen, calcular el número de estados comprendidos entre $ \varepsilon$ y $ \varepsilon + d \varepsilon$.\\
+	Datos: $ d \varepsilon \equiv \Delta \varepsilon = 10^{-3}\ \mathrm{eV}$, $ h=6.626\cdot 10^{-34}\ \mathrm{Js}$, $ N_A = 6.022\cdot 10^{23}\ \text{moléculas/mol}$, $ M_{ \mathrm{H_2}} = 2\ \mathrm{g/mol}$, $ 1\ \mathrm{eV} = 1.602\cdot 10^{-19}\ \mathrm{J}$.\\
+	(Nota: simplificar todas las potencia de 10 antes de operar con la calculadora).\\
+
+	Nos están preguntando cuánto vale $ \omega ( \varepsilon) d \varepsilon \equiv \omega ( \varepsilon) \Delta  \varepsilon$
+\end{ejercicio}
+\noindent\rule{1.0\textwidth}{0.1mm}
+
+\section{Estadística de Maxwell-Boltzmann}\label{ss:Estadistica MB}
+
+Esta estadística se aplica sobre sistemas aislados, que cumplen: %
+\begin{equation}
+	N = \sum_{j} n_j \qquad j \equiv \text{niveles}
+\end{equation}
+\begin{equation}
+	E = \sum_{j} n_j \varepsilon_j \qquad j \equiv \text{niveles}
+\end{equation}
+Cuando $ n_j$ es población de los niveles y $ \varepsilon_j$ la energía de los niveles. %
+\begin{itemize}
+	\item Si \textbf{no} está \textbf{degenerado}, el número de microestados para partículas discernibles viene dado por: %
+	\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+		\Omega ( n_0 n_1 \dots n_x) = \dfrac{N! \, }{n_0! \,  n_1! \,  \dots n_x! \, } = N! \,  \prod_i^x \dfrac{1}{n_i! \, }
+	\end{empheq}
+
+	\item Si el sistema está \textbf{degenerado}, el número de microestados de una distribución dada es: %
+	\begin{empheq}[box={\mybluebox[5pt]}]{equation}\label{ec:T1-numero microestados sist degenerado}
+		\Omega (n_0 n_1 \dots n_x) = \dfrac{N! \,  g_0^{n_0} g_1^{n_1} \dots g_x^{n_x}}{n_0! \,  n_1! \,  \dots n_x! \, } = N! \,  \prod_i^x \dfrac{g_i^{n_i}}{n_i! \, }
+	\end{empheq}
+	Donde $ \prod$ es el operador productorio. Para $ x$ niveles. $ n_i$ representa el número de partículas en un nivel $ i$, lo que llamamos población de los niveles, y $ g_i$ el número de degeneraciones en un nivel $ i$ [\ref{fig:T1-niveles y sus degeneraciones}]. %
+
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.6\textwidth]{Imágenes/T1_niveles_y_degeneraciones}
+		\caption{Representación de $ j=0,1,...,x$ niveles de energía que presentan $ g_0, g_1,...,g_x$ degeneraciones y $ n_0,n_1,...,n_x$ partículas en cada uno de estos $ j$ niveles.}
+		\label{fig:T1-niveles y sus degeneraciones}
+	\end{figure}
+\end{itemize}
+Podemos encontrar el número de microestados de la distribución más probable como el número de micrestados máximo. Es decir, para hacer $ \Omega$ máximo: %
+\begin{equation}
+	\left(\dfrac{d \Omega}{dn_i} \right)_{n_j \not=0} = 0
+\end{equation}
+Vimos que no podemos calcular la derivada de factoriales grandes, por lo que tomábamos logaritmos mediante la demostración de Stirling [\equatref{ec:T1-demostracion de Stirling}], que recuerdo: %
+\begin{equation}
+	\ln x! \,  = x\ln x - x \qquad \text{si}\ x \ggg 1
+\end{equation}
+Por lo que, tomando logaritmos, para un sistema con niveles energéticos degenerados ($g\not=0$), en la \equatref{ec:T1-numero microestados sist degenerado}: %
+\begin{equation}
+		\ln \Omega = \ln N! \,  + \ln \prod_j \dfrac{g_j^{n_j}}{n_j! \, }
+\end{equation}
+Que, por las propiedades de los logaritmos, podemos razonar que: %
+\begin{equation}
+	\ln \prod_j \dfrac{g_j^{n_j}}{n_j! \, }  = \ln \dfrac{g_0^{n_0}g_1^{n_1}\dots g_x^{n_x}}{n_0! \, n_1! \,  \dots n_x! \, } = \ln \dfrac{g_0^{n_0}}{n_0! \, } + \ln \dfrac{g_1^{n_1}}{n_1! \, } + \dots + \ln \dfrac{g_x^{n_x}}{n_x! \, } = \sum_{j=0}^x \ln \dfrac{g_j^{n_j}}{n_j! \, }
+\end{equation}
+Con lo que: %
+\begin{equation}
+	\ln \Omega = \ln N! \,  + \sum_j \ln \dfrac{g_j^{n_j}}{n_j! \, }
+\end{equation}
+Haciendo uso de un par de identidades de los logaritmos: %
+\begin{equation}
+	\ln \Omega = \ln N! \,  + \sum_j \left(\ln g_j^{n_j} - \ln n_j! \,  \right)
+\end{equation}
+Y, con la demostración de Stirling: %
+\begin{equation}\label{ec:T1-ecuacion log para Omega}
+	\left.\begin{matrix}
+		\ln N! \,   = N\ln N - N\\
+		\ln n_j! \,  = n_j\ln n_j - n_j
+	\end{matrix}\right\} \ln \Omega = N\ln N - N + \sum_j \left(\ln g_j^{n_j} - \left(n_j\ln n_j - n_j \right) \right)
+\end{equation}
+Recordemos que se debe de cumplir: %
+\begin{equation}\label{ec:T1-restriccion 1}
+		\sum_j n_j =N
+\end{equation} %
+\begin{equation}\label{ec:T1-restriccion 2}
+\sum_j \varepsilon_j n_j = E
+\end{equation}
+Vamos a definir una función $ G$, la \textbf{función de Lagrange}: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}\label{ec:T1-funcion de Lagrange}
+	G = \ln \Omega - \alpha\sum_j n_j - \beta \sum_j \varepsilon_j n_j
+\end{empheq}
+Que está sujeta a las dos restricciones [Ecuaciones \eqref{ec:T1-restriccion 1} y \eqref{ec:T1-restriccion 2}].\\
+
+Tendremos que determinar los \textbf{multiplicadores indeterminados de Lagrange} $ \alpha$ y $ \beta $ a posteriori.\\
+
+Si sustituimos en la función de Lagrange [\equatref{ec:T1-funcion de Lagrange}] la expresión encontrada para $ \ln \Omega$ [\equatref{ec:T1-ecuacion log para Omega}]: %
+\begin{equation}
+	G = N\ln N - N + \sum_j \left(\ln g_j^{n_j} - n_j\ln n_j + n_j \right) - \alpha\sum_j n_j - \beta \sum_j \varepsilon_j n_j
+\end{equation}
+Derivamos ahora $ G$ respecto a un $ n_i$ determinado, e igualamos a cero para hallar el máximo: %
+\begin{equation}
+	\left(\dfrac{dG}{dn_i} \right)_{n_i\not=n_j} = 0
+\end{equation}
+Tenemos que hallar $ n_0^*,n_1^*,n_2^*,...,n_j^*$ para los que $ G$ se hace máxima, o su derivada se anula.\\
+
+Hallamos la derivada, siendo $ N$ y $ E$ constantes, y, teniendo en cuenta que: %
+\begin{equation}
+	\begin{split}
+		\dfrac{d}{dn_i} \left(\sum_j n_j \right) &= \dfrac{d}{dn_i} (n_1+n_2+n_3+\dots n_i + n_{i+1} + \dots n_j + n_{j+1} + \dots) =\\
+		&= 0+0+0+\dots + \dfrac{dn_i}{dn_i} +0+\dots +0+0+\dots =\\
+		&=1
+	\end{split}
+\end{equation}
+Hacemos la derivada siendo $ n_j= \mathrm{te}$ para $ j\not=i$: %
+\begin{equation}\label{ec:T1-derivada de G}
+	\begin{split}
+		\left(\dfrac{dG}{dn_i} \right)_{n_j} =& \dfrac{d}{dn_i} \left( N\ln N - N + \sum_j \left(\ln g_j^{n_j} - n_j\ln n_j + n_j \right) - \alpha\sum_j n_j - \beta \sum_j \varepsilon_j n_j\right) = \\
+		=& \underbrace{\dfrac{d}{dn_i} \left( N\ln N - N \right)}_{( \mathrm{a})} + \underbrace{\dfrac{d}{dn_i} \left( \sum_j \left(\ln g_j^{n_j} - n_j\ln n_j + n_j \right) \right)}_{( \mathrm{b})}\\
+		 &- \underbrace{\dfrac{d}{dn_i} \left( \alpha\sum_j n_j \right)}_{( \mathrm{c})} - \underbrace{\dfrac{d}{dn_i} \left( \beta \sum_j \varepsilon_j n_j\right)}_{( \mathrm{d})}
+	\end{split}
+\end{equation}
+Hallamos la derivada de cada sumando por separado: %
+\begin{equation}
+	( \mathrm{a})\ \dfrac{d}{dn_i} \left( N\ln N - N \right) = 0
+\end{equation} %
+\begin{equation*}
+( \mathrm{b})\ \dfrac{d}{dn_i} \left( \sum_i \left(\ln g_i^{n_i} - n_i\ln n_i + n_i \right) \right) = \underbrace{\dfrac{d}{dn_i} \sum_j n_j \ln g_j}_{( \mathrm{b1})} - \underbrace{\dfrac{d}{dn_i} \sum n_j \ln n_j}_{( \mathrm{b2})} + \underbrace{\dfrac{d}{dn_i} \sum_j n_j}_{( \mathrm{b3})}
+\end{equation*} %
+\begin{equation*}
+	\begin{split}
+		& ( \mathrm{b1})\ \dfrac{d}{dn_i} \sum_j n_j \ln g_j = \dfrac{d}{dn_i}(n_i) \ln g_i + n_i \dfrac{d}{dn_i} (\ln g_i) = \ln g_i\\
+		& ( \mathrm{b2})\ \dfrac{d}{dn_i} \sum n_j \ln n_j = \dfrac{d}{dn_i}(n_i) \ln n_i + n_i \dfrac{d}{dn_i} (\ln n_i) = \ln n_i + n_i \dfrac{1}{n_i} = \ln n_i + 1\\
+		& ( \mathrm{b3})\ \dfrac{d}{dn_i} \sum_j n_j = \dfrac{d}{dn_i}(n_i) = 1
+	\end{split}
+\end{equation*} %
+\begin{equation}
+( \mathrm{b})\ \dfrac{d}{dn_i} \left( \sum_i \left(\ln g_i^{n_i} - n_i\ln n_i + n_i \right) \right) = \ln g_i - (\ln n_i + 1) + 1 = \ln g_i - \ln n_i
+\end{equation}
+\begin{equation}
+( \mathrm{c})\ \dfrac{d}{dn_i} \left( \alpha\sum_j n_j \right) = \alpha  \dfrac{d}{dn_i} (n_i) = \alpha
+\end{equation} %
+\begin{equation}
+( \mathrm{d})\ \dfrac{d}{dn_i} \left( \beta \sum_j \varepsilon_j n_j\right) = \beta  \dfrac{d}{dn_i} ( \varepsilon_i n_i) = \beta  \varepsilon_i
+\end{equation}
+Sustituyendo en la \equatref{ec:T1-derivada de G}: %
+\begin{equation}\label{ec:T1-resultado dG}
+	\left(\dfrac{dG}{dn_i} \right)_{n_j} = 0 + \ln g_i - \ln n_i - \alpha - \beta  \varepsilon_i = \ln g_i - \ln n_i - \alpha - \beta  \varepsilon_i = 0
+\end{equation}
+Igualando a cero la derivada (para que $ G$ sea máxima): %
+\begin{equation}
+	\ln g_i - \ln n_i^* = \alpha + \beta  \varepsilon_i
+\end{equation}
+A la que le aplicamos un par de transformaciones: %
+\begin{equation*}
+	\begin{split}
+		\ln g_i - \ln n_i^* &= \alpha + \beta  \varepsilon_i\\
+		\ln \dfrac{g_i}{n_i} &= \alpha + \beta  \varepsilon_i\\
+		\dfrac{g_i}{n_i} &= e^{ \alpha + \beta  \varepsilon_i}\\
+		\dfrac{1}{n_i^*} &= g_i e^{\alpha} e^{ \beta  \varepsilon_i}\\
+		n_i^* &= g_i e^{-\alpha} e^{ -\beta  \varepsilon_i}
+	\end{split}
+\end{equation*}
+Llegamos a: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}\label{ec:T1-pobalciones DMP}
+	n_i^* = g_i\, e^{-\alpha} e^{ -\beta  \varepsilon_i} \qquad i=0,1,2,3,...
+\end{empheq}
+Donde es importante que entendamos que simbolizamos con $ \boldsymbol{n_i^*} = n_0^*, n_1^*, n_2^*, ...$ las\textbf{ poblaciones de los niveles} $ \boldsymbol{i}=0,1,2,...$ \textbf{de la distribución más probable.}\\
+
+Si desarrollamos esta expresión para $ n_i^*$ para $ i=0,1,2,...,k$ niveles: %
+\begin{equation*}
+	\begin{split}
+		n_0^* &= g_0\, e^{-\alpha} e^{ -\beta  \varepsilon_0}\\
+		n_1^* &= g_1\, e^{-\alpha} e^{ -\beta  \varepsilon_1}\\
+		n_2^* &= g_2\, e^{-\alpha} e^{ -\beta  \varepsilon_2}\\
+		&\ \, \vdots \\
+		n_k^* &= g_k\, e^{-\alpha} e^{ -\beta  \varepsilon_k}\\
+		&\ \, \vdots
+	\end{split}
+\end{equation*}
+Y los sumamos, es fácil encontrar que: %
+\begin{equation}
+	\underbrace{\sum_i n_i^*}_{N} = e^{- \alpha} \underbrace{\sum_i g_i e^{- \beta \varepsilon_i}}_{z}
+\end{equation}
+Siendo que $ \sum_i n_i^* = N$ y: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+	z = \sum_i g_i e^{- \beta \varepsilon_i}
+\end{empheq}
+Lo llamamos la \textbf{función de partición de la partícula, $ z$}, donde $ e^{ - \beta  \varepsilon_i}$ es el \textbf{factor de Boltzmann} y $ \beta $ la beta de Boltzmann, que vale: %
+\begin{equation}
+	 \beta  = \dfrac{1}{k_B T}
+\end{equation}
+Y, por tanto, %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+	N = z e^{- \alpha}
+\end{empheq}
+Si despejamos de esta ecuación el término exponencial: %
+\begin{equation}
+	e^{- \alpha} = \dfrac{N}{z}
+\end{equation}
+ Y, sustituyendo en la \equatref{ec:T1-pobalciones DMP}: %
+ \begin{equation}
+ 		n_i^* = g_i\, e^{- \alpha} e^{- \beta  \varepsilon_i} = g_i \dfrac{N}{z} e^{- \beta  \varepsilon_i}
+ \end{equation}
+Donde encontramos: %
+\begin{equation}
+	\dfrac{n_i^*}{N} =\dfrac{g_i e^{- \beta  \varepsilon_i}}{z} =  \dfrac{g_i e^{- \beta  \varepsilon_i}}{\sum\limits_{j} g_j e^{- \beta  \varepsilon_j}}
+\end{equation}
+Es la \textbf{ecuación fundamental} en la \textbf{estadística de Maxwell-Boltzmann}, una ecuación muy importante en este tema. Es para valores de energía discretos. Por comodidad, la reescribimos como: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}\label{ec:T1-ec fundamental estadistica M-B}
+	\dfrac{n_i}{N} = \dfrac{g_i e^{- \beta  \varepsilon_i}}{\sum\limits_{j} g_j e^{- \beta  \varepsilon_j}}
+\end{empheq}
+La interpretación de esta ecuación es que $ n_i/N$ es la \textbf{probabilidad de que el nivel $ i$ de la $ DMP$ tenga una población de $ n_i$ partículas.} Es una función de \textbf{densidad de probabilidad}, equivalente a $ \left| \phi \right|^2$ en mecánica cuántica.\\
+
+Si suponemos que estamos en el \textbf{continuo de energía}, entonces $ \varepsilon_i = \varepsilon$, $ g_i \equiv \omega ( \varepsilon) d \varepsilon$ y aproximamos el sumatorio a la integral sobre los límites adecuados ($L.A$): %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+	\dfrac{dN}{N} = \dfrac{ \omega ( \varepsilon) e^{- \beta  \varepsilon} d \varepsilon}{\int_{L.A.} \omega ( \varepsilon) e^{- \beta  \varepsilon } d \varepsilon}
+\end{empheq}
+Sabemos que $ dN$ es un número grande, ya que $ N \sim 10^{23}$ y no cambia. Si, por ejemplo, $ dN = 10^8$ (que ya es un número grande), $ 10^{23} - 10^8 \approx 10^{23}$. La conclusión es que, aunque $ dN$ será un número grande, es despreciable frente a $ N$, aunque no despreciable en sí mismo.\\
+
+Ahora, la función de partición de la partícula $ Z$ depende de las características particulares de cada partícula y de los parámetros característicos $ \mathrm{V,T}$. A $ \mathrm{V,T=cte},\ Z= \mathrm{cte}$.\\
+
+Veamos ahora los casos posibles, que los niveles estén degenerados o no degenerados [\large EXAMEN]:
+\begin{description}
+	\item[Caso 1.] Niveles no degenerados: $ g_i=g_0=g_1=g_2=\dots = 1 \Rightarrow g_i = 1\quad \forall i$\\
+
+	Atendiendo a la \equatref{ec:T1-ec fundamental estadistica M-B}, representamos $ n_i$ frente a $ \varepsilon_i$ o $ i$, ya que los valores de energía son unidades arbitrarias. La energía crece cuando crece $ i$. Para una $ T_2> T_1$, $ \varepsilon_i/k_BT_2 < \varepsilon_i/k_BT_1$. %
+
+	\begin{figure}[h!]
+
+		\centering
+		\caption{Gráfica para la población de un nivel de la $ DMP$ siendo los niveles no degenerados, para dos temperaturas $ T_1,T_2$ con $ T_2>T_1$.}
+		\label{fig:T1-grafica poblacion no degenerados}
+		\begin{tikzpicture}[scale=1.2]
+			\def \title{ };%Título
+			\def \xLabel {$\varepsilon_i,\ i$}; % leyenda eje x
+			\def \yLabel {$n_i/N$}; % leyenda eje y
+			\def \xMin{0.0};
+			\def \xMax{500.0};
+			\def \yMin{0.0};
+			\def \yMax{0.5};
+			\def \stepGrid{2cm}; % pas de la grille
+			\def \titleWidth {10cm}; % largeur de la vignette de titre
+			\begin{axis}[
+				xlabel={\footnotesize \xLabel},
+				ylabel={\footnotesize \yLabel},
+				grid=major,
+				axis x line=bottom,
+				axis y line=left,
+				xtick={0},
+				xticklabels={{\tiny 0}},
+				ytick={0},
+				yticklabels={\tiny 0},
+				xmin=\xMin,
+				xmax=\xMax,
+				ymin=\yMin,
+				ymax=\yMax,]
+
+				\addplot+[name path=A,thick,mark=none,smooth,domain=\xMin:\xMax]{(100/243.01)*exp(-x/298.15)};
+				\addlegendentry{\scriptsize $T_1$};
+				\addplot+[name path=B,thick,mark=none,smooth,domain=\xMin:\xMax]{(100/276.07)*exp(-x/373.15)};
+				\addlegendentry{\scriptsize $T_2$};
+
+				\addplot[draw, gray, smooth, dashed, thick] coordinates {(100,0) (100,0.294248)};
+				\addplot[draw, gray, smooth, dashed, thick] coordinates {(0,0.294248) (100,0.294248)};
+				\addplot[draw, gray, smooth, dashed, thick] coordinates {(0,0.277075) (100,0.277075)};
+				\addplot[draw, gray, smooth, dashed, thick] coordinates {(300,0) (300,0.162116)};
+				\addplot[draw, gray, smooth, dashed, thick] coordinates {(0,0.162116) (300,0.162116)};
+				\addplot[draw, gray, smooth, dashed, thick] coordinates {(0,0.150448) (300,0.150448)};
+
+
+				\node[color=black, very thick] at (435,370)
+				{\scriptsize \colorbox{white}{$T_2>T_1$}};
+
+			\end{axis}
+		\end{tikzpicture}
+	\end{figure}
+
+	Cuando los niveles no están degenerados, el número de partículas decae con la energía tanto menos cuando mayor es la temperatura. Atendiendo a la \ref{fig:T1-grafica poblacion no degenerados} podemos ver que los niveles bajos están más poblados a menor temperatura (primera línea punteada), aunque, para niveles altos, están más poblados a mayor temperatura (segunda línea punteada).
+
+	\item[Caso 2.] Niveles degenerados: $ g_i \not=1$\\
+
+	De nuevo, atendiendo a la \equatref{ec:T1-ec fundamental estadistica M-B}, representamos $ n_i$ frente a $ \varepsilon_i,i$. La energía y degeneración crecen con $ i$. %
+
+	\begin{figure}[h!]
+		\caption{Gráfica para la población de un nivel dela $ DMP$ siendo los niveles degenerados, para dos temperaturas $ T_1,T_2$ con $ T_2>T_1$.}
+		\label{fig:T1-grafica poblacion degenerados}
+		\begin{subfigure}[b]{0.49\textwidth}
+
+			\begin{tikzpicture}[scale=1]
+				\def \title{ };%Título
+				\def \xLabel {$\varepsilon_i,\ i$}; % leyenda eje x
+				\def \yLabel {$n_i/N$}; % leyenda eje y
+				\def \xMin{0.0};
+				\def \xMax{400.0};
+				\def \yMin{0.0};
+				\def \yMax{50.0};
+				\def \stepGrid{2cm}; % pas de la grille
+				\def \titleWidth {10cm}; % largeur de la vignette de titre
+				\begin{axis}[
+					xlabel={\footnotesize \xLabel},
+					ylabel={\footnotesize \yLabel},
+					grid=major,
+					axis x line=bottom,
+					axis y line=left,
+					xtick={0},
+					xticklabels={{\tiny 0}},
+					ytick={0},
+					yticklabels={\tiny 0},
+					xmin=\xMin,
+					xmax=\xMax,
+					ymin=\yMin,
+					ymax=\yMax,]
+
+					\addplot+[name path=A,thick,mark=none,smooth,domain=\xMin:\xMax]{(100/227.866)*x*exp(-x/250)};
+					\addlegendentry{\scriptsize $T_1$};
+					\addplot+[name path=A,thick,mark=none,smooth,domain=\xMin:\xMax]{(100/287.558)*x*exp(-x/350)};
+					\addlegendentry{\scriptsize $T_2$};
+
+					\addplot[draw, gray, smooth, dashed, thick] coordinates {(100,0) (100,29.4173)};
+					\addplot[draw, gray, smooth, dashed, thick] coordinates {(0,29.4173) (100,29.4173)};
+					\addplot[draw, gray, smooth, dashed, thick] coordinates {(0,26.1331) (100,26.1331)};
+
+
+					\node[color=black, very thick] at (350,370)
+					{\scriptsize \colorbox{white}{$T_2>T_1$}};
+
+				\end{axis}
+			\end{tikzpicture}
+			\caption{Para niveles bajos (gráfica recortada).}
+			\label{fig:T1-grafica poblacion degenerados recortada}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.49\textwidth}
+
+			\begin{tikzpicture}[scale=1]
+				\def \title{ };%Título
+				\def \xLabel {$\varepsilon_i,\ i$}; % leyenda eje x
+				\def \yLabel {$n_i/N$}; % leyenda eje y
+				\def \xMin{0.0};
+				\def \xMax{1500.0};
+				\def \yMin{0.0};
+				\def \yMax{50.0};
+				\def \stepGrid{2cm}; % pas de la grille
+				\def \titleWidth {10cm}; % largeur de la vignette de titre
+				\begin{axis}[
+					xlabel={\footnotesize \xLabel},
+					ylabel={\footnotesize \yLabel},
+					grid=major,
+					axis x line=bottom,
+					axis y line=left,
+					xtick={0},
+					xticklabels={{\tiny 0}},
+					ytick={0},
+					yticklabels={\tiny 0},
+					xmin=\xMin,
+					xmax=\xMax,
+					ymin=\yMin,
+					ymax=\yMax,]
+
+					\addplot+[name path=A,thick,mark=none,smooth,domain=\xMin:\xMax]{(100/227.866)*x*exp(-x/250)};
+					\addlegendentry{\scriptsize $T_1$};
+					\addplot+[name path=A,thick,mark=none,smooth,domain=\xMin:\xMax]{(100/287.558)*x*exp(-x/350)};
+					\addlegendentry{\scriptsize $T_2$};
+
+					\addplot[draw, gray, smooth, dashed, thick] coordinates {(750,0) (750,30.5988)};
+					\addplot[draw, gray, smooth, dashed, thick] coordinates {(0,16.3869) (750,16.3869)};
+					\addplot[draw, gray, smooth, dashed, thick] coordinates {(0,30.5988) (750,30.5988)};
+
+					\node[color=black, very thick] at (132,370)
+					{\scriptsize \colorbox{white}{$T_2>T_1$}};
+
+				\end{axis}
+			\end{tikzpicture}
+
+			\caption{Para niveles altos (gráfica sin recortar).}
+			\label{fig:T1-grafica poblacion degenerados sin recortar}
+		\end{subfigure}
+
+	\end{figure}
+
+	Para niveles bajos, el factor $ g_i$ aporta más que la exponencial, por lo que la curva es creciente, hasta llegar a un máximo en el que los factores $ g_i$ y la exponencial se igualan. A partir de ese puto, la exponencial crece más rápido (en este caso, decrece), aumenta el aporte del término exponencial, y la curva pasa a tener pendiente negativa. El punto del máximo depende de la temperatura, en nuestro caso, vemos que el máximo de la temperatura menor ($T_1$) se encuentra a un valor de $ i$ menor que en el caso de la temperatura mayor ($T_2$).\\
+
+	De nuevo, podemos ver en la \ref{fig:T1-grafica poblacion degenerados recortada} que los niveles bajos están más poblados a baja $ T$, y en la \ref{fig:T1-grafica poblacion degenerados sin recortar} los niveles altos más poblados a alta $ T$.
+
+	\item[Caso 3.] Todos los estados del sistema tienen la misma energía.\\
+
+	Tenemos $ j$ estados con la misma energía y $ N$ partículas discernibles. El número de microestados de la distribución más probable, a recordar: %
+	\begin{equation}
+		 \Omega_{DMP} = \dfrac{N! \, }{n_0! \, n_1! \, n_2! \, \dots}
+	\end{equation}
+	Siendo: %
+	\begin{equation}
+		n_i = \dfrac{N}{j} \quad \forall i
+	\end{equation}
+	Entonces generalizamos: %
+	\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+		 \Omega_{DMP} = \dfrac{ N! \, }{(N/j)! \, (N/j)! \, \dots} = \dfrac{N! \, }{\left[\left(\dfrac{N}{j} \right)! \,  \right]^j}
+	\end{empheq}
+\end{description}
+
+\section{Cálculo de las magnitudes termodinámicas en la estadística M-B}
+
+\subsection{Entropía}\label{ss:T1-calculo entropia}
+
+Vamos a calcular las magnitudes termodinámicas con la estadística de Maxwell-Boltzmann. Para ello, partimos del principio de Boltzmann: %
+\begin{equation}
+	S = k_B \ln \Omega_{DMP}
+\end{equation}
+Siendo: %
+\begin{equation}
+	 \Omega = N! \,  \prod_i \dfrac{g_i^{n_i}}{n_i! \, }
+\end{equation}
+Entonces, teniendo en cuenta que se cumple que $ \sum_{i} n_i = N$ y $ \sum_{i} n_i \varepsilon_i = E$, sustituimos la expresión para $ \Omega$ en el principio de Boltzmann: %
+\begin{equation}
+	S = k_B \ln \left[N! \,  \prod_i \dfrac{g_i^{n_i}}{n_i! \, }\right]
+\end{equation}
+El logaritmo del productorio será la suma de logaritmos, es decir que: %
+\begin{equation}
+	S = k_B \left[\ln N! \,  + \ln \left(\prod_i \dfrac{g_i^{n_i}}{n_i! \, } \right) \right] = k_B \left[\ln N! \,  + \sum_i \ln \left(\dfrac{g_i^{n_i}}{n_i! \, } \right) \right]
+\end{equation}
+Aplicando la demostración de Stirling y realizando algunas transformaciones: %
+\begin{equation*}
+	\begin{split}
+		S &= k_B \left[\ln N! \,  + \sum_i \ln \left(\dfrac{g_i^{n_i}}{n_i! \, } \right) \right]\\
+		&= k_B \left[N\ln N - N + \sum_i \left(\ln g_i^{n_i} - \ln n_i! \, \right) \right]\\
+		&= k_B \left[ N\ln N - N + \sum_i \left(n_i\ln g_i - \left(n_i\ln n_i - n_i \right) \right)\right]\\
+		&= k_B \left[N\ln N - N + \sum_i \left(n_i\ln g_i \right) - \sum_i \left(n_i\ln n_i \right) + \underbrace{\sum_i n_i}_{N}  \right]\\
+		&= k_B \left[ N\ln N - \cancel{N} + \sum_i \left(n_i\ln g_i - n_i\ln n_i \right) + \cancel{N}\right]\\
+		&= k_B \left[N\ln N + \sum_i n_i \ln \dfrac{g_i}{n_1} \right]
+	\end{split}
+\end{equation*}
+Llegamos a: %
+\begin{equation}\label{ec:T1-entropia 1 calculo magnitudes}
+	S = k_B \left[N\ln N + \sum_i n_i \ln \dfrac{g_i}{n_1} \right]
+\end{equation}
+Como se trata de la $ DMP$, es la distribución que cumple: %
+\begin{equation}
+	\dfrac{n_i}{N} = \dfrac{g_i e^{- \varepsilon_i / k_B T}}{z}
+\end{equation}
+De donde podemos despejar $ g_i/n_i$: %
+\begin{equation}
+	\dfrac{g_i}{n_i} = \dfrac{z}{N} e^{ \varepsilon_i / k_B T} =\dfrac{z}{N} e^{ \beta \varepsilon_i}
+\end{equation}
+Sustituyendo en la \equatref{ec:T1-entropia 1 calculo magnitudes}: %
+\begin{equation*}
+	\begin{split}
+		S &= k_B \left[N\ln N + \sum_i n_i \ln \dfrac{g_i}{n_1} \right] =\\
+		&= k_B \left[N\ln N + \sum_i n_i \ln \left(\dfrac{z}{N} e^{ \beta \varepsilon_i} \right) \right] =\\
+		&= k_B \left[N\ln N + \sum_i \left( n_i \ln \dfrac{z}{N} +  n_i \ln e^{ \beta \varepsilon_i } \right)  \right] =\\
+		&= k_B \left[N\ln N + \sum_i \left( n_i \ln \dfrac{z}{N} +  n_i  \beta \varepsilon_i  \right)  \right] =\\
+		&= k_B \left[N\ln N + \sum_i  n_i \underbrace{\ln \dfrac{z}{N}}_{\mathrm{cte}}  +  \sum_i n_i  \underbrace{\beta}_{\mathrm{cte}} \varepsilon_i   \right] =\\
+		&= k_B \left[N\ln N + \ln \dfrac{z}{N} \underbrace{\sum_i n_i}_{N} + \beta \underbrace{\sum_i n_i \varepsilon_i}_{E}  \right] =\\
+		&= k_B \left[N\ln N + N\ln \dfrac{z}{N} + \beta E \right]\\
+		&= k_B \left[\cancel{N\ln N} + N\ln z - \cancel{N\ln N} + \beta E \right]\\
+		&= k_B \left[N\ln z + \beta E \right]\\
+	\end{split}
+\end{equation*}
+Llegamos al resultado, según la \textbf{termodinámica estadística}: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}\label{ec:T1-entropía termodinamica estadistica}
+	S = k_B \left(\ln z^N + \beta E \right)
+\end{empheq}
+Donde, recordemos, que $ z$ es la función de partición y $ \beta $ la beta de Boltzmann.
+
+\subsection{Energía de Helmholtz}
+
+Ahora bien, la termodinámica clásica nos dice que la energía de Helmholtz $ F$ viene dada por: %
+\begin{equation}
+	F = E-TS
+\end{equation}
+Donde $ E$ es la energía interna y $ S$ la entropía. Despejamos la entropía de esta ecuación, y obtenemos: %
+\begin{equation}
+	S = -\dfrac{F}{T} + \dfrac{E}{T}
+\end{equation}
+Si comparamos esta ecuación con la hallada en termodinámica estadística [\equatref{ec:T1-entropía termodinamica estadistica}]: %
+\begin{equation*}
+	{
+		\extrarowheight = -0.3ex  %espacio en blanco
+		\renewcommand{\arraystretch}{2.00}
+		\left.\begin{matrix}
+		S = -\dfrac{F}{T} + \dfrac{E}{T}\\
+		S = k_B \ln z^N + k_B\beta E
+	\end{matrix}\right\} \begin{matrix}
+	( \mathrm{A}) &  -F/T = k_B \ln z^N\\
+	( \mathrm{B}) &  E/T = k_B \beta E
+\end{matrix}
+	}
+\end{equation*}
+Encontramos: %
+\begin{equation}
+	( \mathrm{A}) \quad F = - k_B T \ln z^N = - Nk_B T \ln z
+\end{equation}
+Para un mol de partículas independientes, idénticas y discernibles, $ N \equiv N_A$. Siendo $ N_A k_B = R$: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+	F = - N_A k_B T \ln z = - RT\ln z
+\end{empheq}
+De la segunda relación (B): %
+\begin{equation*}
+	\begin{split}
+		( \mathrm{B}) \quad \dfrac{\cancel{E}}{T} &= k_B \beta \cancel{E}\\
+		\dfrac{1}{T} &= k_B \beta\\
+		 \beta &= \dfrac{1}{k_B T}
+	\end{split}
+\end{equation*}
+Encontramos la constante \textbf{beta de Boltzmann}: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+	\beta = \dfrac{1}{k_B T}
+\end{empheq}
+
+\subsection{Energía interna}
+
+Calculamos ahora la \textbf{energía interna} $ E$, que, en termodinámica estadística definimos como: %
+\begin{equation}
+	E = \sum_i n_i \varepsilon_i
+\end{equation}
+La energía media por partícula será: %
+\begin{equation}
+	\Braket{ \varepsilon } = \dfrac{E}{N} = \dfrac{\sum_i n_i \varepsilon_i}{N}
+\end{equation}
+Para un sistema $ n_i$ no es un número cualquiera, es el $ n_i$ de la $ DMP$, que simbolizábamos como $ n_i^*$, y cumple: %
+\begin{equation}
+	\dfrac{n_i}{N} = \dfrac{g_i e^{- \varepsilon_i / k_B T}}{z}
+\end{equation} %
+\begin{equation}
+	n_i = \dfrac{N}{z} g_i e^{- \varepsilon_i / k_B T}
+\end{equation}
+Por tanto, sustituyendo en la expresión para la energía interna: %
+\begin{equation*}
+	\begin{split}
+		E &= \sum_i n_i \varepsilon_i =\\
+		&= \sum_i \underbrace{\dfrac{N}{z}}_{ \mathrm{cte}} g_i e^{- \varepsilon_i / k_B T} \varepsilon_i =\\
+		&= \dfrac{N}{z} \sum_i  g_i e^{- \varepsilon_i / k_B T} \varepsilon_i
+	\end{split}
+\end{equation*}
+Llegamos a: %
+\begin{equation}\label{ec:T1-energía interna demostracion}
+	E = \dfrac{N}{z} \sum_i  g_i e^{- \varepsilon_i / k_B T} \varepsilon_i
+\end{equation}
+Recordando que: %
+\begin{equation}
+	z = \sum_i g_i e^{- \varepsilon_i/k_B T}
+\end{equation}
+Si derivamos respecto a la temperatura a $ V,N$ constante: %
+\begin{equation*}
+	\begin{split}
+		\left(\dfrac{dz}{dT} \right)_{V,N} & = \dfrac{d}{dT} \sum_i g_i e^{- \varepsilon_i/k_B T} =\\
+		&= \sum_i g_i \dfrac{d}{dT} e^{- \varepsilon_i/k_B T} =\\
+		&= \sum_i g_i \left(\dfrac{1}{k_B T^2} \right) \varepsilon_i e^{- \varepsilon_i/k_B T} =\\
+		&= \dfrac{\sum_i g_i \varepsilon_i e^{- \varepsilon_i/k_B T}}{k_B T^2}
+	\end{split}
+\end{equation*}
+Encontramos la siguiente igualdad: %
+\begin{equation}
+	\sum_i g_i \varepsilon_i e^{- \varepsilon_i/k_B T} = k_B T^2 \left(\dfrac{dz}{dT} \right)_{V,N}
+\end{equation}
+Que, si nos fijamos en la expresión que teníamos para la energía interna [\equatref{ec:T1-energía interna demostracion}], vemos que: %
+\begin{equation*}
+	\left.\begin{matrix}
+		E = \dfrac{N}{z} \sum_i  g_i e^{- \varepsilon_i / k_B T} \varepsilon_i\\
+		\sum_i g_i \varepsilon_i e^{- \varepsilon_i/k_B T} = k_B T^2 \left(\dfrac{dz}{dT} \right)_{V,N}
+	\end{matrix}\right\} E = \dfrac{ N}{z} k_B T^2 \left(\dfrac{dz}{dT} \right)_{V,N}
+\end{equation*}
+Que equivale a: %
+\begin{equation*}
+	\begin{split}
+		E &= \dfrac{ N}{z} k_B T^2 \left(\dfrac{dz}{dT} \right)_{V,N} = \\
+		&= Nk_B T^2 \dfrac{1}{z} \left(\dfrac{dz}{dT} \right)_{V,N} =\\
+		&= Nk_B T^2 \left(\dfrac{d\ln z}{dT} \right)_{V,N}
+	\end{split}
+\end{equation*}
+Encontramos: %
+\begin{equation}
+	E = Nk_B T^2 \left(\dfrac{\partial \ln z}{\partial T} \right)_{V,N}
+\end{equation}
+Que, para 1 mol de partículas, $ N\equiv N_A$, $ R = N_Ak_B$: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+	E = R T^2 \left(\dfrac{\partial \ln z}{\partial T} \right)_{V,N}
+\end{empheq}
+Hemos hallado la expresión para la energía interna. Tendremos que conocer $ z$ y derivar respecto a $ T$.
+
+\subsection{Potencial químico}
+
+Ahora nos queda por conocer el potencial químico. Como hemos visto: %
+\begin{equation}
+	F = -N k_B T \ln z
+\end{equation}
+El potencial químico viene dado por la derivada parcial de la energía de Gibbs a volumen constante o función de Helmholtz a presión constante. Para nuestros sistemas, nos es más conveniente aplicar la segunda definición a presión constante: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+	\mu = \left(\dfrac{\partial F}{\partial N} \right)_{V,N} = -k_B T \ln z
+\end{empheq}
+
+\subsection{Resumen}
+
+Recojo las ecuaciones halladas para todas estas magnitudes calculadas con la estadística de Maxwell-Boltzmann en el siguiente cuadro: %
+
+\tcbset{highlight math style={boxsep=3mm,title=\textbf{Magnitudes termodinámicas calculadas con la estadísitca de Maxwell-Boltzmann},
+		,colback=blue!5!white, colframe=blue!65!black}}
+
+\begin{empheq}[box=\tcbhighmath]{align}\label{ec:T1-cuadro magnitudes termodinámicas estad M-B}
+	\quad S_{ \mathrm{M-B}} &= k_B \ln z^N + \dfrac{E}{T} \quad\\
+	\quad E_{ \mathrm{M-B}} &= RT^2 \left(\dfrac{\partial \ln z}{\partial T} \right)_{V,N} \quad \\
+	\quad F_{ \mathrm{M-B}} &= -Nk_B T \ln z \quad \\
+	\quad \mu_{ \mathrm{M-B}} &= \left(\dfrac{\partial F}{\partial N} \right)_{V,N} = - k_B T \ln z \quad
+\end{empheq}
+Que, no olvidemos, las hemos calculado para la distribución más probable, que cumple: %
+\begin{equation}
+	\dfrac{n_i}{N} = \dfrac{g_i e^{- \varepsilon_i / k_B T}}{z}
+\end{equation}
+
+\subsubsection{Entropía para un sistema de energía contínua}
+
+Ahora, vamos a calcular la entropía para un sistema en el que la energía de las partículas se pueda considerar un continuo, es decir, que $ \varepsilon_i = \varepsilon$ y $ E = N \varepsilon$. En este caso, el número de microestados viene dado por: %
+\begin{equation}
+	 \Omega_{DMP} = \dfrac{N! \, }{\left[\left(\dfrac{N}{g} \right)! \,  \right]^g}
+\end{equation}
+Y la entropía, por el principio de Boltzmann: %
+\begin{equation*}
+	\begin{split}
+		S &= k_B \ln \Omega =\\
+		&= k_B \ln \dfrac{N! \, }{\left[\left(\dfrac{N}{g} \right)! \,  \right]^g} =\\
+		&= k_B \left[\ln N! \,  -\ln \left\{\left(\dfrac{N}{g} \right)! \,  \right\}^g \right] =\\
+		&= k_B \left[N\ln N - N - g\ln \left(\dfrac{N}{g} \right)! \,   \right] =\\
+		&= k_B \left[N\ln N - N - g \left\{\left(\dfrac{N}{g} \right) \ln \left(\dfrac{N}{g} \right) - \left(\dfrac{N}{g} \right) \right\}  \right] =\\
+		&= k_B \left[N\ln N - \cancel{N} - N\ln \dfrac{N}{g} + \cancel{N}  \right] =\\
+		&= k_B \left[N\ln N - N\ln \dfrac{N}{g} \right] = \\
+		&= k_B \left[N\ln N - N\left(\ln N - \ln g \right) \right] = \\
+		&= k_B N \left[\cancel{\ln N} - \cancel{\ln N} + \ln g \right] = \\
+		&= S = k_B N \ln g
+	\end{split}
+\end{equation*}
+Encontramos que la entropía viene dada por: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+	S = k_B N \ln g
+\end{empheq}
+Que, para 1 mol de partículas, $ N \equiv N_A$, $ k_B N_A = R$: %
+\begin{empheq}[box={\mybluebox[5pt]}]{equation}
+	S = R\ln g
+\end{empheq}

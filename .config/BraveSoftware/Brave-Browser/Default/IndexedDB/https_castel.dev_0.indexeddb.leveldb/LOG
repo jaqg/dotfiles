@@ -1,0 +1,7 @@
+2022/04/24-19:45:37.899 27a3d Reusing MANIFEST /home/jose/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_castel.dev_0.indexeddb.leveldb/MANIFEST-000001
+2022/04/24-19:45:37.899 27a3d Recovering log #3
+2022/04/24-19:45:37.899 27a3d Reusing old log /home/jose/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_castel.dev_0.indexeddb.leveldb/000003.log 
+2022/04/24-19:46:10.469 27a3d Level-0 table #5: started
+2022/04/24-19:46:10.472 27a3d Level-0 table #5: 1848 bytes OK
+2022/04/24-19:46:10.476 27a3d Delete type=0 #3
+2022/04/24-19:46:10.476 27a3d Manual compaction at level-0 from (begin) .. (end); will stop at (end)

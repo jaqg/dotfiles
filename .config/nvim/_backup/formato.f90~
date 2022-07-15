@@ -1,0 +1,21 @@
+! Subrutina con las declaraciones de formato
+subroutine formato
+
+    9999 format('====================================================&
+                    =============================')
+    9998 format('----------------------------------------------------&
+                    -----------------------------')
+    9997 format(2x, "N", 8x, "W0",  13x, "W1",  13x, "W2",  13x, "W3",  13x,&
+                             "W4",  13x, "W5",  13x, "W6",  13x, "W7",  13x,&
+                             "W8",  13x, "W9",  13x, "W10", 13x, "W11", 13x,&
+                             "W12", 13x, "W13", 13x, "W14", 13x, "W15", 13x,&
+                             "W16", 13x, "W17", 13x, "W18", 13x, "W19", 13x,&
+                             "W20")
+    9996 format(2x, "i", 6x,"c_i(Phi_0)", 5x,"c_i(Phi_2)", 5x,"c_i(Phi_4)",&
+                         5x,"c_i(Phi_6)", 5x,"c_i(Phi_8)", 5x,"c_i(Phi_10)")
+    9995 format(2x, "i", 6x,"c_i(Phi_1)", 5x,"c_i(Phi_3)", 5x,"c_i(Phi_5)",&
+                         5x,"c_i(Phi_7)", 5x,"c_i(Phi_9)")
+    9994 format(2x, "n", 5x, "W_n(conv.)", 3x, "N_conv.")
+
+    return
+end subroutine formato

@@ -1,0 +1,174 @@
+\documentclass[12pt, final, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[spanish, es-tabla]{babel}
+\usepackage{amsmath, amssymb}
+
+\input{/home/jose/Documents/latex/preamble/paquetes1} %mis paquetes
+\input{/home/jose/Documents/latex/preamble/bibliography_config} %configuracion para l bibliografia
+\input{/home/jose/Documents/latex/preamble/paquetesTikz} %mis paquetes
+\input{/home/jose/Documents/latex/preamble/tikzstyle} %Estilo para las gráficas
+
+% \newcommand{\mat}[1]{\boldsymbol{\mathrm{#1}}}
+
+\decimalpoint
+
+\graphicspath{{../grafica/}}
+
+\author{José Antonio Quiñonero Gris}
+\title{\textbf{Tratamiento variacional de un doble pozo de potencial.}\\
+        \vspace{5mm}
+        \large \textbf{Cálculo de las energías variacionales.}}
+
+% \date{29 de enero de 2022}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+%------------------------------------------------------------------------------
+\section{Introducción}%
+%------------------------------------------------------------------------------
+Siendo el potencial de un doble pozo
+\begin{equation}
+    V(x) = ax^4 - bx^2, \qquad a,b>0.
+\end{equation}
+
+El Hamiltoniano de nuestro sistema viene dado por
+\begin{equation}
+    \hat{H} = - \frac{\hbar^2}{2m} \frac{ \dd{}^2}{ \dd{x^2}} + ax^4 - bx^2.
+\end{equation}
+
+De manera que, para llevar a cabo el cálculo variacional de los niveles de energía, tendremos que calcular los elementos de la matriz del Hamiltoniano, que vienen dados por
+\begin{equation}
+    H_{nm} = \Braket{n | \hat{H} | m} = - \frac{\hbar^2}{2m} \Braket{n | \frac{ \dd{}^2}{ \dd{x^2}}| m} + a\Braket{n | x^4| m} - b\Braket{n | x^2| m}.
+\end{equation}
+
+La resolución a estas integrales es análoga al caso del oscilador perturbado cuárticamente, a diferencia de que ahora $\left( 1 /2 \right)k \equiv -b$ y $d \equiv a$, de manera que
+\begin{align}
+\begin{split}
+    H_{nn} =& \frac{ \hbar^2}{2m}  \left( n + \frac{1}{2} \right) \alpha_{\mathrm{opt.}}  + \frac{3a \left( 2n^2 + 2n + 1 \right)}{4\alpha_{\mathrm{opt.}}^2} - \frac{b\left( n + 1 /2 \right)}{\alpha_{\mathrm{opt.}}},
+\end{split}
+\\[2ex]
+\begin{split}
+        H_{n,n+2} =& -\frac{ \hbar^2}{2m} \frac{\left[ (n+1)(n+2) \right]^{1 /2}\alpha_{\mathrm{opt.}} }{2} + \frac{a\left( 2n+3 \right) \left[ \left( n+1 \right)\left( n+2 \right) \right]^{1 / 2}}{2\alpha_{\mathrm{opt.}}^2} \\
+                   & - \frac{b\left[ (n+1)(n+2) \right]^{1 /2}}{2 \alpha_{\mathrm{opt.}}},
+\end{split}
+\\[2ex]
+\begin{split}
+    H_{n,n+4} =& \frac{a\left[ \left( n+1 \right)\left( n+2 \right)\left( n+3 \right)\left( n+4 \right) \right]^{1 / 2}}{4\alpha_{\mathrm{opt.}}^2}.
+\end{split}
+\end{align}
+
+En este caso, sólo he considerado la componente cuártica del potencial para la optimización del parámetro $\alpha$. Es decir, que la expresión para $\alpha_{\mathrm{opt.}}$ es análoga a la encontrada para el caso del oscilador cuártico sólo que cambiando $d \equiv a$, de manera que
+\begin{equation}
+        \alpha_{\mathrm{opt.}} = \left( \frac{6ma}{ \hbar^2} \right)^{1 /3}.
+\end{equation}
+
+%------------------------------------------------------------------------------
+\section{Cálculos}%
+%------------------------------------------------------------------------------
+Realizo los cálculos para $N=100$ funciones base haciendo uso de la subrutina \verb|dsyev()| de la librería LAPACK para la diagonalización de la matriz del Hamiltoniano.
+
+%------------------------------------------------------------------------------
+\section{Resultados}%
+%------------------------------------------------------------------------------
+En la Tabla \ref{tab:energias_variacionales} recojo los valores de las energías variacionales $W_n$ de los  21 $n$ niveles energéticos junto al número de funciones base de convergencia $N_{\mathrm{con.}}$ para $a=1$ y $b=1,2,4$.
+%
+{
+% \extrarowheight = -0.5ex  %espacio en blanco
+% \renewcommand{\arraystretch}{2.00}
+\begin{table}[h]
+    \ra{1.2} % Spacing btween lines of table
+    \caption{Valores de las energías variacionales convergidas $W_n$ de los 21 primeros niveles energéticos $n$ junto al número de funciones base de convergencia $N_{\mathrm{con.}}$ para $a=1$ y los valores de $b$ de estudio.}
+    \label{tab:energias_variacionales}
+    \centering
+    \begin{tabular}{@{}c c c c c c c@{}}
+        \toprule
+         &  \multicolumn{2}{c}{$\boldsymbol{b=1.0}$} &  \multicolumn{2}{c}{$\boldsymbol{b=2.0}$} &  \multicolumn{2}{c}{$\boldsymbol{b=4.0}$} \\
+        \cmidrule(r){2-3} \cmidrule(r){4-5} \cmidrule(r){6-7}
+        $\boldsymbol{n}$ & $\boldsymbol{W_n}$ & $\boldsymbol{N_{\mathrm{con.}}}$ & $\boldsymbol{W_n}$ & $\boldsymbol{N_{\mathrm{con.}}}$ & $\boldsymbol{W_n}$ & $\boldsymbol{N_{\mathrm{con.}}}$ \\
+        \midrule
+
+        0  & 0.58796  & 13 & 0.86959  & 15 & 1.80082  & 19 \\
+        1  & 1.86274  & 16 & 1.66143  & 18 & 1.89651  & 22 \\
+        2  & 3.91188  & 19 & 3.5438   & 21 & 4.37048  & 23 \\
+        3  & 6.30079  & 20 & 5.66539  & 24 & 5.57336  & 26 \\
+        4  & 8.98462  & 23 & 8.12624  & 27 & 7.65143  & 29 \\
+        5  & 11.91076 & 26 & 10.84367 & 30 & 9.92037  & 28 \\
+        6  & 15.04673 & 29 & 13.7834  & 33 & 12.46362 & 31 \\
+        7  & 18.36892 & 32 & 16.91915 & 34 & 15.22336 & 34 \\
+        8  & 21.85942 & 35 & 20.23127 & 37 & 18.17742 & 37 \\
+        9  & 25.50404 & 38 & 23.70436 & 40 & 21.30685 & 40 \\
+        10 & 29.29125 & 43 & 27.32592 & 43 & 24.59697 & 43 \\
+        11 & 33.21143 & 46 & 31.08562 & 46 & 28.03577 & 46 \\
+        12 & 37.25645 & 49 & 34.97472 & 47 & 31.61324 & 49 \\
+        13 & 41.41929 & 52 & 38.98573 & 50 & 35.32088 & 52 \\
+        14 & 45.69385 & 55 & 43.11215 & 53 & 39.15135 & 55 \\
+        15 & 50.07476 & 58 & 47.34827 & 56 & 43.09825 & 58 \\
+        16 & 54.55723 & 61 & 51.68903 & 59 & 47.15594 & 61 \\
+        17 & 59.13699 & 64 & 56.12991 & 62 & 51.31941 & 64 \\
+        18 & 63.81019 & 69 & 60.66683 & 67 & 55.58414 & 69 \\
+        19 & 68.57333 & 72 & 65.29613 & 70 & 59.94609 & 72 \\
+        20 & 73.42324 & 75 & 70.01446 & 73 & 64.40158 & 75 \\
+
+        \bottomrule
+    \end{tabular}
+\end{table}
+}
+
+Represento el valor de las energías variacionales de los 11 primeros niveles energéticos de índice par frente al número de funciones base $N$, donde sólo represento los puntos correspondientes a valores de $N$ par, omitiendo los valores para $N$ impar (ver Fig. \ref{fig:convergencia_energias-pdf}).
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{convergencia_energias.pdf}
+    \caption{Energías variacionales de los niveles energéticos de índice par para $N$ funciones base, donde $N$ sólo toma valores pares.}
+    \label{fig:convergencia_energias-pdf}
+\end{figure}
+
+Podemos apreciar la degeneración de los primeros niveles energéticos conforme aumenta el parámetro $b$ en la Tabla \ref{tab:degeneracion_niveles}, en la que incluyo las energías variacionales para los 4 primeros niveles junto a la diferencia entre niveles $\Delta W = W_{n+1} - W_n$.
+{
+% \extrarowheight = -0.5ex  %espacio en blanco
+% \renewcommand{\arraystretch}{2.00}
+\begin{table}[h]
+    \ra{1.2} % Spacing btween lines of table
+    \caption{Valores de las energías variacionales convergidas $W_n$ de los 4 primeros niveles energéticos $n$ junto a la diferencia entre niveles $\Delta W$ para $a=1$ y los valores de $b$ de estudio.}
+    \label{tab:degeneracion_niveles}
+    \centering
+    \begin{tabular}{@{}c c c c c c c@{}}
+        \toprule
+         &  \multicolumn{2}{c}{$\boldsymbol{b=1.0}$} &  \multicolumn{2}{c}{$\boldsymbol{b=2.0}$} &  \multicolumn{2}{c}{$\boldsymbol{b=4.0}$} \\
+        \cmidrule(r){2-3} \cmidrule(r){4-5} \cmidrule(r){6-7}
+        $\boldsymbol{n}$ & $\boldsymbol{W_n}$ & $\boldsymbol{\Delta W}$ & $\boldsymbol{W_n}$ & $\boldsymbol{\Delta W}$ & $\boldsymbol{W_n}$ & $\boldsymbol{\Delta W}$ \\
+        \midrule
+
+        0 & 0.58796 & \rdelim\}{2}{*}[1.27478] & 0.86959 & \rdelim\}{2}{*}[0.79184] & 1.80082 & \rdelim\}{2}{*}[0.09569] \\
+        1 & 1.86274 &                          & 1.66143 &                          & 1.89651 &                          \\
+        2 & 3.91188 & \rdelim\}{2}{*}[2.38891] & 3.5438  & \rdelim\}{2}{*}[2.12159] & 4.37048 & \rdelim\}{2}{*}[1.20288] \\
+        3 & 6.30079 &                          & 5.66539 &                          & 5.57336 &                          \\
+
+        \bottomrule
+    \end{tabular}
+\end{table}
+}
+
+Al comparar los valores de la Tabla \ref{tab:energias_variacionales} con la altura de la barrera $V_{\mathrm{b}}$ para cada valor de $b$, encontramos que para $b=1.0$ no hay ningún nivel energético por debajo de la barrera, para $b=2.0$ sólo se encuentra por debajo el estado fundamental y para $b=4.0$ tanto el estado fundamental como el primer estado excitado, apreciándose también la degeneración (ver Fig. \ref{fig:potencial_y_energias-pdf}).
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{potencial_y_energias.pdf}
+    \caption{Curva de potencial para cada valor de $b$ de estudio (línea sólida gris) junto a los niveles energéticos (líneas horizontales negras).}
+    \label{fig:potencial_y_energias-pdf}
+\end{figure}
+
+% \rdelim\}{3}{3mm}[1]
+\clearpage
+\newpage
+% \printbibliography[title={References}] % change from bibliography to references
+\printbibliography
+% \nocite{*}
+% \bibliographystyle{apalike}
+% \bibliography{/home/jose/Documents/latex/preamble/references.bib}
+\end{document}

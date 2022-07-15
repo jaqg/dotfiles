@@ -1,0 +1,19 @@
+! -----------------------------------------------------------------------------
+! Subrutina para calcular los parametros de la ecuacion cubica par
+! -----------------------------------------------------------------------------
+subroutine parametros_ec_cubica(H00, H11, H22, H02, a3, a2, a1, a0)
+    real*8, intent(in) :: H00, H11, H22, H02
+    real*8, intent(out) :: a0, a1, a2, a3
+
+    ! Las expresiones encontradas para los parametros de la ecuacion
+    ! caracteristica:
+    !
+    ! a3 W^3 + a2 W^2 + a1 W + a0 = 0
+    !
+    ! son:
+    a3 = -1.
+    a2 = H22+H11+H00
+    a1 = ((-H11)-H00)*H22-H00*H11+H02**2
+    a0 = H00*H11*H22-H02**2*H11
+    return
+end subroutine parametros_ec_cubica

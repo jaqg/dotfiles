@@ -1,0 +1,146 @@
+
+@book{atkins_shriver_2010,
+	title = {Shriver and Atkins' Inorganic Chemistry},
+	isbn = {978-0-19-923617-6},
+	abstract = {Shriver and Atkins' Inorganic Chemistry fifth edition represents an integral part of a student's chemistry education. With the same broad coverage as its predecessors - making it the ideal companion for the duration of an undergraduate degree programme - the fifth edition extends from the foundational concepts of inorganic chemistry to the forefront of contemporary research. The book seeks not just to impart knowledge, but to engage and enthuse its readers. Its unique 'Frontiers' chapters cover materials science, nanotechnology, catalysis, and biological inorganic chemistry, and have been fully updated to reflect advances in these key areas of contemporary research and industrial application. Further, examples throughout show the relevance of inorganic chemistry to real-life situations, to encourage students to engage fully with the subject. Inorganic chemistry spans a huge range of elements, whose characteristic similarities and differences students must be familiar with. Inorganic Chemistry rises to this challenge by setting out the key trends exhibited within the periodic table, and by the elements comprising each Group. These trends and behaviours are illuminated with illustrative examples, placing the content in a clear, relevant context. The Online Resource Centre contains: For students: Tables for group theory - comprehensive group theory tables available for downloading Videos of chemical reactions - Video clips demonstrating some key chemical experiments Web links - web links to a range of additional physical chemistry resources on the web 3D rotatable molecular structures - nearly all of the numbered structures from the book in rotatable format Answers to self-tests and exercises For registered adopters of the book: Artwork and tables of data - electronic versions of the figures, structures and tables from the book are available to download Figures in {PPT} - almost all of the figures are available in {PPT} Molecular modelling problems Test bank - in Word format},
+	pagetotal = {852},
+	publisher = {{OUP} Oxford},
+	author = {Atkins, Peter and Overton, Tina},
+	date = {2010},
+	langid = {english},
+	note = {Google-Books-{ID}: {tUmcAQAAQBAJ}},
+	keywords = {Science / Chemistry / General, Science / Chemistry / Inorganic},
+}
+
+@misc{martinez_bloque_2022,
+	title = {Bloque 1: Materiales Inorgánicos},
+	author = {Martínez, María Isabel Martínez and López, Víctor Martínez and Muñoz, Sara Samper and Rodríguez, Gerardine Lady Villa and López, Nerea Riveros and Egea, Fernando Muñoz and Llamas, Isabel M Saura and Rubio, Juan Gil},
+	date = {2022-02},
+	langid = {spanish},
+	file = {Martínez et al. - Bloque 1 Materiales Inorgánicos.pdf:/home/jose/Zotero/storage/F893YCPJ/Martínez et al. - Bloque 1 Materiales Inorgánicos.pdf:application/pdf},
+}
+
+@misc{egea_luminescent_2022,
+	title = {Luminescent Phenomena: Triboluminescence},
+	author = {Egea, Fernando Muñoz and López, Nerea Riveros},
+	date = {2022-02},
+	langid = {english},
+	file = {Egea and López - Luminescent Phenomena Triboluminescence.pdf:/home/jose/Zotero/storage/2TXDBQ32/Egea and López - Luminescent Phenomena Triboluminescence.pdf:application/pdf},
+}
+
+@misc{samper_munoz_proceso_2022,
+	title = {Proceso sol-gel},
+	author = {Samper Muñoz, Sara and Lady Villa Rodríguez, Gerardine},
+	date = {2022-02},
+	langid = {english},
+	file = {Proceso sol-gel.pdf:/home/jose/Zotero/storage/WWF6UKUN/Proceso sol-gel.pdf:application/pdf},
+}
+
+@misc{lopez_diseno_nodate,
+	title = {Diseño y Experimentación en Química Inorgánica Aplicada Febrero 2022},
+	author = {López, Víctor Martínez and Martínez, María Isabel Martínez},
+	langid = {spanish},
+	file = {López and Martínez - Diseño y Experimentación en Química Inorgánica Apl.pdf:/home/jose/Zotero/storage/CYEQ7UUF/López and Martínez - Diseño y Experimentación en Química Inorgánica Apl.pdf:application/pdf},
+}
+
+@misc{rubio_diseno_nodate,
+	title = {Diseño y Experimentación en Química Inorgánica Aplicada},
+	author = {Rubio, Juan Gil and Llamas, Isabel M Saura},
+	langid = {spanish},
+	file = {Rubio and Llamas - Diseño y Experimentación en Química Inorgánica Apl.pdf:/home/jose/Zotero/storage/7K8MV928/Rubio and Llamas - Diseño y Experimentación en Química Inorgánica Apl.pdf:application/pdf},
+}
+
+@misc{cegarra_olefin_2022,
+	title = {Olefin isomerisation},
+	author = {Cegarra, Antonio David Galindo and Rodríguez, Carlos Bernabeu},
+	date = {2022},
+	langid = {english},
+	file = {Cegarra and Rodríguez - OLEFIN ISOMERISATION.pdf:/home/jose/Zotero/storage/AVBMS3QV/Cegarra and Rodríguez - OLEFIN ISOMERISATION.pdf:application/pdf},
+}
+
+@misc{ibanez_spectral_2022,
+	title = {Spectral properties of porphyrins, the colours of life},
+	author = {Ibáñez, Marina Ballester and Torres, José Manuel Ramón},
+	date = {2022},
+	langid = {english},
+	file = {Ibáñez and Torres - SPECTRAL PROPERTIES OF PORPHYRINS, THE COLOURS OF .pdf:/home/jose/Zotero/storage/Y4HT84AB/Ibáñez and Torres - SPECTRAL PROPERTIES OF PORPHYRINS, THE COLOURS OF .pdf:application/pdf},
+}
+
+@misc{rubio_diseno_nodate-1,
+	title = {Diseño y Experimentación en Química Inorgánica Aplicada},
+	author = {Rubio, Juan Gil and Llamas, Isabel M Saura},
+	langid = {spanish},
+	file = {Rubio and Llamas - Diseño y Experimentación en Química Inorgánica Apl.pdf:/home/jose/Zotero/storage/YZKDVUA8/Rubio and Llamas - Diseño y Experimentación en Química Inorgánica Apl.pdf:application/pdf},
+}
+
+@misc{llamas_catalytic_2022,
+	title = {Catalytic oxidation of anthracene},
+	author = {Llamas, Isabel M Saura},
+	date = {2022},
+	langid = {english},
+	file = {Llamas - CATALYTIC OXIDATION OF ANTHRACENE _1_.pdf:/home/jose/Zotero/storage/U5UG4A62/Llamas - CATALYTIC OXIDATION OF ANTHRACENE _1_.pdf:application/pdf},
+}
+
+@misc{martinez_selective_2022,
+	title = {Selective transport through membranes},
+	author = {Martínez, Sofía Martínez and Nortes, Miguel Ángel Martínez},
+	date = {2022},
+	langid = {english},
+	file = {Martínez and Nortes - SELECTIVE TRANSPORT THROUGH MEMBRANES.pdf:/home/jose/Zotero/storage/4LKGWVEI/Martínez and Nortes - SELECTIVE TRANSPORT THROUGH MEMBRANES.pdf:application/pdf},
+}
+
+@misc{ballester_ibanez_guion_2022,
+	title = {Guión de prácticas {DEQIA}. Bloque 3: Bioinorgánica},
+	publisher = {Universidad de Murcia},
+	author = {Ballester Ibañez, Marina and García Bautista, María Antonia and Martínez Martínez, Sofía and Martínez Nortes, Miguel Ángel and Quiñonero Gris, José Antonio and Ramón Torres, José Manuel and Gil Rubio, Juan and Saura Llamas, Isabel María},
+	date = {2022},
+	file = {DEQIA_Guion Bioinorganica.pdf:/home/jose/Zotero/storage/WCBRTCK4/DEQIA_Guion Bioinorganica.pdf:application/pdf},
+}
+
+@misc{balsalobre_pallares_guion_2022,
+	title = {Guión de prácticas {DEQIA}. Bloque 2: Compuestos de coordinación y organometálicos en síntesis orgánica y catálisis homogénea},
+	publisher = {Universidad de Murcia},
+	author = {Balsalobre Pallarés, Carlos and Bernabéu Rodríguez, Carlos and El Anzi El Qabti, Laila and Galindo Cegarra, Antonio David and Goicuría Montoro, Marta and Milán Miquel, Eugenio and Gil Rubio, Juan},
+	date = {2022},
+	file = {DEQIA_Guion Organometálicos 2021-22.pdf:/home/jose/Zotero/storage/2VCBSG6X/DEQIA_Guion Organometálicos 2021-22.pdf:application/pdf},
+}
+
+@misc{quinonero_gris_metalloporphyrins_2022,
+	title = {Metalloporphyrins Synthesis},
+	publisher = {Universidad de Murcia},
+	author = {Quiñonero Gris, José Antonio and García Bautista, María Antonia},
+	date = {2022},
+	file = {Metalloporphyrins Synthesis.pdf:/home/jose/Zotero/storage/FK43LRBH/Metalloporphyrins Synthesis.pdf:application/pdf},
+}
+
+@misc{gil_rubio_tutoribloque_2022,
+	title = {Tutoría del Bloque {II}: Complejos organometálicos y de coordinación y catálisis homogénea},
+	publisher = {Universidad de Murcia},
+	author = {Gil Rubio, Juan},
+	date = {2022},
+	file = {organometalicos.pdf:/home/jose/Zotero/storage/M9AWRJKA/organometalicos.pdf:application/pdf},
+}
+
+@misc{gil_rubio_tutoribloque_2022-1,
+	title = {Tutoría del Bloque {III}: Bioinorgánica},
+	publisher = {Universidad de Murcia},
+	author = {Gil Rubio, Juan},
+	date = {2022},
+	file = {Tutoría bioino.pdf:/home/jose/Zotero/storage/XBR5P64K/Tutoría bioino.pdf:application/pdf},
+}
+
+@misc{goicuria_montoro_sonogashira_2022,
+	title = {Sonogashira Coupling},
+	publisher = {Universidad de Murcia},
+	author = {Goicuría Montoro, Marta and Millán Miquel, Eugenio},
+	date = {2022},
+	file = {Sonogashira Coupling.pdf:/home/jose/Zotero/storage/XCL7HYT2/Sonogashira Coupling.pdf:application/pdf},
+}
+
+@misc{gil_rubio_tutoribloque_2022-2,
+	title = {Tutoría del Bloque I: Materiales Inorgánicos},
+	publisher = {Universidad de Murcia},
+	author = {Gil Rubio, Juan},
+	date = {2022},
+	file = {tutoria mater inorg.pdf:/home/jose/Zotero/storage/7JT5LK4Y/tutoria mater inorg.pdf:application/pdf},
+}

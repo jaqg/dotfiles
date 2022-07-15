@@ -1,0 +1,27 @@
+%! TEX program = xelatex
+\documentclass[aspectratio=169, 18pt]{beamer}
+% \usepackage[utf8]{inputenc}
+\input{./configuracion/paquetes_beamer}
+\input{./configuracion/estilo_presentacion}
+
+% -----------------------------------------------------------------------------
+% --- TÍTULO ---
+% -----------------------------------------------------------------------------
+\title{Explorando el efecto túnel en la molécula de amoníaco}
+% \subtitle{}
+\author{José Antonio Quiñonero Gris}
+\institute{
+    % \vspace{2cm}
+    Departamento de Química Física\\
+    Universidad de Murcia
+}
+\date{29 de junio de 2022}
+\graphicspath{{./figuras/}}
+\titlegraphic{\hfill\includegraphics[height=0.8cm]{logo_1.pdf}}
+
+% -----------------------------------------------------------------------------
+% --- INICIO DEL DOCUMENTO ---
+% -----------------------------------------------------------------------------
+\begin{document}
+\input{./slides/diapositivas}
+\end{document}

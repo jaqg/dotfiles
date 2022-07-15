@@ -1,0 +1,56 @@
+! _____________________________________________________________________________
+! *****************************************************************************
+! Autor: José Antonio Quiñonero Gris
+! Fecha de creación:
+! *****************************************************************************
+! -----------------------------------------------------------------------------
+
+! -----------------------------------------------------------------------------
+! PROGRAMA PRINCIPAL
+! -----------------------------------------------------------------------------
+program precision
+
+    !
+
+    ! IMPLICIT REAL*8(A-H,O-Z)
+    ! IMPLICIT INTEGER(I-N)
+
+    implicit none
+
+    integer, parameter :: dp = selected_real_kind( p=15, r=200 )
+    real(kind=dp) :: x, y, z, a, b, c
+    integer :: n
+
+    interface
+        subroutine rutina(a,b, c)
+            real(kind=dp), intent(in) :: a,b
+            real(kind=dp), intent(out) :: c
+        end subroutine
+    end interface
+
+    x = 10.0
+    y = 3.0
+
+    z = x/y
+
+    write(*,*) 'z =', z
+
+    n = 1
+
+    write(*,*) 'n (int) =', n
+    write(*,*) 'real(n) =', real(n)
+    write(*,*) 'float(n) =', float(n)
+    write(*,*) 'dble(n) =', dble(n)
+    write(*,*) 'n_dp =', 1._dp*n
+
+    stop
+endprogram precision
+
+subroutine rutina(a,b, c)
+    real, intent(in) :: a,b
+    real, intent(out) :: c
+
+    c = a_dp + b_dp
+
+    return
+end subroutine rutina

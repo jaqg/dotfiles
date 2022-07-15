@@ -1,0 +1,73 @@
+# _____________________________________________________________________________
+# *****************************************************************************
+# Autor: José Antonio Quiñonero gris
+# Fecha de creación: 13 de abril de 2022
+# *****************************************************************************
+# -----------------------------------------------------------------------------
+
+# descripcion del programa
+
+# Librerias
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.style.use('mine')
+
+colores=['#E69F00', '#56B4E9', '#009E73', '#0072B2', '#D55E00', '#CC79A7', '#F0E442']
+
+# *****************************************************************************
+# INICIO
+# *****************************************************************************
+
+nombre_grafica = 'regresion_absorbancia_SAs.pdf'
+
+datos_x_calibrado = [0, 0.1,    0.2,    0.3,    0.4,    0.5]
+datos_y_calibrado = [0, 0.3829, 0.6991, 1.3442, 1.6061, 1.8151]
+datos_x_problema = [0.37,   0.36]
+datos_y_problema = [1.4527, 1.3874]
+
+def regresion(x):
+    res = 3.8258*x+0.0181
+    return res
+
+# GRAFICA
+xmin = -0.25
+xmax = 0.5
+ymin = -0.5
+ymax = 1.5
+
+min_x = min(datos_x_calibrado)-(max(datos_x_calibrado)/10)
+max_x = max(datos_x_calibrado)+(max(datos_x_calibrado)/10)
+x = np.linspace(min_x, max_x, 100)
+
+fig, ax = plt.subplots()
+tamaño_marcador=6
+ax.plot(datos_x_calibrado[0], datos_y_calibrado[0], ls='none', marker='o', ms=tamaño_marcador, markerfacecolor='none', markeredgecolor='grey', label=r'Dis. Cal.')
+for i in np.arange(1,len(datos_x_calibrado)):
+    ax.plot(datos_x_calibrado[i], datos_y_calibrado[i], ls='none', marker='o', ms=tamaño_marcador, markerfacecolor='none', markeredgecolor='grey')
+
+ax.plot(datos_x_problema[0], datos_y_problema[0], ls='none', marker='^', color=colores[0], ms=tamaño_marcador, label=r'M1')
+ax.plot(datos_x_problema[1], datos_y_problema[1], ls='none', marker='^', color=colores[1], ms=tamaño_marcador, label=r'M2')
+
+ax.plot(x, regresion(x), lw=1.0,color='grey')
+
+ax.text(datos_x_problema[0], datos_y_problema[0]+0.1, 'M1',     color=colores[0], horizontalalignment='center', verticalalignment='center')
+ax.text(datos_x_problema[1], datos_y_problema[1]-0.15, 'M2',     color=colores[1], horizontalalignment='center', verticalalignment='center')
+
+# ax.fill_between(x, y1, y2)
+# ax.text(x, y, string, horizontalalignment='center', verticalalignment='center')
+
+# ax.set(xlabel=r'$\left[ \mathrm{SDS} \right]$, mg/L', ylabel=r'Absorbancia, $A$')
+ax.set(xlabel=r'[SDS], mg/L', ylabel=r'Absorbancia, $A$')
+
+# ax.set_xlim(xmin,xmax)
+# ax.set_ylim(ymin,ymax)
+
+# Invertir el orden de las etiquetas
+# handles, labels = ax.get_legend_handles_labels()
+# ax.legend(handles[::-1], labels[::-1], loc=(1.01,0.4))
+# ax.legend(loc='lower right')
+ax.legend()
+
+plt.savefig(nombre_grafica, transparent='True', bbox_inches='tight')
+# plt.show()

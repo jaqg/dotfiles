@@ -1,0 +1,5 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{color}
+\usepackage[spanish, es-tabla]{babel}

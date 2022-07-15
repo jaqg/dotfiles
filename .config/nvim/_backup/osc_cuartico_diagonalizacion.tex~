@@ -1,0 +1,225 @@
+\documentclass[12pt, final, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[spanish, es-tabla]{babel}
+\usepackage{amsmath, amssymb}
+
+\input{/home/jose/Documents/latex/preamble/paquetes1} %mis paquetes
+\input{/home/jose/Documents/latex/preamble/bibliography_config} %configuracion para l bibliografia
+\input{/home/jose/Documents/latex/preamble/paquetesTikz} %mis paquetes
+\input{/home/jose/Documents/latex/preamble/tikzstyle} %Estilo para las gráficas
+
+\decimalpoint
+
+\graphicspath{{../grafica/}}
+
+\author{José Antonio Quiñonero Gris}
+\title{\textbf{Estudio de convergencia del oscilador cuártico.}}
+
+% \date{7 de marzo de 2022}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+%------------------------------------------------------------------------------
+\section{Introducción}%
+%------------------------------------------------------------------------------
+Sea el Hamiltoniano del oscilador cuártico
+\begin{equation}
+    \hat{H} = -\frac{ \hbar^2 }{2m} \frac{\dd^2}{\dd{x^2}} + dx^4
+\end{equation}
+escribimos la energía variacional como
+\begin{equation}\label{ec:variacional general}
+    W = -\frac{ \hbar^2 }{2m} \Braket{v | \frac{\dd^2}{\dd{x^2}} | v} + d \Braket{v | x^4 | v}
+\end{equation}
+donde las integrales sobre $\dd^2 / \dd{x^2}$ vienen dadas por
+\begin{equation}\label{ec:integral derivada n n}
+    \Braket{n | \frac{ \dd^2}{ \dd{x^2}} | n} = -\alpha \left( n + \frac{1}{2} \right)
+\end{equation}
+\begin{equation}\label{ec:integral derivada n n+2}
+    \Braket{n | \frac{ \dd^2}{ \dd{x^2}} | n+2} = \alpha^2 \Braket{n | x^2 | n+2} = \frac{\alpha \left[ (n+1)(n+2) \right]^{1 /2}}{2}
+\end{equation}
+y sobre $x^4$ por
+\begin{equation}\label{ec:integral x^4 n n}
+    \Braket{n | x^4 | n} = \frac{3 \left( 2n^2 + 2n + 1 \right)}{4\alpha^2}
+\end{equation}
+\begin{equation}\label{ec:integral x^4 n n+2}
+   \Braket{n | x^4 | n+2} = \frac{\left( 2n+3 \right) \left[ \left( n+1 \right)\left( n+2 \right) \right]^{1 / 2}}{2\alpha^2}
+\end{equation}
+\begin{equation}\label{ec:integral x^4 n n+4}
+    \Braket{n | x^4 | n+4} = \frac{\left[ \left( n+1 \right)\left( n+2 \right)\left( n+3 \right)\left( n+4 \right) \right]^{1 / 2}}{4\alpha^2}
+\end{equation}\\
+
+Al igual que hicimos con el oscilador armónico perturbado cuárticamente, optimizaremos el parámetro $\alpha$ del oscilador, tratándolo como un parámetro variacional de nuestra combinación lineal.
+\subsection{Optimización de $\alpha$}
+
+Sustituyendo \eqref{ec:integral derivada n n} y \eqref{ec:integral x^4 n n} en \eqref{ec:variacional general}
+\begin{equation}
+    W(\alpha) = \frac{ \hbar^2}{2m}  \left( n + \frac{1}{2} \right) \alpha + \frac{3d \left( 2n^2 + 2n + 1 \right)}{4\alpha^2}
+\end{equation}
+derivando respecto a $\alpha$
+\begin{equation}
+    \frac{\dd{W(\alpha)}}{ \dd{\alpha}} = \frac{ \hbar^2}{2m}  \left( n + \frac{1}{2} \right) - \frac{3d \left(2 n^{2} + 2 n + 1\right)}{2 \alpha^{3}}
+\end{equation}
+e igualando a cero, llegamos a la siguiente ecuación cúbica en $\alpha$
+\begin{equation}
+    \hbar^2(n+1/2) \alpha^3 - 3md(2n^2 + 2n + 1) = 0
+\end{equation}
+Para el estado fundamental, $n=0$
+\begin{equation}
+    \frac{ \hbar^2}{2} \alpha^3 - 3md = 0
+\end{equation}
+que reescribo como
+\begin{equation}
+        \hbar^2 \alpha^3 - 6md = 0
+\end{equation}
+cuya solución inmediata real tomamos como $\alpha_{\mathrm{opt.}}$:
+\begin{equation}\label{ec:alfa optimizado}
+    \alpha_{\mathrm{opt.}} = \left( \frac{6md}{ \hbar^2} \right)^{1 /3}
+\end{equation}
+
+Recojo el valor de $\alpha_{\mathrm{opt.}}$ para $m = \hbar = k = 1$ y los valores de $d$ empleados en los cálculos en la tabla \ref{tab:tabla valores alfa optimizado}.
+%
+{
+% \extrarowheight = -0.5ex  %espacio en blanco
+% \renewcommand{\arraystretch}{2.00}
+\begin{table}[h]
+    \ra{1.2} % Spacing btween lines of table
+    \caption{Valores de $\alpha_{\mathrm{opt.}}$ dados por la ecuación \eqref{ec:alfa optimizado} para los valores de $d$ empleados en los cálculos tomando $m = \hbar = k = 1$.}
+    \label{tab:tabla valores alfa optimizado}
+    \centering
+    \begin{tabular}{@{}c c@{}}
+        \toprule
+        $\boldsymbol{d}$ & $\boldsymbol{\alpha_{\mathrm{opt.}}}$ \\
+        \midrule
+        0.1 & 0.84343 \\
+        0.5 & 1.44225 \\
+        1.0 & 1.81712 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+}
+%------------------------------------------------------------------------------
+\subsection{Matriz del Hamiltoniano}%
+%------------------------------------------------------------------------------
+Ahora, calcularemos las integrales del Hamiltoniano $H_{nm}$ según la ecuación \eqref{ec:variacional general} sustituyendo, en cada caso, el parámetro $\alpha$ por $\alpha_{\mathrm{opt.}}$ dado por la ecuación \eqref{ec:alfa optimizado}, de manera que
+\begin{equation}\label{ec:integral_H_n_n}
+    H_{n,n} = \frac{ \hbar^2}{2m}  \left( n + \frac{1}{2} \right) \alpha_{\mathrm{opt.}} + d \frac{3 \left( 2n^2 + 2n + 1 \right)}{4\alpha_{\mathrm{opt.}}^2}
+\end{equation}
+\begin{equation}\label{ec:integral_H_n_n+2}
+    H_{n,n+2} = -\frac{ \hbar^2}{2m} \frac{\left[ (n+1)(n+2) \right]^{1 /2}\alpha_{\mathrm{opt.}} }{2} + d \frac{\left( 2n+3 \right) \left[ \left( n+1 \right)\left( n+2 \right) \right]^{1 / 2}}{2\alpha_{\mathrm{opt.}}^2}
+\end{equation}
+\begin{equation}\label{ec:integral_H_n_n+z}
+    H_{n,n+4} = \frac{d\left[ \left( n+1 \right)\left( n+2 \right)\left( n+3 \right)\left( n+4 \right) \right]^{1 / 2}}{4\alpha_{\mathrm{opt.}}^2}
+\end{equation}\\
+
+Así, construimos las matrices del Hamiltoniano $\mat{H_{\mathrm{p}}}$ y $\mat{H_{\mathrm{i}}}$ para el oscilador cuártico calculando los elementos $H_{ij}$ según las ecuaciones \eqref{ec:integral_H_n_n}, \eqref{ec:integral_H_n_n+2} y \eqref{ec:integral_H_n_n+z}, que diagonalizamos para hallar los valores de las energías variacionales.
+%------------------------------------------------------------------------------
+\section{Cálculos}%
+%------------------------------------------------------------------------------
+%TODO: corregir numero funciones base para convergencia
+Calculo el valor de las energías variacionales de los 21 primeros niveles energéticos usando $N=100$ funciones base, para los valores del parámetro perturbativo $d=0.1,\ 0.5,\ 1.0$. Para $N\ge 77$, los valores de las energías de los 21 primeros niveles no disminuyen para la precisión de nuestros cálculos, por lo que los tomaremos como valores de energía de nuestro sistema. \\
+
+Para la diagonalización de la matriz del Hamiltoniano $\mat{H}$ uso la subrutina \verb|dsyev()| de la librería LAPACK~\cite{lapack_userguide}, que nos permite obtener tanto los valores propios de $\mat{H}$, las energías variacionales, como los vectores propios, aunque no se presentan en este informe.
+
+%------------------------------------------------------------------------------
+\section{Resultados}%
+%------------------------------------------------------------------------------
+%TODO: discutir por que tomaremos el oscilador cuartico como sistema orden 0
+Recojo en la tabla \ref{tab:tabla_resultados} los valores de las energías variacionales de los primeros $n=21$ niveles para $N=100$ funciones base, junto al número de funciones base de convergencia $N_{\mathrm{con.}}$, para cada valor de $d$. Además, presento en la tabla \ref{tab:convergencia_n=0,5,10,15} los valores de las energías variacionales para los niveles $n=0,5,10,15$ convergidos junto al número de funciones base de convergencia tomando el parámetro $\alpha$ del oscilador armónico y $\alpha_{\mathrm{opt.}}$ para $d=1.0$.\\
+
+{
+ % \extrarowheight = -0.5ex  %espacio en blanco
+ % \renewcommand{\arraystretch}{2.00}
+\begin{table}[h]
+    \ra{1.2} % Spacing btween lines of table
+    \caption{Valores de las energías variacionales convergidos para los $n=21$ primeros niveles energéticos, $W_n$, junto al número de funciones base de convergencia, $N_{\mathrm{con.}}$, y los valores del parámetro perturbativo $d$ de estudio.}
+    \label{tab:tabla_resultados}
+    \centering
+    \begin{tabular}{@{}c c c c c c c@{}}
+        \toprule
+         & \multicolumn{2}{c}{$\boldsymbol{d=0.1}$} & \multicolumn{2}{c}{$\boldsymbol{d=0.5}$} & \multicolumn{2}{c}{$\boldsymbol{d=1.0}$}\\
+         % & \multicolumn{2}{c}{$d=0.1$} & \multicolumn{2}{c}{$d=0.5$} & \multicolumn{2}{c}{$d=1.0$}\\
+         \cmidrule(r){2-3} \cmidrule(r){4-5} \cmidrule(r){6-7}
+        $\boldsymbol{n}$ & $\boldsymbol{W_n}$ & $\boldsymbol{N_{\mathrm{con.}}}$ & $\boldsymbol{W_n}$ & $\boldsymbol{N_{\mathrm{con.}}}$ & $\boldsymbol{W_n}$ & $\boldsymbol{N_{\mathrm{con.}}}$ \\
+        % $n$ & $W_n$ & $N$ & $W_n$ & $N$ & $W_n$ & $N$ \\
+        \midrule
+        0  & 0.31006  & 11 & 0.53018  & 13 & 0.66799  & 13 \\
+        1  & 1.11104  & 14 & 1.89984  & 16 & 2.39365  & 16 \\
+        2  & 2.18007  & 17 & 3.72785  & 19 & 4.6968   & 19 \\
+        3  & 3.40495  & 20 & 5.82237  & 22 & 7.33573  & 22 \\
+        4  & 4.75499  & 25 & 8.13092  & 25 & 10.24431 & 25 \\
+        5  & 6.21014  & 28 & 10.61919 & 28 & 13.37934 & 28 \\
+        6  & 7.75697  & 31 & 13.26424 & 31 & 16.71189 & 31 \\
+        7  & 9.38569  & 34 & 16.0493  & 34 & 20.22085 & 34 \\
+        8  & 11.08875 & 37 & 18.9615  & 37 & 23.89    & 37 \\
+        9  & 12.86017 & 40 & 21.99058 & 40 & 27.7064  & 40 \\
+        10 & 14.69502 & 43 & 25.12813 & 43 & 31.65946 & 43 \\
+        11 & 16.58919 & 46 & 28.36711 & 46 & 35.74032 & 46 \\
+        12 & 18.53917 & 49 & 31.70153 & 49 & 39.94142 & 51 \\
+        13 & 20.54193 & 52 & 35.12619 & 54 & 44.25623 & 54 \\
+        14 & 22.59483 & 55 & 38.6366  & 57 & 48.67907 & 57 \\
+        15 & 24.69551 & 60 & 42.22873 & 60 & 53.20487 & 60 \\
+        16 & 26.84192 & 63 & 45.89904 & 63 & 57.82916 & 63 \\
+        17 & 29.03217 & 66 & 49.64431 & 66 & 62.5479  & 68 \\
+        18 & 31.26457 & 69 & 53.46166 & 71 & 67.35747 & 71 \\
+        19 & 33.53759 & 72 & 57.34846 & 74 & 72.25453 & 74 \\
+        20 & 35.84983 & 77 & 61.30234 & 77 & 77.23611 & 77 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+}
+{
+% \extrarowheight = -0.5ex  %espacio en blanco
+% \renewcommand{\arraystretch}{2.00}
+\begin{table}[h]
+    \ra{1.2} % Spacing btween lines of table
+    \caption{Valores de las energías variacionales para los niveles $n=0,5,10,15$ convergidos junto al número de funciones base de convergencia tomando el parámetro $\alpha$ del oscilador armónico y $\alpha_{\mathrm{opt.}}$ para $d=1.0$.}
+    \label{tab:convergencia_n=0,5,10,15}
+    \centering
+    \begin{tabular}{@{}c c c c@{}}
+        \toprule
+         & & \multicolumn{2}{c}{$\boldsymbol{N_{\mathrm{con.}}}$} \\
+        \cmidrule(r){3-4}
+        $\boldsymbol{n}$ & $\boldsymbol{W_n}$ & $\boldsymbol{\alpha = 1}$ & $\boldsymbol{\alpha = \alpha_{\mathrm{opt.}}}$\\
+        \midrule
+
+        0  & 0.66799  & 21 & 13 \\
+        5  & 13.37934 & 50 & 28 \\
+        10 & 31.65945 & 79 & 43 \\
+        15 & 53.20489 & 96 & 60 \\
+
+        \bottomrule
+    \end{tabular}
+\end{table}
+}
+
+Represento en la figura \ref{fig:grafica_osc_cuartico_diagonalizacion} los valores de las energías variacionales de los 11 primeros niveles energéticos de índice par frente al número de funciones base $N$, para cada valor del parámetro $d$. Los puntos se corresponden al valor de $W_n$ para cada número de funciones base par, siendo omitidos los puntos correspondientes a valores de $N$ impares. Podemos apreciar cómo la disminución en los valores de energía con el aumento del número de funciones base es mayor para niveles energéticos superiores, y para los primeros aumentos de $N$. Así, podemos ver cómo las energías variacionales convergen hacia los valores presentados en la tabla \ref{tab:tabla_resultados}, y cómo esta convergencia es más rápida para los niveles inferiores, siendo la más rápida la del estado fundamental.\\
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{grafica_osc_cuartico_diagonalizacion.pdf}
+    \caption{Valores de las energías variacionales de los primeros 11 niveles pares para los valores de $d$ estudiados, calculados tomando el parámetro $\alpha$ optimizado frente al número de funciones base $N$ pares.}
+    \label{fig:grafica_osc_cuartico_diagonalizacion}
+\end{figure}
+
+En la figura \ref{fig:convergencia_n=0,5,10,15} represento los valores de las energías variacionales de los niveles $n=0,5,10,15$ (para $d=1.0$) calculados tomando $\alpha=1$ del oscilador armónico (línea amarilla) y $\alpha=\alpha_{\mathrm{opt.}}$ (línea azul) frente al número de funciones base $N$. De esta figura podemos apreciar el efecto de la optimización del parámetro $\alpha$ en la convergencia de los valores de energía, siendo esta más rápida cuando optimizamos $\alpha$, como ya esperábamos y podemos ver en los valores de $N_{\mathrm{con.}}$ de la tabla \ref{tab:tabla_resultados}. \\
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{convergencia_n=0,5,10,15.pdf}
+    \caption{Valores de las energías variacionales $W_n$ de los niveles $n=0,5,10,15$ para $d=1.0$ calculados tomando el parámetro $\alpha$ del oscilador (línea amarilla) y $\alpha_{\mathrm{opt.}}$ (línea azul) frente al número de funciones base $N$ pares.}
+    \label{fig:convergencia_n=0,5,10,15}
+\end{figure}
+
+%------------------------------------------------------------------------------
+\clearpage
+\newpage
+% \nocite{*}
+\printbibliography
+\end{document}

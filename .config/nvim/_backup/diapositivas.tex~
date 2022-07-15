@@ -1,0 +1,454 @@
+\begin{frame}{}
+\titlepage
+\end{frame}
+
+\begin{frame}{Table of Contents}
+    \setbeamertemplate{section in toc}[sections numbered]
+    \tableofcontents
+\end{frame}
+
+% ------
+\section{Introduction}
+% ------
+\begin{frame}{Introducción}
+    \emph{\textbf{Efecto túnel:}} penetración y transmisión de moléculas a través de barreras de energía potencial.
+
+    \begin{columns}
+    \begin{column}{0.4\textwidth}
+        \begin{itemize}[label=\textbullet]
+            \item \textcolor{myblue}{Clásica} \emph{vs} \textcolor{myred}{Cuántica}
+            \item Fenómeno cuántico y probabilístico
+            % \item $\downarrow P_{\mathrm{e.t.}}$
+            % \begin{itemize}
+            %     \item $\uparrow$ masa
+            %     \item $\uparrow$ altura y anchura
+            % \end{itemize}
+            % \item
+            % \begin{equation*}
+            %      \downarrow P_{\mathrm{e.f.}} \left\{\begin{matrix}
+            %      \uparrow m \\
+            %      \uparrow V_b \\
+            %      \uparrow w_b
+            %     \end{matrix}\right.
+            % \end{equation*}
+            \item Disminuye con:
+            \begin{itemize}
+                \item $\uparrow m$
+                \item $\uparrow$ altura y anchura
+            \end{itemize}
+        \end{itemize}
+    \end{column}
+    \begin{column}{0.7\textwidth}
+    \begin{figure}[tb]
+        \centering
+        \includegraphics[width=0.8\textwidth]{potencial_efecto_tunel}
+        % \caption{}
+        \label{fig:potencial_efecto_tunel}
+    \end{figure}
+    \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Introducción}
+    Campos científicos y tecnológicos:
+    \begin{itemize}[label=\textbullet]
+        \item \textbf{Química:} astroquímica, electroquímica, catálisis, procesos radiactivos, \ldots
+        \item Biología: proteínas y mutaciones ADN, \ldots
+        \item Tecnología: STM, computación cuántica, \ldots
+    \end{itemize}
+    \begin{figure}[tb]
+        \centering
+        \includegraphics[width=0.7\textwidth]{ejemplos_aplicaciones}
+        % \caption{}
+        \label{fig:ejemplos_aplicaciones}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Introducción}
+    \textbf{Objetivos:}
+    \begin{itemize}[label=\textbullet]
+        \item Efecto túnel en \ch{NH3}
+        \item Estados no estacionarios $\to$ superposición estados estacionarios
+        \item Dinámica de estados no estacionarios
+        \item \emph{Visualizar} el efecto túnel
+    \end{itemize}
+    % \textbf{Objectives}
+    % \begin{itemize}[label=\textbullet]
+    %     \item Quantum Tunneling in \ch{NH3}
+    %     \item Non-stationary states $\to$ superposition of stationary states
+    %     \item Time dynamics of non-stationary states
+    %     \item \emph{Visualize} tunneling
+    % \end{itemize}
+\end{frame}
+
+% ------
+% \section{Movimiento de inversión del \ch{NH3}}
+\section{Inversion motion of \ch{NH3}}
+% ------
+
+\begin{frame}{Movimiento de inversión del \ch{NH3}}
+    Coordenada de inversión
+        \begin{figure}[h]
+            \centering
+            \includegraphics[height=0.8\textheight]{coordenada_inversion}
+            % \caption{}
+            \label{fig:coordenada_inversion}
+        \end{figure}
+\end{frame}
+
+\begin{frame}{Movimiento de inversión del \ch{NH3}}
+     Movimiento vibracional de tipo paraguas $\implies$ modo angular simétrico
+    \begin{figure}[tb]
+        \centering
+        \includegraphics[width=1.0\textwidth]{esquema_inversion}
+        % \caption{}
+        \label{fig:esquema_inversion}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Movimiento de inversión del \ch{NH3}}
+    Potencial de doble pozo
+    \begin{columns}
+    \begin{column}{0.5\textwidth}
+    \begin{center}
+    \animategraphics[autoplay,loop,height=0.8\textheight]{30}{./animaciones/inversion_NH3/inversion_NH3-}{0}{46}
+    \end{center}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+        \begin{figure}[htb]
+            \centering
+            \includegraphics[height=0.8\textheight]{caracterizacion_potencial}
+            % \caption{}
+            \label{fig:caracterizacion_potencial}
+        \end{figure}
+    \end{column}
+    \end{columns}
+
+\end{frame}
+
+% ------
+% \section{Determinación de estados estacionarios}
+\section{Determination of stationary states}
+% ------
+
+\begin{frame}{Determinación de estados estacionarios}
+    Determinación de niveles de energía y funciones propias (estados estacionarios)
+    \begin{itemize}[label=\textbullet]
+        \item Ecuación de Schrödinger
+        \begin{equation}
+            \hat{H} \psi_i = E_i \psi_i
+        \end{equation}
+        \item Hamiltoniano del sistema
+        \begin{equation}
+            \hat{H} = - \frac{ \hbar^2 }{2 \mu} \frac{ \dd^2 }{ \dd{x^2} } + \frac{V_b}{x_e^4} x^4 - \frac{2V_b}{x_e^2} x^2 + V_b
+        \end{equation}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Determinación de estados estacionarios}
+    Conjunto de funciones base $\left\{ \Ket{\varphi_v} \right\}_N$ $\implies$ oscilador armónico unidimensional
+    \begin{figure}[htb]
+        \centering
+        \includegraphics[width=0.8\textwidth]{densidades_oscilador_armonico_simple}
+        % \caption{}
+        \label{fig:densidades_oscilador_armonico_simple}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Determinación de estados estacionarios}
+    Energías variacionales
+    \begin{itemize}[label=\textbullet]
+        \item Convergencia con el número de funciones base $N$
+    \end{itemize}
+    \begin{figure}[htb]
+        \centering
+        \includegraphics[width=1.0\textwidth]{convergencia_E_vs_N_2}
+        % \caption{}
+        \label{fig:convergencia_E_vs_N_2}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Determinación de estados estacionarios}
+    \textbf{Niveles de energía}
+    \begin{columns}
+    \begin{column}{0.2\textwidth}
+       {
+        % \extrarowheight = -0.5ex  %espacio en blanco
+        % \renewcommand{\arraystretch}{2.00}
+        \begin{table}[t!]
+            \ra{1.2} % Spacing btween lines of table
+            % \caption{Valores de las energías variacionales, para $N=200$ funciones base, de los $n=6$ primeros niveles vibracionales en unidades atómicas (hartrees) y en $\mathrm{cm^{-1}}$, junto al número de funciones base de convergencia, $N_{\mathrm{conv.}}$.}
+            \label{tab:convergencia_energias}
+            \centering
+            \begin{tabular}{@{}c c@{}}
+                \toprule
+                $n$ & $E_n\ (\mathrm{cm^{-1}})$ \\
+                \midrule
+
+                0  & 588.17844   \\
+                1  & 589.50974   \\
+                2  & 1598.27622  \\
+                3  & 1666.00369  \\
+                4  & 2291.31245  \\
+                5  & 2700.63087  \\
+
+                \bottomrule
+            \end{tabular}
+        \end{table}
+        }
+    \end{column}
+    \begin{column}{0.8\textwidth}
+        \begin{figure}[htb]
+            \centering
+            \includegraphics[width=1.0\textwidth]{niveles_energia}
+            % \caption{}
+            \label{fig:niveles_energia}
+        \end{figure}
+    \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Determinación de estados estacionarios}
+    \textbf{Estados estacionarios}
+    \begin{itemize}[label=\textbullet]
+        \item Funciones pares
+    \end{itemize}
+    \begin{figure}[htb]
+        \centering
+        \includegraphics[width=0.95\textwidth]{funciones_y_potencial_1}
+        % \caption{}
+        \label{fig:funciones_y_potencial_1}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Determinación de estados estacionarios}
+    \textbf{Estados estacionarios}
+    \begin{itemize}[label=\textbullet]
+        \item Funciones impares
+    \end{itemize}
+    \begin{figure}[htb]
+        \centering
+        \includegraphics[width=0.95\textwidth]{funciones_y_potencial_2}
+        % \caption{}
+        \label{fig:funciones_y_potencial_2}
+    \end{figure}
+\end{frame}
+
+% ------
+% \section{Preparación de estados no estacionarios}
+\section{Preparation of non-stationary states}
+% ------
+
+\begin{frame}{Preparación de estados no estacionarios}
+    \textbf{Estado no estacionario} en \emph{movimiento}
+    \begin{itemize}[label=\textbullet]
+        \item \emph{Superposición} de estados estacionarios
+        \begin{equation}
+            \Ket{\Psi} = \sum_{n} a_n \Ket{\psi_n}
+        \end{equation}
+        con energía
+        \begin{equation}
+            \Braket{ E } = \sum_{n} \left| a_n \right|^2 E_n
+        \end{equation}
+        en nuestro caso
+        \begin{equation}
+            \Ket{\Psi} = \frac{1}{\sqrt{2} } \left\{  \cos \alpha \left( \Ket{\psi_0} + \Ket{\psi_1} \right)+ \sin \alpha \left( \Ket{\psi_2} + \Ket{\psi_3} \right) \right\}
+        \end{equation}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Preparación de estados no estacionarios}
+    Estados no estacionarios límite (\textcolor{graforange}{$\boldsymbol{\alpha = 0}$ } y \textcolor{grafblue}{$\boldsymbol{\alpha = 90^{\circ}}$})
+    \begin{figure}[tb]
+        \centering
+        \includegraphics[width=1.0\textwidth]{ENE_limite}
+        % \caption{}
+        \label{fig:ENE_limite}
+    \end{figure}
+\end{frame}
+
+%TODO: tabla valores energia y anchura barrera con alfa (??)
+
+% ------
+% \section{Dinámica de estados no estacionarios}
+\section{Time dynamics of non-stationary states}
+% ------
+
+\begin{frame}{Dinámica de estados no estacionarios}
+    Evolución temporal de los estados no estacionarios localizados en el pozo de la izquierda
+    \begin{itemize}[label=\textbullet]
+        \item \emph{Ecuación de Schrödinger dependiente del tiempo}
+        \begin{equation}
+                i \hbar \frac{\partial \Psi(x,t)}{\partial t} = \hat{H} \Psi(x,t)
+        \end{equation}
+        \item \emph{Superposición} de estados estacionarios $\Ket{\psi_i(t)}$
+        \begin{equation}
+            \Ket{\Psi(t)} = \sum_{i} \Ket{\psi_i(t)} a_i = \sum_{i}  a_i \Ket{\varphi_i} e^{-i E_i t /\hbar }
+        \end{equation}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Preparación de estados no estacionarios}
+    \begin{itemize}[label=\textbullet]
+        \item Valor esperado de la posición $\hat{x}=x$
+        \begin{equation}
+            \Braket{ x }_t = \sum_{i} \left| a_i \right|^2 \Braket{\varphi_i | x | \varphi_i} + 2 \sum_{i}\sum_{j>i} a_i a_j \Braket{\varphi_i | x | \varphi_j} \cos \frac{ \left( E_j - E_i \right) t}{\hbar }
+        \end{equation}
+        \item Probabilidad de supervivencia
+        \begin{equation}
+                P_s(t) = \left| \Braket{\Psi(x,0) | \Psi(x,t)} \right|^2 = \sum_{i} \left| a_i \right|^4 + 2 \sum_{i}\sum_{j>i} \left| a_i \right|^2 \left| a_j \right|^2 \cos \frac{ \left( E_j - E_i \right) t}{\hbar }
+        \end{equation}
+        \item Tiempo de recurrencia
+        \begin{columns}
+        \begin{column}{0.5\textwidth}
+        \begin{equation}
+            t_r = \frac{h}{\Delta E} l \qquad l=1,2,3,\ldots
+        \end{equation}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+        {
+        % \extrarowheight = -0.5ex  %espacio en blanco
+        % \renewcommand{\arraystretch}{2.00}
+        \begin{table}[t!]
+            \ra{1.2} % Spacing btween lines of table
+            % \caption{Tiempo de recurrencia (primera recurrencia) para los estados no estacionarios límite dados por las \eqsref{ec:estado_no_estacionario_completo_limite_0} y \eqref{ec:estado_no_estacionario_completo_limite_90}, calculado con la \equatref{ec:tiempo_primera_recurrencia}.}
+            \label{tab:tiempos_recurrencia}
+            \centering
+            \begin{tabular}{@{}c c@{}}
+                \toprule
+                $\alpha$ & $t_r\ (\mathrm{ps})$ \\
+                \midrule
+
+                $0$          & 25.05548 \\
+                $90^{\circ}$ & 0.49251  \\
+
+                \bottomrule
+            \end{tabular}
+        \end{table}
+        }
+        \end{column}
+        \end{columns}
+    \end{itemize}
+
+\end{frame}
+
+% ------
+% \section{Probabilidades de supervivencia, valores medios y efecto túnel}
+\section{Survival probability, mean values and quantum tunneling}
+% ------
+
+\begin{frame}{Probabilidades de supervivencia, valores medios y efecto túnel}
+    Probabilidad de supervivencia
+    \begin{figure}[htb]
+        \centering
+        \includegraphics[width=1.0\textwidth]{probabilidades_supervivencia_1}
+        % \caption{}
+        \label{fig:probabilidades_supervivencia_1}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Probabilidades de supervivencia, valores medios y efecto túnel}
+    \begin{figure}[htb]
+        \centering
+        \includegraphics[height=0.95\textheight]{probabilidades_supervivencia_2}
+        % \caption{}
+        \label{fig:probabilidades_supervivencia_2}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Probabilidades de supervivencia, valores medios y efecto túnel}
+    Valor esperado de la posición
+    \begin{figure}[htb]
+        \centering
+        \includegraphics[width=1.0\textwidth]{valor_esperado_x_1}
+        % \caption{}
+        \label{fig:valor_esperado_x_1}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Probabilidades de supervivencia, valores medios y efecto túnel}
+    \begin{figure}[htb]
+        \centering
+        \includegraphics[height=0.95\textheight]{valor_esperado_x_2}
+        % \caption{}
+        \label{fig:valor_esperado_x_2}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Probabilidades de supervivencia, valores medios y efecto túnel}
+    \begin{center}
+    \animategraphics[autoplay,loop,height=0.95\textheight]{30}{./animaciones/efecto_tunel_alfa_0/alfa_0_2-}{0}{299}
+    \end{center}
+\end{frame}
+
+\begin{frame}{Probabilidades de supervivencia, valores medios y efecto túnel}
+    \begin{center}
+    \animategraphics[autoplay,loop,height=0.95\textheight]{30}{./animaciones/efecto_tunel_alfa_0/alfa_45_2-}{0}{199}
+    \end{center}
+\end{frame}
+
+\begin{frame}{Probabilidades de supervivencia, valores medios y efecto túnel}
+    \begin{center}
+    \animategraphics[autoplay,loop,height=0.95\textheight]{30}{./animaciones/efecto_tunel_alfa_0/alfa_90_2-}{0}{199}
+    \end{center}
+\end{frame}
+
+\begin{frame}{Probabilidades de supervivencia, valores medios y efecto túnel}
+    \begin{center}
+    \animategraphics[autoplay,loop,height=0.95\textheight]{30}{./animaciones/efecto_tunel_alfa_0/alfa_15_2-}{0}{299}
+    \end{center}
+\end{frame}
+
+\begin{frame}{Probabilidades de supervivencia, valores medios y efecto túnel}
+    \begin{center}
+    \animategraphics[autoplay,loop,height=0.95\textheight]{30}{./animaciones/efecto_tunel_alfa_0/alfa_60_2-}{0}{199}
+    \end{center}
+\end{frame}
+
+% ------
+\section{Conclusions}
+% ------
+
+\begin{frame}{Conclusions}
+
+    % \textbf{Primera}. El efecto túnel es un efecto puramente cuántico, difícil de comprender, cuya visualización facilita su comprensión.
+
+    % \textbf{Segunda}. La Mecánica Cuántica nos dice que un sistema posee una serie de valores propios de energía y funciones propias, que obtenemos de resolver la ecuación de Schrödinger para un operador Hamiltoniano característico. Sin embargo, el sistema puede estar descrito también, tal como se muestra en este trabajo, por estados no estacionarios formados como superposiciones de estados estacionarios de diferentes energías. Los estados no estacionarios se pueden crear experimentalmente mediante técnicas espectroscópicas, y solo cuando se realiza una medida del mismo, la superposición de estados colapsa en el estado propio obtenido de la magnitud medida.
+
+    \textbf{First}. Tunneling is a purely quantum effect, difficult to understand, whose visualization facilitates its understanding.
+
+     \textbf{Second}. Quantum Mechanics tells us that a system has a series of eigenvalues of energy and eigenfunctions, which we obtain by solving the Schrödinger equation for a characteristic Hamiltonian operator. However, the system can also be described, as shown in this work, by non-stationary states formed as superpositions of stationary states of different energies. Non-stationary states can be created experimentally using spectroscopic techniques, and only when a measurement is made, the states superposition collapses into the eigenstate obtained from the measured magnitude.
+
+\end{frame}
+
+\begin{frame}{Conclusions}
+
+    % \textbf{Tercera}. Los valores esperados de un observable correspondientes a las funciones propias del Hamiltoniano, los estados estacionarios, no varían con el tiempo como ocurre clásicamente. Para ello, es necesario crear un estado no estacionario formado por la superposición de estados estacionarios de diferentes energías.
+
+    % \textbf{Cuarta.} En el movimiento de inversión de la molécula de amoníaco, descrito por dos pozos de potencial idénticos correspondientes a las geometrías de equilibrio piramidales de la molécula, separados por una barrera de potencial correspondiente a la geometría plana de la molécula, los estados estacionarios que caen por debajo de la barrera están deslocalizados simétricamente respecto a la barrera y no existe la posibilidad de que evolucionen en el tiempo.
+
+    \textbf{Third}. The expected values of an observable corresponding to the eigenfunctions of the Hamiltonian, the stationary states, do not vary with time as it classically occurs. To do this, it is necessary to create a non-stationary state formed by the superposition of stationary states of different energies.
+
+     \textbf{Fourth.} In the inversion motion of the ammonia molecule, described by two identical potential wells corresponding to the equilibrium pyramidal geometries of the molecule, separated by a potential barrier corresponding to the planar geometry of the molecule, the stationary states that fall below the barrier are symmetrically delocalized with respect to the barrier and there is no possibility that they evolve in time.
+
+\end{frame}
+
+\begin{frame}{Conclusions}
+
+    % \textbf{Quinta.} Para observar el efecto túnel en el movimiento de inversión de la molécula de amoníaco es necesario, por tanto, incluso crear estados no estacionarios localizados en uno de los pozos y seguir la evolución temporal mecanocuántica de los mismos.
+
+    % \textbf{Sexta.} Los estados no estacionarios iniciales se construyen como una combinación lineal de estados estacionarios que nos permite localizar dicho estado en uno de los pozos de potencial.
+
+    \textbf{Fifth.} To observe tunneling in the inversion motion of the ammonia molecule, it is therefore necessary to even create localized non-stationary states in one of the wells and follow their quantum mechanical time evolution.
+
+     \textbf{Sixth.} The initial non-stationary states are constructed as a linear combination of stationary states that allows us to localize that state in one of the potential wells.
+
+\end{frame}
+
+\begin{frame}{Conclusions}
+
+    % \textbf{Séptima.} Los estados no estacionarios iniciales localizados en uno de los pozos de potencial evolucionan con el tiempo cruzando la barrera y desplazándose al otro pozo de potencial por efecto túnel. Este movimiento es uniforme para los estados no estacionarios iniciales formados por la superposición de dos estados estacionarios e irregular para la combinación de más de dos estados estacionarios, provocando la oscilación del estado en torno a su posición de equilibrio inicial. Es decir, la probabilidad de efecto túnel es mayor para los estados no estacionarios formados por la superposición de dos estados estacionarios que para los estados no estacionarios construidos como una combinación lineal de más de dos estados estacionarios.
+
+    \textbf{Seventh.} The initial non-stationary states localized in one of the potential wells evolve over time crossing the barrier and moving to the other potential well by tunneling. This movement is uniform for the initial non-stationary states formed by the superposition of two stationary states and irregular for the combination of more than two stationary states, causing the state to oscillate around its initial equilibrium position. That is, the tunneling probability is greater for non-stationary states formed by the superposition of two stationary states than for non-stationary states constructed as a linear combination of more than two stationary states.
+
+\end{frame}

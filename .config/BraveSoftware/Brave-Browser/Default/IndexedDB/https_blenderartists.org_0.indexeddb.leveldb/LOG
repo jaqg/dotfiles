@@ -1,0 +1,6 @@
+2022/03/23-16:40:23.667 d12a Creating DB /home/jose/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_blenderartists.org_0.indexeddb.leveldb since it was missing.
+2022/03/23-16:40:23.692 d12a Reusing MANIFEST /home/jose/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_blenderartists.org_0.indexeddb.leveldb/MANIFEST-000001
+2022/03/23-16:41:57.583 b9ba Level-0 table #5: started
+2022/03/23-16:41:57.591 b9ba Level-0 table #5: 108108 bytes OK
+2022/03/23-16:41:57.594 b9ba Delete type=0 #3
+2022/03/23-16:41:57.595 b9ba Manual compaction at level-0 from (begin) .. (end); will stop at (end)

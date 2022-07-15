@@ -1,0 +1,152 @@
+\graphicspath{{./secciones/7.-preparacion_estados_no_estacionarios/figuras/}}
+% ---
+\section{Preparación de estados no estacionarios}
+% ---
+Entendemos por estado no estacionario un estado de probabilidad espacial cuántica en \textit{movimiento} formado por una \textit{superposición} de funciones de onda de estados estacionarios de diferentes energías~\cite{french2012introduccion}.
+
+Una vez hemos determinado los estados estacionarios de nuestro sistema, $\Ket{\Phi}$, podemos formar combinaciones lineales (superposiciones) de estos para crear estados no estacionarios, $\Ket{\psi}$, de la forma
+\begin{equation}\label{ec:estado_no_estacionario_general}
+    \Ket{\psi} = \sum_{n} a_n \Ket{\Phi_n},
+\end{equation}
+que deben cumplir la condición de normalización
+\begin{equation}\label{ec:condicion_normalizacion}
+    \sum_{n} \left| a_n \right|^2 = 1.
+\end{equation}
+
+Como veremos en el apartado \ref{sec:dinamica_valores_esperados}, se demuestra que la energía (valor esperado del operador Hamiltoniano) para un estado no estacionario viene dada por
+\begin{equation}\label{ec:energia_paquete_ondas}
+    \Braket{ E } = \sum_{n} \left| a_n \right|^2 E_n,
+\end{equation}
+donde $E_n$ es la energía del nivel correspondiente al estado estacionario $\Ket{\Phi_n}$.
+Al formar una combinación lineal de las funciones propias del Hamiltoniano se crea un nuevo estado no estacionario de energía distinta a la de los niveles de energía de nuestro sistema.
+
+Para poder estudiar el movimiento de inversión en la molécula de amoníaco, nos interesa por tanto formar estados no estacionarios que puedan evolucionar y transmitirse de un pozo de potencial al otro, completando el movimiento de inversión. En este apartado, vamos a desarrollar una forma de crear dichos estados no estacionarios localizados en uno de los pozos y en el siguiente apartado estudiaremos la evolución temporal de los mismos.
+
+Nuestra intención es crear estados no estacionarios cuya energía se sitúe por debajo de la barrera y cuya densidad de probabilidad se localice en el pozo de la izquierda, de manera que su evolución sea de izquierda a derecha, atravesando la barrera de potencial. Por tanto, creamos estados no estacionarios cuya energía esté comprendida entre la del estado fundamental $E_{0^+}$ y la del nivel más alto por debajo de la barrera $E_{1^-}$ para poder estudiar la evolución de dichos estados dependiendo de la anchura de la barrera.
+
+Comenzamos creando un estado no estacionario inicial como combinación lineal de dos estados estacionarios, de la forma
+\begin{equation}
+    \Ket{\psi} = a_n \Ket{\Phi_n} + a_m \Ket{\Phi_m},
+\end{equation}
+donde $a_n = a_m = 1 / \sqrt{2} $, para que la función esté normalizada [\equatref{ec:condicion_normalizacion}]. Concretamente, formamos dos estados no estacionarios de este tipo $\Ket{\psi_1}$ y $\Ket{\psi_2}$ correspondientes a las combinaciones lineales del primer doblete de estados estacionarios $\Ket{\Phi_{0}}$ y $\Ket{\Phi_{1}}$, y del segundo doblete $\Ket{\Phi_{2}}$ y $\Ket{\Phi_{3}}$, de la forma
+\begin{align}
+   \Ket{\psi_1} = \frac{1}{\sqrt{2}} \Ket{\Phi_{0}} + \frac{1}{\sqrt{2}} \Ket{\Phi_1} = \frac{1}{\sqrt{2}} \left(  \Ket{\Phi_0} + \Ket{\Phi_1} \right), \label{ec:paquete_inicial_1}\\
+   \Ket{\psi_2} = \frac{1}{\sqrt{2}} \Ket{\Phi_{2}} + \frac{1}{\sqrt{2}} \Ket{\Phi_3} = \frac{1}{\sqrt{2}} \left(  \Ket{\Phi_2} + \Ket{\Phi_3} \right). \label{ec:paquete_inicial_2}
+\end{align}
+
+Las energías asociadas a dichos estados no estacionarios, según la \equatref{ec:energia_paquete_ondas}, son
+\begin{align}
+    \Braket{ E_1 } = \left| \frac{1}{\sqrt{2} } \right|^2 E_0 + \left| \frac{1}{\sqrt{2} } \right|^2 E_1 = \frac{E_0 + E_1}{2}, \label{ec:energia_caso_limite_0} \\
+    \Braket{ E_2 } = \left| \frac{1}{\sqrt{2} } \right|^2 E_2 + \left| \frac{1}{\sqrt{2} } \right|^2 E_3 = \frac{E_2 + E_3}{2}. \label{ec:energia_caso_limite_90}
+\end{align}
+
+En la \figref{fig:paquetes_iniciales} se representan gráficamente los estados no estacionarios $\Ket{\psi_1}$ y $\Ket{\psi_2}$ junto a sus cuadrados, que representan la densidad de probabilidad posicional.
+\begin{figure}[t!]
+    \centering
+    \includegraphics[width=0.6\textwidth]{paquetes_iniciales_2}
+    \caption{Estados no estacionarios iniciales para la combinación de dos estados estacionarios, $\Ket{\psi_1}$ y $\Ket{\psi_2}$ [\eqsref{ec:paquete_inicial_1} y \eqref{ec:paquete_inicial_2}], en \AA$^{-1 /2}$ (gráfica superior) junto a su densidad de probabilidad posicionar $\left| \psi_1 \right|^2$ y $\left| \psi_2 \right|^2$ (gráfica inferior).}
+    \label{fig:paquetes_iniciales}
+\end{figure}
+Podemos ver cómo las funciones de los estados estacionarios se cancelan en el pozo de la derecha y se suman en el pozo de la izquierda por las propiedades de simetría [\equatref{ec:simetria_funciones_propias}], permitiéndonos localizar el estado en uno de los pozos.
+% \begin{figure}[tb]
+%     \centering
+%     \includegraphics[width=1.0\textwidth]{paquetes_iniciales}
+%     \caption{Paquetes de onda iniciales para la combinación de dos estados estacionarios, $\Ket{\psi_1}$ y $\Ket{\psi_2}$ [\eqsref{ec:paquete_inicial_1} y \eqref{ec:paquete_inicial_2}], en \AA$^{-1 /2}$ (gráficas superiores). Las líneas horizontales de color gris se corresponden a los niveles de energía de los estados estacionarios, y en color negro la correspondiente al estado no estacionario.}
+%     \label{fig:paquetes_iniciales}
+% \end{figure}
+
+Para formar estados no estacionarios entre $\Ket{\psi_1}$ y $\Ket{\psi_2}$ podemos volver a formar una combinación lineal de estos dos estados de la forma
+\begin{equation}\label{ec:paquete_a_b}
+    \Ket{\psi} = a \Ket{\psi_1} + b \Ket{\psi_2},
+\end{equation}
+donde los coeficientes $a$ y $b$ deben cumplir la condición de normalización
+\begin{equation}
+    \left| a \right|^2 + \left| b \right|^2 = 1.
+\end{equation}
+Si tomamos
+\begin{align}
+    a &= \cos \alpha, \label{ec:coeficiente_a_angular} \\
+    b &= \sin \alpha, \label{ec:coeficiente_b_angular}
+\end{align}
+dicha condición queda automáticamente garantizada ya que
+\begin{equation}
+    \left| a \right|^2 + \left| b \right|^2 = \cos^2 \alpha + \sin^2 \alpha = 1,
+\end{equation}
+y la combinación lineal pasa a depender del parámetro angular $\alpha$. Sustituyendo las \eqsref{ec:coeficiente_a_angular} y \eqref{ec:coeficiente_b_angular} en la \eqref{ec:paquete_a_b}, escribimos
+\begin{equation}\label{ec:combinacion_paquetes_general}
+        \Ket{\psi} = \cos \alpha \Ket{\psi_1} + \sin \alpha \Ket{\psi_2}.
+\end{equation}
+De esta manera, podemos crear distintos estados no estacionarios entre los casos límite
+\begin{alignat*}{2}
+    &\alpha = 0 & \implies \Ket{\psi} = \Ket{\psi_1}, \\
+    &\alpha = \frac{\pi}{2} = 90^{\circ} & \hspace{-2cm} \implies \Ket{\psi} = \Ket{\psi_2},
+\end{alignat*}
+dando valores a $\alpha$ entre 0 y $\pi /2$.
+
+Sustituyendo las \eqsref{ec:paquete_inicial_1} y \eqref{ec:paquete_inicial_2} en la \equatref{ec:combinacion_paquetes_general} obtenemos la combinación lineal completa
+\begin{equation}\label{ec:combinacion_lineal_alfa_completa}
+    \Ket{\psi} = \cos \alpha \frac{1}{\sqrt{2} } \left( \Ket{\Phi_0} + \Ket{\Phi_1} \right) + \sin \alpha \frac{1}{\sqrt{2} } \left( \Ket{\Phi_2} + \Ket{\Phi_3} \right),
+\end{equation}
+que podemos escribir de la forma
+\begin{equation}\label{ec:paquetes_alfa}
+    \Ket{\psi} = a_0 \Ket{\Phi_0} + a_1 \Ket{\Phi_1} + a_2 \Ket{\Phi_2} + a_3 \Ket{\Phi_3},
+\end{equation}
+donde
+\begin{align}
+    a_0 = a_1 &= \frac{1}{\sqrt{2} } \cos \alpha, \label{ec:coeficiente_a0_a1}\\
+    a_2 = a_3 &= \frac{1}{\sqrt{2} } \sin \alpha. \label{ec:coeficiente_a2_a3}
+\end{align}
+Usando además la \equatref{ec:energia_paquete_ondas}, obtenemos que la energía del estado no estacionario $\Ket{\psi}$ viene dada por
+\begin{equation}\label{ec:energia_paquetes_alfa}
+    \Braket{ E } = \left| a_0 \right|^2 E_0 + \left| a_1 \right|^2 E_1 + \left| a_2 \right|^2 E_2 + \left| a_3 \right|^2 E_3,
+\end{equation}
+que, usando las \eqsref{ec:coeficiente_a0_a1} y \eqref{ec:coeficiente_a2_a3}, se transforma en
+\begin{equation}
+    \begin{split}
+        \Braket{ E } &= \left| \frac{1}{\sqrt{2} } \cos \alpha \right|^2 \left( E_0 + E_1 \right) + \left| \frac{1}{\sqrt{2} } \sin \alpha \right|^2 \left( E_2 + E_3 \right) \\
+                     &= \cos^2 \alpha \left( \frac{ E_0 + E_1}{2} \right) + \sin^2 \alpha \left( \frac{ E_2 + E_3}{2} \right),
+    \end{split}
+\end{equation}
+\clearpage\begin{figure}[t!]
+    \centering
+    \includegraphics[width=1.0\textwidth, height=0.9\textheight]{paquetes_subfig}
+    % \includegraphics[height=0.9\textheight]{paquetes_subfig}
+    \caption{Estados no estacionarios calculados mediante la \equatref{ec:paquetes_alfa} para distintos valores de $\alpha$ junto a su energía (líneas horizontales de color negro) calculadas con la \equatref{ec:energia_paquetes_alfa}.}
+    \label{fig:paquetes_subfig}
+\end{figure}\clearpage
+o, en función de las energías de los casos límite [\eqsref{ec:energia_caso_limite_0} y \eqref{ec:energia_caso_limite_90}], en
+\begin{equation}
+    \Braket{ E } = \cos^2 \alpha \Braket{ E_1 } + \sin^2 \alpha \Braket{ E_2 }.
+\end{equation}
+De esta manera, diseñamos un conjunto de estados no estacionarios localizados en el pozo de potencial a la izquierda de la barrera dando valores a $\alpha $. En la \figref{fig:paquetes_subfig} representamos gráficamente las funciones de onda y sus cuadrados para dichos estados con valores de $\alpha=0,15,\ldots,90^{\circ}$, cuyas energías se incluyen en la \tabref{tab:energias_paquetes_alfa}.
+Podemos determinar la anchura de la barrera $w_b$ para cada estado no estacionario de este tipo a partir de los puntos de corte [\eqsref{ec:punto_de_corte_1} y \eqref{ec:punto_de_corte_2}], de la forma
+\begin{equation}
+    w_b = 2x_2 = 2  \left( 1 - \frac{\sqrt{E_n V_b}}{V_b} \right)^{1 /2}x_e,
+\end{equation}
+cuyos valores se incluyen también en la \tabref{tab:energias_paquetes_alfa}.
+
+{
+% \extrarowheight = -0.5ex  %espacio en blanco
+% \renewcommand{\arraystretch}{2.00}
+\begin{table}[t!]
+    \ra{1.2} % Spacing btween lines of table
+    \caption{Valores de energía calculados mediante la \equatref{ec:energia_paquetes_alfa} para cada valor de $\alpha$.}
+    \label{tab:energias_paquetes_alfa}
+    \centering
+    \begin{tabular}{@{}c c c@{}}
+        \toprule
+        $\alpha$ & $E\ (\mathrm{cm^{-1}})$ & $w_b\ (\text{\AA})$ \\
+        \midrule
+
+        0  & 588.844  & 0.51832 \\
+        15 & 658.732  & 0.50056 \\
+        30 & 849.668  & 0.45332 \\
+        45 & 1110.492 & 0.38924 \\
+        60 & 1371.316 & 0.32182 \\
+        75 & 1562.252 & 0.26706 \\
+        90 & 1632.140 & 0.24496 \\
+
+        \bottomrule
+    \end{tabular}
+\end{table}
+}

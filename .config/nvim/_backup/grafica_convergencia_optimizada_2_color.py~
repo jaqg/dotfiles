@@ -1,0 +1,314 @@
+# Import packages
+import matplotlib.pyplot as plt
+import matplotlib as mpl
+import numpy as np
+import pandas as pd
+import tikzplotlib as tk
+
+from matplotlib.cm import get_cmap
+from cycler import cycler
+
+from scipy.interpolate import make_interp_spline, BSpline
+
+# Import my own plot style
+plt.style.use('mine')
+#plt.style.use('ggplot')
+#plt.style.use('seaborn')
+
+# Colores del cycler
+# colores=['#008fd5', '#fc4f30', '#e5ae38', '#31a354', '#43a2ca', '#810f7c', '#d95f0e', '#9ecae1']
+colores=["#E69F00", "#56B4E9", "#009E73", "#0072B2", "#D55E00", "#CC79A7", "#F0E442", "#E69F00"]
+
+# Grafico
+fig_size = 10
+fig, axs = plt.subplots(3,1, figsize=(fig_size/3, fig_size), sharex=True)
+# =========================
+### SIN OPTIMIZAR ALPHA ###
+# =========================
+# Data for plotting
+path_to_file_1 = '/home/jose/Documents/Universidad/TFG/practicas_QFA/convergencia_oscilador_cuartico_8_funciones/data/out-convergencia_oscilador_cuartico_8f_2.dat'
+d, N, W0, W1, W2, W3, W4, W5, W6, W7 = np.loadtxt(path_to_file_1, unpack=True, skiprows=1)
+
+alpha_value = 0.5
+## d=0.1 ##
+# Lineas grises
+lw_gris = 0.7
+grosor_izquierda = 0.2
+grosor_derecha = 0.2
+n_in = 0
+n_fin = 6
+for j in np.arange(n_in,n_fin,1):
+    axs[0].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W0[j],W0[j+1]), lw=lw_gris, linestyle='--', alpha=alpha_value, color=colores[0])
+    axs[0].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W1[j],W1[j+1]), lw=lw_gris, linestyle='--', alpha=alpha_value, color=colores[1])
+for j in np.arange(n_in+1,n_fin,1):
+    axs[0].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W2[j],W2[j+1]), lw=lw_gris, linestyle='--', alpha=alpha_value, color=colores[2])
+for j in np.arange(n_in+2,n_fin,1):
+    axs[0].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W3[j],W3[j+1]), lw=lw_gris, linestyle='--', alpha=alpha_value, color=colores[3])
+for j in np.arange(n_in+3,n_fin,1):
+    axs[0].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W4[j],W4[j+1]), lw=lw_gris, linestyle='--', alpha=alpha_value, color=colores[4])
+for j in np.arange(n_in+4,n_fin,1):
+    axs[0].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W5[j],W5[j+1]), lw=lw_gris, linestyle='--', alpha=alpha_value, color=colores[5])
+for j in np.arange(n_in+5,n_fin,1):
+    axs[0].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W6[j],W6[j+1]), lw=lw_gris, linestyle='--', alpha=alpha_value, color=colores[6])
+
+# Lineas negras
+lw_negras = 1.0
+Ni = 0
+Nf = 7
+for i in np.arange(Ni, Nf, 1):
+    axs[0].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W0[i],W0[i]), lw=lw_negras, alpha=alpha_value, color=colores[0])
+    axs[0].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W1[i],W1[i]), lw=lw_negras, alpha=alpha_value, color=colores[1])
+    if i>=Ni+1:
+        axs[0].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W2[i],W2[i]), lw=lw_negras, alpha=alpha_value, color=colores[2])
+    if i>=Ni+2:
+        axs[0].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W3[i],W3[i]), lw=lw_negras, alpha=alpha_value, color=colores[3])
+    if i>=Ni+3:
+        axs[0].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W4[i],W4[i]), lw=lw_negras, alpha=alpha_value, color=colores[4])
+    if i>=Ni+4:
+        axs[0].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W5[i],W5[i]), lw=lw_negras, alpha=alpha_value, color=colores[5])
+    if i>=Ni+5:
+        axs[0].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W6[i],W6[i]), lw=lw_negras, alpha=alpha_value, color=colores[6])
+    if i>=Ni+6:
+        axs[0].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W7[i],W7[i]), lw=lw_negras, alpha=alpha_value, color=colores[7])
+
+# Texto
+n_text = 6
+param_baj = 0.5
+axs[0].text(N[n_text]+0.3, W0[n_text]-param_baj, r'$W_0$', fontsize=8, color=colores[0])
+axs[0].text(N[n_text]+0.3, W1[n_text]-param_baj, r'$W_1$', fontsize=8, color=colores[1])
+axs[0].text(N[n_text]+0.3, W2[n_text]-param_baj, r'$W_2$', fontsize=8, color=colores[2])
+axs[0].text(N[n_text]+0.3, W3[n_text]-param_baj, r'$W_3$', fontsize=8, color=colores[3])
+axs[0].text(N[n_text]+0.3, W4[n_text]-param_baj, r'$W_4$', fontsize=8, color=colores[4])
+axs[0].text(N[n_text]+0.3, W5[n_text]-param_baj, r'$W_5$', fontsize=8, color=colores[5])
+axs[0].text(N[n_text]+0.3, W6[n_text]-param_baj, r'$W_6$', fontsize=8, color=colores[6])
+axs[0].text(N[n_text]+0.3, W7[n_text]-param_baj, r'$W_7$', fontsize=8, color=colores[7])
+
+# ## d=0.5 ##
+# Lineas grises
+n_in = 7
+n_fin = 13
+for j in np.arange(n_in,n_fin,1):
+    axs[1].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W0[j],W0[j+1]), lw=lw_gris, linestyle='--', alpha=alpha_value, color=colores[0])
+    axs[1].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W1[j],W1[j+1]), lw=lw_gris, linestyle='--', alpha=alpha_value, color=colores[1])
+for j in np.arange(n_in+1,n_fin,1):
+    axs[1].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W2[j],W2[j+1]), lw=lw_gris, linestyle='--', alpha=alpha_value, color=colores[2])
+for j in np.arange(n_in+2,n_fin,1):
+    axs[1].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W3[j],W3[j+1]), lw=lw_gris, linestyle='--', alpha=alpha_value, color=colores[3])
+for j in np.arange(n_in+3,n_fin,1):
+    axs[1].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W4[j],W4[j+1]), lw=lw_gris, linestyle='--', alpha=alpha_value, color=colores[4])
+for j in np.arange(n_in+4,n_fin,1):
+    axs[1].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W5[j],W5[j+1]), lw=lw_gris, linestyle='--', alpha=alpha_value, color=colores[5])
+for j in np.arange(n_in+5,n_fin,1):
+    axs[1].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W6[j],W6[j+1]), lw=lw_gris, linestyle='--', alpha=alpha_value, color=colores[6])
+
+# Lineas negras
+Ni = 7
+Nf = 14
+for i in np.arange(Ni, Nf, 1):
+    axs[1].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W0[i],W0[i]), lw=lw_negras, alpha=alpha_value, color=colores[0])
+    axs[1].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W1[i],W1[i]), lw=lw_negras, alpha=alpha_value, color=colores[1])
+    if i>=Ni+1:
+        axs[1].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W2[i],W2[i]), lw=lw_negras, alpha=alpha_value, color=colores[2])
+    if i>=Ni+2:
+        axs[1].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W3[i],W3[i]), lw=lw_negras, alpha=alpha_value, color=colores[3])
+    if i>=Ni+3:
+        axs[1].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W4[i],W4[i]), lw=lw_negras, alpha=alpha_value, color=colores[4])
+    if i>=Ni+4:
+        axs[1].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W5[i],W5[i]), lw=lw_negras, alpha=alpha_value, color=colores[5])
+    if i>=Ni+5:
+        axs[1].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W6[i],W6[i]), lw=lw_negras, alpha=alpha_value, color=colores[6])
+    if i>=Ni+6:
+        axs[1].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W7[i],W7[i]), lw=lw_negras, alpha=alpha_value, color=colores[7])
+
+# ## d=1.0 ##
+# Lineas grises
+n_in = 14
+n_fin = 20
+for j in np.arange(n_in,n_fin,1):
+    axs[2].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W0[j],W0[j+1]), lw=lw_gris, linestyle='--', alpha=alpha_value, color=colores[0])
+    axs[2].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W1[j],W1[j+1]), lw=lw_gris, linestyle='--', alpha=alpha_value, color=colores[1])
+for j in np.arange(n_in+1,n_fin,1):
+    axs[2].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W2[j],W2[j+1]), lw=lw_gris, linestyle='--', alpha=alpha_value, color=colores[2])
+for j in np.arange(n_in+2,n_fin,1):
+    axs[2].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W3[j],W3[j+1]), lw=lw_gris, linestyle='--', alpha=alpha_value, color=colores[3])
+for j in np.arange(n_in+3,n_fin,1):
+    axs[2].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W4[j],W4[j+1]), lw=lw_gris, linestyle='--', alpha=alpha_value, color=colores[4])
+for j in np.arange(n_in+4,n_fin,1):
+    axs[2].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W5[j],W5[j+1]), lw=lw_gris, linestyle='--', alpha=alpha_value, color=colores[5])
+for j in np.arange(n_in+5,n_fin,1):
+    axs[2].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W6[j],W6[j+1]), lw=lw_gris, linestyle='--', alpha=alpha_value, color=colores[6])
+
+# Lineas negras
+Ni = 14
+Nf = 21
+for i in np.arange(Ni, Nf, 1):
+    axs[2].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W0[i],W0[i]), lw=lw_negras, alpha=alpha_value, color=colores[0])
+    axs[2].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W1[i],W1[i]), lw=lw_negras, alpha=alpha_value, color=colores[1])
+    if i>=Ni+1:
+        axs[2].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W2[i],W2[i]), lw=lw_negras, alpha=alpha_value, color=colores[2])
+    if i>=Ni+2:
+        axs[2].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W3[i],W3[i]), lw=lw_negras, alpha=alpha_value, color=colores[3])
+    if i>=Ni+3:
+        axs[2].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W4[i],W4[i]), lw=lw_negras, alpha=alpha_value, color=colores[4])
+    if i>=Ni+4:
+        axs[2].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W5[i],W5[i]), lw=lw_negras, alpha=alpha_value, color=colores[5])
+    if i>=Ni+5:
+        axs[2].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W6[i],W6[i]), lw=lw_negras, alpha=alpha_value, color=colores[6])
+    if i>=Ni+6:
+        axs[2].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W7[i],W7[i]), lw=lw_negras, alpha=alpha_value, color=colores[7])
+
+# =========================
+### OPTIMIZANDO ALPHA ###
+# =========================
+# Data for plotting
+path_to_file_2 = '/home/jose/Documents/Universidad/TFG/practicas_QFA/optimizacion_convergencia_oscilador_cuartico/data/out-optimizacion_convergencia_oscilador_cuartico_2.dat'
+d, N, W0, W1, W2, W3, W4, W5, W6, W7 = np.loadtxt(path_to_file_2, unpack=True, skiprows=1)
+
+## d=0.1 ##
+# Lineas grises
+lw_gris = 0.7
+grosor_izquierda = 0.2
+grosor_derecha = 0.2
+n_in = 0
+n_fin = 6
+for j in np.arange(n_in,n_fin,1):
+    axs[0].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W0[j],W0[j+1]), lw=lw_gris, linestyle='--', color=colores[0])
+    axs[0].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W1[j],W1[j+1]), lw=lw_gris, linestyle='--', color=colores[1])
+for j in np.arange(n_in+1,n_fin,1):
+    axs[0].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W2[j],W2[j+1]), lw=lw_gris, linestyle='--', color=colores[2])
+for j in np.arange(n_in+2,n_fin,1):
+    axs[0].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W3[j],W3[j+1]), lw=lw_gris, linestyle='--', color=colores[3])
+for j in np.arange(n_in+3,n_fin,1):
+    axs[0].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W4[j],W4[j+1]), lw=lw_gris, linestyle='--', color=colores[4])
+for j in np.arange(n_in+4,n_fin,1):
+    axs[0].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W5[j],W5[j+1]), lw=lw_gris, linestyle='--', color=colores[5])
+for j in np.arange(n_in+5,n_fin,1):
+    axs[0].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W6[j],W6[j+1]), lw=lw_gris, linestyle='--', color=colores[6])
+
+# Lineas negras
+Ni = 0
+Nf = 7
+for i in np.arange(Ni, Nf, 1):
+    axs[0].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W0[i],W0[i]), lw=lw_negras, color=colores[0])
+    axs[0].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W1[i],W1[i]), lw=lw_negras, color=colores[1])
+    if i>=Ni+1:
+        axs[0].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W2[i],W2[i]), lw=lw_negras, color=colores[2])
+    if i>=Ni+2:
+        axs[0].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W3[i],W3[i]), lw=lw_negras, color=colores[3])
+    if i>=Ni+3:
+        axs[0].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W4[i],W4[i]), lw=lw_negras, color=colores[4])
+    if i>=Ni+4:
+        axs[0].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W5[i],W5[i]), lw=lw_negras, color=colores[5])
+    if i>=Ni+5:
+        axs[0].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W6[i],W6[i]), lw=lw_negras, color=colores[6])
+    if i>=Ni+6:
+        axs[0].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W7[i],W7[i]), lw=lw_negras, color=colores[7])
+
+# ## d=0.5 ##
+# Lineas grises
+n_in = 7
+n_fin = 13
+for j in np.arange(n_in,n_fin,1):
+    axs[1].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W0[j],W0[j+1]), lw=lw_gris, linestyle='--', color=colores[0])
+    axs[1].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W1[j],W1[j+1]), lw=lw_gris, linestyle='--', color=colores[1])
+for j in np.arange(n_in+1,n_fin,1):
+    axs[1].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W2[j],W2[j+1]), lw=lw_gris, linestyle='--', color=colores[2])
+for j in np.arange(n_in+2,n_fin,1):
+    axs[1].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W3[j],W3[j+1]), lw=lw_gris, linestyle='--', color=colores[3])
+for j in np.arange(n_in+3,n_fin,1):
+    axs[1].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W4[j],W4[j+1]), lw=lw_gris, linestyle='--', color=colores[4])
+for j in np.arange(n_in+4,n_fin,1):
+    axs[1].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W5[j],W5[j+1]), lw=lw_gris, linestyle='--', color=colores[5])
+for j in np.arange(n_in+5,n_fin,1):
+    axs[1].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W6[j],W6[j+1]), lw=lw_gris, linestyle='--', color=colores[6])
+
+# Lineas negras
+Ni = 7
+Nf = 14
+for i in np.arange(Ni, Nf, 1):
+    axs[1].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W0[i],W0[i]), lw=lw_negras, color=colores[0])
+    axs[1].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W1[i],W1[i]), lw=lw_negras, color=colores[1])
+    if i>=Ni+1:
+        axs[1].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W2[i],W2[i]), lw=lw_negras, color=colores[2])
+    if i>=Ni+2:
+        axs[1].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W3[i],W3[i]), lw=lw_negras, color=colores[3])
+    if i>=Ni+3:
+        axs[1].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W4[i],W4[i]), lw=lw_negras, color=colores[4])
+    if i>=Ni+4:
+        axs[1].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W5[i],W5[i]), lw=lw_negras, color=colores[5])
+    if i>=Ni+5:
+        axs[1].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W6[i],W6[i]), lw=lw_negras, color=colores[6])
+    if i>=Ni+6:
+        axs[1].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W7[i],W7[i]), lw=lw_negras, color=colores[7])
+
+# ## d=1.0 ##
+# Lineas grises
+n_in = 14
+n_fin = 20
+for j in np.arange(n_in,n_fin,1):
+    axs[2].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W0[j],W0[j+1]), lw=lw_gris, linestyle='--', color=colores[0])
+    axs[2].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W1[j],W1[j+1]), lw=lw_gris, linestyle='--', color=colores[1])
+for j in np.arange(n_in+1,n_fin,1):
+    axs[2].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W2[j],W2[j+1]), lw=lw_gris, linestyle='--', color=colores[2])
+for j in np.arange(n_in+2,n_fin,1):
+    axs[2].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W3[j],W3[j+1]), lw=lw_gris, linestyle='--', color=colores[3])
+for j in np.arange(n_in+3,n_fin,1):
+    axs[2].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W4[j],W4[j+1]), lw=lw_gris, linestyle='--', color=colores[4])
+for j in np.arange(n_in+4,n_fin,1):
+    axs[2].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W5[j],W5[j+1]), lw=lw_gris, linestyle='--', color=colores[5])
+for j in np.arange(n_in+5,n_fin,1):
+    axs[2].plot((N[j]+grosor_derecha,N[j+1]-grosor_izquierda),(W6[j],W6[j+1]), lw=lw_gris, linestyle='--', color=colores[6])
+
+# Lineas negras
+Ni = 14
+Nf = 21
+for i in np.arange(Ni, Nf, 1):
+    axs[2].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W0[i],W0[i]), lw=lw_negras, color=colores[0])
+    axs[2].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W1[i],W1[i]), lw=lw_negras, color=colores[1])
+    if i>=Ni+1:
+        axs[2].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W2[i],W2[i]), lw=lw_negras, color=colores[2])
+    if i>=Ni+2:
+        axs[2].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W3[i],W3[i]), lw=lw_negras, color=colores[3])
+    if i>=Ni+3:
+        axs[2].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W4[i],W4[i]), lw=lw_negras, color=colores[4])
+    if i>=Ni+4:
+        axs[2].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W5[i],W5[i]), lw=lw_negras, color=colores[5])
+    if i>=Ni+5:
+        axs[2].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W6[i],W6[i]), lw=lw_negras, color=colores[6])
+    if i>=Ni+6:
+        axs[2].plot((N[i]-grosor_izquierda,N[i]+grosor_derecha),(W7[i],W7[i]), lw=lw_negras, color=colores[7])
+
+# Otros
+axs[0].set(ylabel=r'$W$')
+axs[1].set(ylabel=r'$W$')
+axs[2].set(ylabel=r'$W$')
+axs[2].set(xlabel=r'$N$')
+
+axs[0].text(0.05,0.9, r'$d=0.1$', fontsize=14, transform=axs[0].transAxes)
+axs[1].text(0.05,0.9, r'$d=0.5$', fontsize=14, transform=axs[1].transAxes)
+axs[2].text(0.05,0.9, r'$d=1.0$', fontsize=14, transform=axs[2].transAxes)
+
+# axs[0].set_xlim(1.5,4.5)
+# Numero de ticks
+# axs[0].locator_params(axis="x", nbins=4)
+x_min = 1.5
+x_max = 9
+axs[0].set_xlim(x_min, x_max)
+axs[0].set_ylim(-22/11, 22)
+axs[1].set_xlim(x_min, x_max)
+axs[1].set_ylim(-80/11, 80)
+axs[2].set_xlim(x_min, x_max)
+axs[2].set_ylim(-150/11, 150)
+
+for ax in axs.flat:
+    # ax.set_xlim(1.5,8.9)
+    # ax.set_ylim(0, 2)
+    # ax.grid()
+    # ax.legend(loc=(1.01,0.1))
+    # Numero de ticks
+    ax.locator_params(axis="x", nbins=8)
+    # ax.locator_params(axis="y", nbins=2)
+
+
+plt.savefig('grafica_convergencia_oscilador_cuartico_optimizado_2_color.pdf', transparent='True', bbox_inches='tight')
+# plt.show()

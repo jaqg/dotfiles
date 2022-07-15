@@ -1,0 +1,29 @@
+[Desktop Entry]
+FullScreen=true
+shouldShowMenuBarComingFromFullScreen=true
+shouldShowToolBarComingFromFullScreen=true
+
+[MainWindow]
+MenuBar=Disabled
+State=AAAA/wAAAAD9AAAAAAAAB4AAAAQ4AAAABAAAAAQAAAAIAAAACPwAAAADAAAAAQAAAAEAAAAsAHEAdQBpAGMAawBBAG4AbgBvAHQAYQB0AGkAbwBuAFQAbwBvAGwAQgBhAHICAAAAAP////8AAAAAAAAAAAAAAAIAAAABAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIAAAAAAP////8AAAAAAAAAAAAAAAIAAAABAAAAIgBhAG4AbgBvAHQAYQB0AGkAbwBuAFQAbwBvAGwAQgBhAHIAAAAAAP////8AAAAAAAAAAA==
+ToolBarsMovable=Disabled
+eDP1 HDMI1 Height 1920x1080=1080
+eDP1 HDMI1 Width 1920x1080=1920
+eDP1 HDMI1 XPosition 1920x1080=0
+eDP1 HDMI1 YPosition 1920x1080=0
+eDP1 Height 1920x1080=1076
+eDP1 Width 1920x1080=1916
+eDP1 XPosition 1920x1080=2
+eDP1 YPosition 1920x1080=2
+
+[Recent Files]
+File1[$e]=$HOME/Documents/Universidad/4.- CUARTO CURSO (2021-2022)/Exp Inorg/Informes/B3.bioinorganica/bioinorganica.pdf
+File2[$e]=$HOME/Documents/Universidad/TFG/TRABAJO_FINAL/tfg.pdf
+File3[$e]=$HOME/Documents/Universidad/TFG/TRABAJO_FINAL/presentacion/presentacion_TFG.pdf
+File4[$e]=$HOME/Documents/Universidad/Prácticas externas/Vicente_Timon/Documentacion/Credencial_Practicas_José Antonio Quiñonero Gris (COPIA).pdf
+File5[$e]=$HOME/Documents/Universidad/Prácticas externas/Vicente_Timon/Documentacion/Credencial_Practicas_José Antonio Quiñonero Gris (COPIA) (1).pdf
+Name1[$e]=bioinorganica.pdf
+Name2[$e]=tfg.pdf
+Name3[$e]=presentacion_TFG.pdf
+Name4[$e]=Credencial_Practicas_José Antonio Quiñonero Gris (COPIA).pdf
+Name5[$e]=Credencial_Practicas_José Antonio Quiñonero Gris (COPIA) (1).pdf

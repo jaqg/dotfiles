@@ -1,0 +1,3 @@
+function minimal_pomodoro $argv
+    python /home/jose/Documents/Scripts/minial_pomodoro.py $argv
+end

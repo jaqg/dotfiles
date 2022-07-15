@@ -1,0 +1,37 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[spanish, es-tabla]{babel}
+\usepackage{amsmath, amssymb}
+
+\input{/home/jose/Documents/latex/preamble/paquetes1} %mis paquetes
+\input{/home/jose/Documents/latex/preamble/paquetesTikz} %mis paquetes
+\input{/home/jose/Documents/latex/preamble/tikzstyle} %Estilo para las gráficas
+
+\usepackage{mathptmx}
+\renewcommand{\baselinestretch}{1.5}
+
+\begin{document}
+
+% TITULO
+\begin{center}
+	\textbf{\Large{``Las siete hermanas de la Tierra'',}} \\ %\vspace{-1.5mm}
+	\large{\textit{Earth's seven sisters}, I. A. G. Snellen, Nature, \textbf{542}, 421 (2017)} \\ \vspace{5mm}
+
+	\large{José Antonio Quiñonero Gris}
+\end{center}
+
+% INICIO DEL DOCUMENTO
+
+En 2010, Gillon y sus compañeros comenzaron con el estudio de las estrellas más pequeñas que nos rodean, haciendo uso del telescopio TRAPPIST en Chile. Una de ellas fue TRAPPIST-1, una estrella de baja masa situada a 39 años luz. En 2016, dichos investigadores descubrieron tres planetas orbitando dicha estrella, aunque un año más tarde concluyeron que se trataba de un total de siete planetas, semejantes en masa y tamaño a la Tierra, formando un sistema extremadamente compacto, plano y ordenado. \\
+
+Los seis planetas internos presentan periodos orbitales de entre 1.5 y 13 días, encontrándose casi en resonancia. Este sistema se asemeja al de Júpiter y sus lunas Galileanas, que presentan periodos de entre 1.7 y 17 días, y también se encuentran casi en resonancia, sólo que con una masa 80 veces mayor. Este hecho lleva a pensar que estos planetas se hayan podido formar y evolucionen de manera similar a estas lunas y que podrían contener, o haber contenido, agua líquida o en forma de hielo en grandes cantidades, como en Europa o Ganímedes. \\
+
+Con el telescopio James Webb, se puede obtener información sobre las condiciones de estos planetas, los componentes de sus atmósferas, las emisiones térmicas, su composición y el clima. Además, debido a las órbitas casi resonantes de estos planetas, se espera que el calor interno, causado por mareas, sea un factor determinante en la predicción del clima. \\
+
+Este descubrimiento, en una estrella tan pequeña, lleva a pensar que los planetas del tamaño de la Tierra son más comunes de lo esperado.
+
+% Se estima que la estrella TRAPPIST-1 vivirá por otros 10 trillones de años, tiempo suficiente para que la vida evolucione.
+\end{document}

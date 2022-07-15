@@ -1,0 +1,84 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[spanish, es-tabla]{babel}
+\usepackage{amsmath, amssymb}
+
+\input{/home/jose/Documents/latex/preamble/paquetes1} %mis paquetes
+\input{/home/jose/Documents/latex/preamble/bibliography_config} %configuracion para l bibliografia
+\input{/home/jose/Documents/latex/preamble/paquetesTikz} %mis paquetes
+\input{/home/jose/Documents/latex/preamble/tikzstyle} %Estilo para las gráficas
+
+\usepackage{afterpage}
+
+\usepackage[toc,page]{appendix}
+
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+\decimalpoint
+
+\newcommand{\precatalizadorniquel}{\ch{[Ni\{P(OEt)3\}4]}}
+\newcommand{\catalizadorniquel}{\ch{[NiH\{P(OEt)3\}3](HSO4)}}
+
+\graphicspath{{figuras/}}
+\bibliography{../Practicas_DEQIA}
+
+% \author{José Antonio Quiñonero Gris}
+\title{
+        \textbf{Prácticas de laboratorio de Diseño y Experimentación en Química Inorgánica Aplicada}\\
+        \vspace{5mm}
+        \large \textbf{Cuarto curso del Grado en Química. Curso 2021-22}\\
+        \vspace{5mm}
+        \Large José Antonio Quiñonero Gris\\
+        \textbf{Grupo 8}\\
+        \vspace{5mm}
+        Universidad de Murcia
+      }
+
+% \date{12 de marzo de 2022}
+
+% \date{\today}
+\date{}
+
+\begin{document}
+% \begin{center}
+% 	\textbf{\LARGE{Prácticas de laboratorio de Química Inorgánica II}}\\
+% 	\vspace{7mm}
+% 		\textbf{\large{$3^{\text{er}}$ curso del Grado en Química. Curso 2020/21.}}\\
+% 	\vspace{4mm}
+% 	\large{José Antonio Quiñonero Gris \footnote{Universidad de Murcia. Facultad de Química.}}\\
+% 	\textbf{\large{Grupo C1}}\\
+% \end{center}
+
+% \vspace{7mm}
+
+\maketitle
+\vspace{-15mm}
+\part*{\center Bloque II: Compuestos de coordinación y organometálicos en síntesis orgánica y catálisis homogénea}
+\vspace{10mm}
+
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+\afterpage{\blankpage}
+
+\include{practica1}\newpage
+\include{practica2}\newpage
+\include{practica3}\newpage
+\include{anexo}\newpage
+
+%TODO: INCLUIR GUION DE PRACTICAS Y DIAPOSITIVAS EN LA BIBLIOGRAFIA
+
+\clearpage
+\newpage
+% \printbibliography[title={References}] % change from bibliography to references
+\printbibliography
+% \nocite{*}
+% \bibliographystyle{apalike}
+% \bibliography{/home/jose/Documents/latex/preamble/references.bib}
+\end{document}

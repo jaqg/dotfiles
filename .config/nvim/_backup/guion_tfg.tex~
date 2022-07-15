@@ -1,0 +1,154 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[spanish, es-tabla]{babel}
+\usepackage{amsmath, amssymb}
+
+\input{/home/jose/Documents/latex/preamble/paquetes1} %mis paquetes
+\input{/home/jose/Documents/latex/preamble/bibliography_config} %configuracion para l bibliografia
+\input{/home/jose/Documents/latex/preamble/paquetesTikz} %mis paquetes
+\input{/home/jose/Documents/latex/preamble/tikzstyle} %Estilo para las gráficas
+
+\decimalpoint
+
+% \graphicspath{{../figuras/}}
+
+\author{José Antonio Quiñonero Gris}
+\title{\textbf{Explorando el efecto túnel en la molécula de amoníaco}}
+
+% \date{}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}[label=\textbf{Diapositiva \arabic*.}]
+    \setcounter{enumi}{1} % Empieza a contar por 2
+    \item So, this is the table of contents.
+
+        First, I will introduce you our work.
+        Second, I will describe the inversion motion of the ammonia molecule
+        Third, I will determine the stationary states
+        Fourth, I will demostrate the creation of non-stationionary states and
+        Fith, We will study its time dynamics
+        Sixt, We will calculate the survival probability, expected values and \textit{visualize} tunneling
+        And, finally, the conclusions.
+    % ------
+    \section{Introducción y objetivos}
+    % ------
+
+    \item Se denomina \textit{efecto túnel} a la penetración y transmisión de moléculas a través de barreras de energía potencial. A escala microscópica es un efecto puramente cuántico, de naturaleza probabilística, que se da en moléculas cuya energía es menor que la barrera, que se transmiten a través de la misma por una región prohibida clásicamente para ellas (flecha roja). Es uno de los fenómenos más sorprendentes y paradójicos de la mecánica cuántica que describe, de una manera coherente y formal, un comportamiento que rompe con la correspondiente descripción clásica (flecha azul), cediendo a la teoría cuántica el poder explicativo del dominio microscópico.
+
+        La probabilidad de efecto túnel disminuye exponencialmente con la anchura de la barrera, con la masa de la molécula y con la raíz cuadrada de la altura de la barrera relativa a la energía de la molécula.
+
+    \item Se manifiesta en todos los sistemas cuánticos y es aprovechado en campos científicos y tecnológicos como:
+
+        En la química, siendo de gran importancia en astroquímica (en procesos de adsorción y desorción), en electroquímica, procesos radiactivos, catálisis y cualquier reacción química en la que está involucrado en estado de transición.
+
+        De la misma manera, está presente en sistemas, como las proteínas, y procesos de interés biológico como la transferencia protónica en el ADN, puediendo causar mutaciones.
+
+        Y en los campos tecnológicos como la computación cuántica y dispositivos como el diodo de efecto túnel o el microscopio de efecto túnel.
+
+    \item Nuestros objetivos en este trabajo han sido los siguientes:
+        \begin{enumerate}[label=\arabic*.]
+            \item Estudiar el efecto túnel en un ejemplo realista, como es el movimiento de inversión del \ch{NH3}.
+            \item Ejemplificar la creación de estados no estacionarios como superposiciones de estados estacionarios
+            \item Estudiar la dinámica temporal de estos estados no estacionarios
+            \item \textit{Visualizar} el efecto túnel, en tiempo real, ayudándonos de simulaciones mecanocuánticas
+        \end{enumerate}
+
+    % \item Our objectives in this work have been the following:
+    %     \begin{enumerate}[label=\arabic*.]
+    %         \item Study Quantum Tunneling in a realistic example, such as the inversion motion of \ch{NH3}.
+    %         \item Exemplify the creation of non-stationary states as superpositions of stationary states
+    %         \item Study time dynamics of these non-stationary states
+    %         \item \textit{Visualize} tunneling, in real time, with the help of quantum mechanical simulations.
+    %     \end{enumerate}
+
+
+    % ------
+    \section{Movimiento de inversión del \ch{NH3}}
+    % ------
+
+    \item Para el estudio del movimiento de inversión de la molécula de amoníaco definimos la coordenada de inversión $x$ como la distancia entre el átomo de \ch{N} y el plano formado por los 3 átomos de \ch{H}. Es decir, la altura de la pirámide.
+
+    \item La molécula de amoníaco piramidal (de simetría $C_{3v}$) presenta un movimiento vibracional de tipo paraguas en el cual los átomos de hidrógeno se desplazan en sentido vertical, hasta llevar a la inversión de la molécula, pasando por un estado de transición plano (de simetría $D_{3h}$).
+
+        Se trata de un movimiento vibracional de gran amplitud que, aunque no se corresponde exactamente a ningún modo normal de vibración, representa el modo angular simétrico o de paraguas.
+
+    \item De acuerdo con esta definición, las geometrías de equilibrio piramidales de menor energía (pozos) son representadas con dos osciladores idénticos, por lo que el potencial es simétrico respecto a la reflexión de la configuración plana de mayor energía (barrera). Por tanto, la curva de energía potencial que describe este movimiento tiene la forma de un doble pozo de potencial simétrico, de manera que consideramos el movimiento de inversión del amoníaco como un movimiento vibracional anarmónico de la molécula de \ch{NH3} entre los dos pozos de potencial.
+
+    % ------
+    \section{Determinación de estados estacionarios}
+    % ------
+
+    \item Lo primero que necesitamos para estudiar el efecto túnel en el movimiento de inversión de la molécula de amoníaco son los niveles de energía y las funciones propias (estados estacionarios) del sistema. Para ello, tenemos que resolver la ecuación de Schrödinger independiente del tiempo, donde el Hamiltoniano de nuestro sistema viene dado por [ecuaciones], $\psi_i$ son las funciones propias y $E_i$ los valores propios o niveles de energía.
+
+    \item Para ello, hacemos uso de la formulación matricial del método ed variaciones lineal, tomando el conjunto de funciones propias del oscilador armónico unidimensional.
+
+    \item Al aumentar el número de funciones base, los valores de las energías variacionales disminuyen, hasta converger a unos valores dados por la precisión requerida de los cálculos, que consideramos como las energías del sistema. En esta figura, representamos los valores de las energías variacionales para los cuatro primeros niveles de energía frente al número de funciones base $N$. Vemos cómo, efectivamente, al aumentar $N$, el valor de la energía variacional disminuye hasta el valor convergido.
+
+    \item En esta tabla recojo los niveles de energía que represento junto a la curva de potencial en esta figura. Podemos apreciar el efecto de la barrera en la cuasi-degeneración de los dos primeros niveles vibracionales ($v=0^{\pm}$), correspondientes al primer doblete, y los niveles correspondientes al segundo doblete ($v=1^{\pm}$).
+
+        Además, vemos cómo dichos niveles de energía se encuentran por debajo de la altura de la barrera. Es decir, clásicamente, una molécula de amoníaco que se encuentre en el estado fundamental o cualquiera de los 3 primeros estados excitados no sería capaz de llevar a cabo el movimiento de inversión, ya que su energía sería menor de la energía necesaria (altura de la barrera) para que tuviese lugar este movimiento. Necesitaría de un suministro de energía externo (por ejemplo, térmica) suficiente como para que su energía fuese superior a la barrera, y así poder terminar el movimiento de inversión. De no ser así, la molécula se mantendría oscilando entre los puntos de retorno, en torno a la posición de equilibrio del pozo donde estuviese.
+
+    \item A continuación, represento las funciones propias de los cuatro primeros niveles vibracionales frente a la coordenada de inversión $x$. Las funciones propias que caen por debajo de la barrera están deslocalizadas simétricamente respecto a la barrera en los dos pozos de potencial de acuerdo con las propiedades de simetría, siendo funciones pares las correspondientes a niveles pares,
+
+    \item e impares las correspondientes a los niveles impares. Esta deslocalización simétrica de la densidad de probabilidad posicional en ambos pozos implica que existe la misma probabilidad de encontrar a la molécula de amoníaco, representada por un estado estacionario, en cualquiera de los dos pozos. Se dice entonces que la molécula está deslocalizada en los dos pozos. Es necesario crear estados no estacionarios localizados en uno de los pozos para seguir la evolución temporal mecanocuántica de los mismos y observar el efecto túnel.
+
+        % ------
+        \section{Preparación de estados no estacionarios}
+        % ------
+
+    \item Entendemos por estado no estacionario un estado de probabilidad espacial cuántica en \textit{movimiento} formado por una \textit{superposición} de funciones de onda de estados estacionarios de diferentes energías.
+
+    Una vez hemos determinado los estados estacionarios de nuestro sistema, podemos formar combinaciones lineales (superposiciones) de estos para crear estados no estacionarios, cuya energía es la media de las energías de los estados que se encuentran en superposición. En nuestro caso, formamos una superposición de los estados estacionarios $\Ket{\psi_0}$, $\Ket{\psi_1}$, $\Ket{\psi_2}$, $\Ket{\psi_3}$ correspondientes a los cuatro primeros niveles de energía. Le damos valores a $\alpha$ entre $0$ y $90^{\circ}$ para formar estados no estacionarios por debajo de la barrera.
+
+    \item De esta manera, los estados no estacionarios iniciales límite, para $\alpha=0$ y $\alpha=90^{\circ}$, están formados por la superposición de los estados estacionarios correspondientes a los dos dobletes, respectivamente. Vemos cómo estos estados se encuentran localizados en el pozo de la izquierda.
+
+        De la misma manera, hemos creado estados no estacionarios intermedios para distintos valores de $\alpha$, aunque no los incluyo en esta presentación.
+
+        % ------
+        \section{Dinámica de estados no estacionarios}
+        % ------
+
+    \item Para ver cómo evolucionan con el tiempo estos estados no estacionarios tenemos que resolver la \textit{ecuación de Schrödinger dependiente del tiempo}, donde la función de onda completa que satisface dicha ecuación está formada por una superposición de estados estacionarios, incluyendo ahora la dependencia temporal.
+
+    \item Aunque ahora incluyamos la componente temporal en los estados estacionarios, el valor esperado de un observable para estos estados no depende del tiempo. Es por esta razón que creamos una superposición de estados no estacionarios de diferente energía.
+
+        Calculamos el valor esperado de la posición como [ecuación].
+
+        La probabilidad de supervivencia $P_s$ se define como la probabilidad de que el estado no estacionario coincida con el estado inicial y viene dada, por tanto, por [ecuación].
+
+        Se define el tiempo de recurrencia $t_r$ como el tiempo que tarda el estado no estacionario en volver a su estado inicial. A partir de la definición de probabilidad de supervivencia, encontramos que el tiempo de recurrencia viene dado por [ecuación], que para los estados no estacionarios límite vale [tabla]. Vemos cómo al aumentar la anchura y altura de la barrera en el caso límite $\alpha=0$, el tiempo de recurrencia es mucho mayor que en caso límite correspondiente a $\alpha=90^{\circ}$
+
+    \item A continuación, represento la probabilidad de supervivencia para los estados no estacionarios iniciales correspondientes a $\alpha=0,15,30^{\circ}$.
+
+        Como esperábamos de la definición de $P_s$, la probabilidad de supervivencia sigue una periodicidad. El tiempo para el que la probabilidad de supervivencia se hace máxima se corresponde con el tiempo de recurrencia. Lo primero que identificamos es que la probabilidad de supervivencia varía de una manera regular para el estado no estacionario límite y que, al aumentar $\alpha$, aparecen oscilaciones en los valores de $P_s(t)$ que se van haciendo mayores conforme aumenta $\alpha$.
+
+        Para observar mejor dichas oscilaciones, reduzco la escala de tiempo a 1 picosegundo.
+
+    \item Teniendo en mente la definición de probabilidad de supervivencia, estas oscilaciones o cambios drásticos de $P_s(t)$ en pequeños intervalos implican que la probabilidad de encontrar al estado no estacionario en su situación inicial varía drásticamente en un intervalo de tiempo muy pequeño.
+
+        Si nos fijamos, por ejemplo, en la gráfica para $\alpha = 45^{\circ}$ en la región en torno a $t = 0.5$ ps, vemos cómo la probabilidad de supervivencia varía entre $\sim 0$ y $\sim 1$ en un pequeño intervalo de tiempo. Puede ser que alguno de estudes se esté preguntando: ¿se corresponde este resultado, por tanto, a que el estado no estacionario se encuentra oscilando de un pozo a otro en intervalos de tiempo muy pequeños? Más bien, la interpretación de estos resultados implica que la totalidad del estado no estacionario no \textit{penetra} la barrera siempre que colisiona con la misma en estos estados no estacionarios intermedios, a diferencia de lo que ocurre en los estados no estacionarios límite, encontrándose deslocalizado entre los dos pozos. En el caso de los estados no estacionarios intermedios (por ejemplo, para $\alpha = 45^{\circ}$), el estado se desplaza desde el pozo de la izquierda, colisiona con la barrera, y sólo una pequeña parte (baja densidad de probabilidad) consigue penetrar la barrera y transmitirse hasta el pozo de la derecha, mientras el resto del estado continúa oscilando en el pozo de la izquierda. Conforme pasa el tiempo, el estado no estacionario habrá colisionado con la barrera un número de veces suficiente como para transmitirse al otro pozo (la densidad de probabilidad en el pozo de la derecha será mayor que en el de la izquierda) y podrá repetirse el proceso para su vuelta a la situación inicial. Esta deslocalización del estado explica las oscilaciones en los valores de $P_s(t)$.
+
+        Para poder entender mejor estas observaciones, calculamos el valor esperado de la posición y su evolución temporal
+
+    \item Las líneas horizontales negras [señalar] se corresponden a los puntos de corte y las líneas grises a la posición de los pozos. Nos interesan especialmente las líneas negras más gruesas, ya que se corresponden a los puntos de corte con la barrera.
+
+        Al igual que con la probabilidad de supervivencia, conforme aumenta $\alpha$ aparecen oscilaciones en el valor esperado de la posición del estado. En el caso límite corespondiente a $\alpha = 0$, vemos cómo la evolución temporal del valor esperado de $x$ es regular, lo que nos permite imaginar que el movimiento entre los pozos de este estado no estacionario es regular. Es decir, que la totalidad del estado penetra y se transmite a través de la barrera al chocar con la misma.  Sin embargo, como ya adelantábamos con la probabilidad de supervivencia, esto no es así para los estados no estacionarios intermedios. Las variaciones en el valor esperado de $x$ nos indican que el estado no estacionario se encuentra deslocalizado.
+
+        De nuevo, reduzco la escala temporal a 1 ps.
+
+    \item Vemos cómo, para el estado no estacionario límite correspondiente a  $\alpha=90^{\circ}$, obtenemos el resultado esperado. Sin embargo, para $\alpha = 45^{\circ}$, el valor esperado de la posición para esta escala temporal presenta oscilaciones y es menor de cero (posición del máximo de la barrera), variando en torno al punto de corte con la barrera (línea horizontal punteada en torno a $\approx -0.2$ \AA). Es decir, el estado no estacionario se encuentra oscilando en el pozo de la izquierda, chocando con la barrera y entrando en ella levemente. Para un tiempo suficiente, como podemos apreciar en la gráfica para $\alpha = 45^{\circ}$ de la figura anterior, el estado termina transmitiéndose al otro pozo, y completando el movimiento de inversión. Para el resto de estados no estacionarios intermedios sucede algo análogo, sólo que con oscilaciones menores en el valor esperado de la posición.
+
+    \item Consideramos que la mejor forma de entender este efecto es visualizándolo, por lo que hemos creado una serie de simulaciones mecanocúanticas de la evolución temporal de dichos paquetes no estacionarios. A continuación, presento las correspondientes a los estados límite. En ellas, vemos cómo la densidad de probabilidad en el pozo de la derecha aumenta con el tiempo, a causa de la transmisión de la molécula de amoníaco por efecto túnel.
+
+    \item Con esto concluye mi exposición y, si al tribunal le parece oportuno, paso a leer las conclusiones.
+
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,221 @@
+\graphicspath{{./secciones/8.-dinamica_estados_no_estacionarios/figuras/}}
+% ---
+\section{Dinámica de estados no estacionarios}
+% ---
+
+Veamos entonces cómo evolucionan con el tiempo los estados no estacionarios que acabamos de construir localizados en el pozo de la izquierda del potencial de inversión de la molécula de amoníaco. Para ello, tenemos que resolver la \textit{ecuación de Schrödinger dependiente del tiempo} dada por
+\begin{equation}\label{ec:ecuacion_Schrodinger_dependiente_tiempo}
+    i \hbar \frac{\partial \Psi(x,t)}{\partial t} = \hat{H} \Psi(x,t),
+\end{equation}
+donde $\hat{H}$ es el operador Hamiltoniano del sistema cuya ecuación de valores propios es
+\begin{equation}\label{ec:ecuacion_Schrodinger_ee}
+    \hat{H} \varphi_i = E_i \varphi_i,
+\end{equation}
+siendo $\varphi_i$ y $E_i$ las correspondientes funciones propias y valores propios.
+La dependencia temporal de las funciones propias $\varphi_i(x)$ puede escribirse de la forma
+\begin{equation}
+    \psi_i(x,t) = \varphi_i(x) e^{-i E_i t / \hbar},
+\end{equation}
+que satisface la ecuación de Schrödinger dependiente del tiempo [\equatref{ec:ecuacion_Schrodinger_dependiente_tiempo}] y define formalmente los estados estacionarios. Para los estados no estacionarios, podemos expresar su función de onda $\Psi(x,t)$ como una combinación lineal o \textit{superposición} de estados estacionarios $\psi_i(x,t)$
+\begin{equation}\label{ec:funcion_onda_general_estado_no_estacionario}
+    \Psi(x,t) = \sum_{i} a_i \psi_i(x,t) = \sum_{i} a_i \varphi_i(x) e^{-i E_i t / \hbar},
+\end{equation}
+que podemos escribir también como
+\begin{equation}
+    \Psi(x,t) = \sum_{i} c_i(t) \varphi_i(x), \qquad c_i(t) = a_i e^{-i E_i t / \hbar},
+\end{equation}
+y que también satisface la ecuación de Schrödinger dependiente del tiempo. La amplitud $c_i(t)$ con la que el estado $\Ket{\varphi_i}$ contribuye al estado $\Ket{\Psi}$ oscila con el tiempo, aunque su contribución a la densidad de probabilidad es constante ya que $\left| c_i(t) \right|^2 = \left| a_i \right|^2$. Suponemos que los coeficientes de la combinación lineal son reales, de manera que $a_i = a_i^*$, y los determinamos a partir del estado no estacionario inicial $\Psi(x,0)$. Tomando $t=0$ en la \equatref{ec:funcion_onda_general_estado_no_estacionario}, el estado no estacionario inicial queda como sigue
+\begin{equation}
+    \Psi(x,0) = \sum_{i} a_i \varphi_i(x),
+\end{equation}
+y multiplicando ambos lados por $\varphi_j^*(x)$ e integrando obtenemos que los coeficientes $a_i$ vienen dados por\footnote{Véase, por ejemplo \textit{Quantum Chemistry} de Levine~\cite{levine2014quantuma}.}
+\begin{equation}\label{ec:amplitud_ai}
+    a_i = \Braket{\varphi_i | \Psi(x,0)}.
+\end{equation}
+Sustituyendo esta expresión para $a_i$ en la \equatref{ec:funcion_onda_general_estado_no_estacionario} encontramos la expresión completa para la función de onda del estado no estacionario dependiente de la forma inicial del mismo $\Psi(x,0)$
+\begin{equation}\label{ec:funcion_onda_general}
+    \Psi(x,t) = \sum_{i} \Braket{\varphi_i | \Psi(x,0)} \varphi_i(x) e^{-i E_i t / \hbar }.
+\end{equation}
+
+Si formamos nuestro estado estacionario inicial $\Psi(x,0)$ como una combinación lineal finita de las funciones propias del operador Hamiltoniano, $\varphi_i$, es decir
+\begin{equation}\label{ec:funcion_onda_finita_inicial}
+    \Psi(x,0) = \sum_{i}^{N} c_i \varphi_i(x),
+\end{equation}
+los coeficientes $a_i$ de la combinación lineal del estado no estacionario dependiente del tiempo vienen dados, usando la \equatref{ec:amplitud_ai}, por
+\begin{equation}
+    a_i = \Braket{\varphi_i | \Psi(x,0)} = \Braket{\varphi_i | \sum_{j}^{N} c_j \varphi_j(x)} = \sum_{j}^{N} c_j \underbrace{\Braket{\varphi_i | \varphi_j}}_{\delta_{ij}} = \sum_{j}^{N} c_j \delta_{ij},
+\end{equation}
+es decir, que
+\begin{equation}\label{ec:igualdad_ai_ci}
+    a_i = c_i,
+\end{equation}
+los coeficientes de las funciones de onda dependientes del tiempo, $a_i$, son pues los mismos que los de las funciones de la combinación lineal del estado inicial, $c_i$. Por tanto, escribimos la función de onda del estado no estacionario dependiente del tiempo de la forma
+\begin{equation}\label{ec:funcion_onda_ene_general}
+    \Psi(x,t) = \sum_{i} c_i \varphi_i(x) e^{-i E_i t / \hbar }.
+\end{equation}
+
+% ------
+\subsection{Dinámica de los valores esperados}\label{sec:dinamica_valores_esperados}
+% ------
+
+A partir de la \equatref{ec:funcion_onda_general} para la función de onda, podemos calcular el valor esperado de un observable $A$ como\footnote{Véase, por ejemplo \textit{Introducción a la Mecánica Cuántica}~\cite{delapena2014introduccion} ó \textit{Principles of Quantum Mechanics: as Applied to Chemistry and Chemical Physics}~\cite{fitts1999principles}.}
+\begin{equation}
+    \Braket{ A }(t) = \Braket{ A }_t = \Braket{\Psi(x,t) | \hat{A} | \Psi(x,t)}.
+\end{equation}
+Se demuestra que
+\begin{equation}\label{ec:valor_esperado_observable_A}
+    \Braket{ A }_t = \sum_{i} \left| a_i \right|^2 \Braket{\varphi_i | \hat{A} | \varphi_i} + 2 \sum_{i}\sum_{j>i} a_i a_j \Braket{\varphi_i | \hat{A} | \varphi_j} \cos \frac{ \left( E_j - E_i \right) t}{\hbar }.
+\end{equation}
+Para la posición, $\hat{x} = x$, encontramos la siguiente expresión general para su valor esperado
+\begin{equation}\label{ec:valor_esperado_x_general}
+    \Braket{ x }_t = \sum_{i} \left| a_i \right|^2 \Braket{\varphi_i | x | \varphi_i} + 2 \sum_{i}\sum_{j>i} a_i a_j \Braket{\varphi_i | x | \varphi_j} \cos \frac{ \left( E_j - E_i \right) t}{\hbar }.
+\end{equation}
+
+De la misma manera, podemos obtener el valor esperado de la energía a partir del operador energía o Hamiltoniano, $\hat{H} = \hat{E}$, según
+\begin{equation}\label{ec:valor_esperado_E_general}
+    \Braket{ E }_t = \sum_{i} \left| a_i \right|^2 \Braket{\varphi_i | \hat{H} | \varphi_i} + 2 \sum_{i}\sum_{j>i} a_i a_j \Braket{\varphi_i | \hat{H} | \varphi_j} \cos \frac{ \left( E_j - E_i \right) t}{\hbar }.
+\end{equation}
+Usando la ecuación de valores propios \eqref{ec:ecuacion_Schrodinger_ee}:
+\begin{equation}
+    \hat{H} \varphi_i = E_i \varphi_i,
+\end{equation}
+podemos escribir las integrales sobre el Hamiltoniano como
+\begin{equation}
+    \Braket{\varphi_i | \hat{H} | \varphi_j} = E_j \Braket{\varphi_i | \varphi_j} = E_j \delta_ij,
+\end{equation}
+de manera que
+\begin{equation}
+    \Braket{\varphi_i | \hat{H} | \varphi_j} =
+    \begin{cases}
+        E_i & \text{si } i=j \\
+        0   & \text{si } i \not= j
+    \end{cases}
+\end{equation}
+y sustituyendo en la \equatref{ec:valor_esperado_E_general}, llegamos a
+ \begin{equation}\label{ec:valor_esperado_energia}
+     \Braket{ E } = \sum_{i} \left| a_i \right|^2 E_i.
+ \end{equation}
+El valor esperado viene dado, como vemos, por la media de las energías de los estados estacionarios que componen la superposición del estado no estacionario y no depende del tiempo.
+% Para el momento lineal, cuyo operador viene dado por
+% \begin{equation}
+%     \hat{p} = -i \hbar \frac{ \dd }{ \dd{x}},
+% \end{equation}
+% podemos aplicar la primera relación de Ehrenfest
+% \begin{equation}
+%     \Braket{ p } = m \frac{ \dd{\Braket{ x }} }{ \dd{t} },
+% \end{equation}
+% de manera que la expresión general para el valor medio del momento lineal viene dado por
+% \begin{equation}\label{ec:valor_esperado_p_general}
+%    \Braket{ p }_t = -2m \sum_{i}\sum_{j>i} a_i a_j \Braket{\varphi_i | x | \varphi_j} \frac{ \left( E_j - E_i \right)}{\hbar } \sin \frac{ \left( E_j - E_i \right) t}{\hbar }.
+% \end{equation}
+
+Por último, podemos obtener la densidad de probabilidad posicional dada por
+\begin{equation}
+    P_x(x,t) = \left| \Psi(x,t) \right|^2,
+\end{equation}
+por la función de estado estacionario sustituyendo la \equatref{ec:funcion_onda_finita_inicial} en esta última se demuestra que
+\begin{equation}\label{ec:densidad_probabilidad_posicional_general}
+    P_x(x,t) = \sum_{i} \left| a_i \right|^2 \left| \varphi_i(x) \right|^2 + 2 \sum_{i}\sum_{j>i} a_i a_j \cos \frac{ \left( E_j - E_i \right) t}{\hbar }\varphi_i^*(x) \varphi_j(x).
+\end{equation}
+
+El valor esperado de un observable para un estado estacionario no varía con el tiempo. Para observar oscilaciones que nos recuerden al comportamiento clásico, debemos considerar una superposición de estados estacionarios~\cite{sakurai2014modern}. Si nuestro estado no estacionario inicial está formado por la combinación lineal de dos estados estacionarios $\Ket{\varphi_0}$ y $\Ket{\varphi_1}$, de la forma
+\begin{equation}
+    \Psi(x,0) = c_0 \varphi_0(x) + c_1 \varphi_1(x),
+\end{equation}
+a partir de la \equatref{ec:igualdad_ai_ci}, sabemos que $a_0=c_0$ y $a_1=c_1$, y que $a_i = 0$ para $i>1$. Por tanto, usando la \equatref{ec:funcion_onda_ene_general}, escribimos la función de onda para la superposición de dos estados estacionarios como sigue
+\begin{equation}\label{ec:estado_no_estacionario_2ee}
+    \Psi(x,t) = a_0 e^{-i E_0 t / \hbar } \varphi_0(x) + a_1 e^{-i E_1 t / \hbar } \varphi_1(x).
+\end{equation}
+La expresión para el valor esperado de un observable, a partir de la \equatref{ec:valor_esperado_observable_A}, es
+\begin{equation}
+        \Braket{ A }_t = \left| a_0 \right|^2 \Braket{0 | \hat{A} | 0} + \left| a_1 \right|^2 \Braket{1 | \hat{A} | 1} + 2 a_0 a_1 \Braket{0 | \hat{A} | 1} \cos \frac{ \left( E_1 - E_0 \right) t}{\hbar }.
+\end{equation}
+y usando las \eqsref{ec:valor_esperado_x_general}, \eqref{ec:valor_esperado_energia} y \eqref{ec:densidad_probabilidad_posicional_general} obtenemos en este caso las siguientes expresiones para los valores esperados de la posición y la energía, y para la densidad de probabilidad posicional
+\begin{align}
+    \Braket{ x }_t &= \left| a_0 \right|^2 \Braket{0 | x | 0} + \left| a_1 \right|^2 \Braket{1 | x | 1} + 2 a_0 a_1 \Braket{0 | x | 1} \cos \frac{ \left( E_1 - E_0 \right) t}{\hbar }, \label{ec:valor_esperado_x_2_ee}\\
+    % \Braket{ p }_t &= - 2 m a_0 a_1 \Braket{0 | x | 1} \frac{ \left( E_1 - E_0 \right)}{\hbar } \sin \frac{ \left( E_1 - E_0 \right) t}{\hbar }, \label{ec:valor_esperado_p_2_ee} \\
+    \Braket{ E }   &= \left| a_0 \right|^2 E_0 + \left| a_1 \right|^2 E_1, \label{ec:valor_esperado_E_2_ee} \\
+    P_x(x,t)       &= \left| a_0 \right|^2 \left| \varphi_0(x) \right|^2 + \left| a_1 \right|^2 \left| \varphi_1(x) \right|^2 + 2 a_0 a_1 \cos \frac{ \left( E_1 - E_0 \right)t}{\hbar } \varphi_0^*(x) \varphi_1(x). \label{ec:densidad_probabilidad_posicional_2ee}
+\end{align}
+
+Para un estado no estacionario formado por la superposición de dos estados estacionarios con la misma probabilidad, es decir
+\begin{equation}
+    a_0 = a_1 = \frac{1}{\sqrt{2} },
+\end{equation}
+la función del estado no estacionario inicial viene dada por
+\begin{equation}
+    \Psi(x,0) = \frac{1}{\sqrt{2} } \left( \varphi_0(x) + \varphi_1(x) \right),
+\end{equation}
+y la función de onda completa por
+\begin{equation}\label{ec:estado_no_estacionario_2ee_misma_probabilidad}
+    \Psi(x,t) = \frac{1}{\sqrt{2}} e^{-i E_0 t / \hbar } \varphi_0(x) + \frac{1}{\sqrt{2}} e^{-i E_1 t / \hbar } \varphi_1(x).
+\end{equation}
+El valor esperado de la posición, a partir de la \equatref{ec:valor_esperado_x_2_ee}, queda como sigue
+\begin{equation}
+    \Braket{ x }_t = \frac{1}{2} \Braket{0 | x | 0} + \frac{1}{2} \Braket{1 | x | 1} + 2 \frac{1}{\sqrt{2}} \frac{1}{\sqrt{2}} \Braket{0 | x | 1} \cos \frac{ \left( E_1 - E_0 \right)t}{\hbar},
+\end{equation}
+que podemos reescribir de la forma
+\begin{equation}
+    \Braket{ x }_t = \frac{1}{2} \left\{ \Braket{0 | x | 0} + \Braket{1 | x | 1} + 2 \Braket{0 | x | 1} \cos \frac{ \left( E_1 - E_0 \right)t}{\hbar} \right\}.
+\end{equation}
+% El valor esperado del momento lineal, a partir de la \equatref{ec:valor_esperado_p_2_ee}
+% \begin{equation}
+%     \Braket{ p }_t = - 2 \frac{1}{\sqrt{2} } \frac{1}{\sqrt{2} } \Braket{0 | x | 1} \frac{ \left( E_1 - E_0 \right)}{\hbar } \sin \frac{ \left( E_1 - E_0 \right) t}{\hbar },
+% \end{equation}
+% que reescribo como
+% \begin{equation}
+%     \Braket{ p }_t = - \Braket{0 | x | 1} \frac{ \left( E_1 - E_0 \right)}{\hbar } \sin \frac{ \left( E_1 - E_0 \right) t}{\hbar }.
+% \end{equation}
+El valor esperado de la energía, a partir de la \equatref{ec:valor_esperado_E_2_ee}, es simplemente la media de energía de los dos estados estacionarios
+\begin{equation}
+    \Braket{ E } = \frac{1}{2} \left( E_0 + E_1 \right).
+\end{equation}
+Y, por último, la densidad de probabilidad posicional, a partir de la \equatref{ec:densidad_probabilidad_posicional_2ee}, queda como sigue
+\begin{equation}
+    P_x(x,t) = \frac{1}{2} \left| \varphi_0(x) \right|^2 + \frac{1}{2} \left| \varphi_1(x) \right|^2 + 2 \frac{1}{\sqrt{2} } \frac{1}{\sqrt{2} } \cos \frac{ \left( E_1 - E_0 \right)t }{\hbar } \varphi_0^*(x) \varphi_1(x),
+\end{equation}
+que podemos reescribir de la forma
+\begin{equation}
+    P_x(x,t) = \frac{1}{2} \left\{ \left| \varphi_0(x) \right|^2 + \left| \varphi_1(x) \right|^2 + 2  \varphi_0^*(x) \varphi_1(x) \cos \frac{ \left( E_1 - E_0 \right)t }{\hbar } \right\}.
+\end{equation}
+
+Para un estado estacionario formado por la combinación lineal de más de 2 estados estacionarios, de la forma
+\begin{equation}\label{ec:estado_no_estacionario_mas_de_2_ee}
+    \Psi(x,0) = \sum_{i=0}^{m-1} c_i \varphi_i(x),
+\end{equation}
+donde $m$ es el número de estados estacionarios, con coeficientes
+\begin{equation}
+    a_i =
+    \begin{cases}
+        c_i & i = 0, 1, \ldots, m-1 \\
+        0 & i>m-1
+    \end{cases}
+\end{equation}
+hay que usar las expresiones generales para calcular el valor esperado de un observable [\equatref{ec:valor_esperado_observable_A}] y la densidad de probabilidad posicional [\equatref{ec:densidad_probabilidad_posicional_general}].
+
+En nuestro caso, formamos estados no estacionarios iniciales según la \equatref{ec:paquetes_alfa}
+\begin{equation}
+        \Psi(x,0) = a_0 \Ket{\Phi_0} + a_1 \Ket{\Phi_1} + a_2 \Ket{\Phi_2} + a_3 \Ket{\Phi_3},
+\end{equation}
+donde $\Ket{\Phi_0}$, $\Ket{\Phi_1}$, $\Ket{\Phi_2}$ y $\Ket{\Phi_3}$ son estados estacionarios del Hamiltoniano del movimiento de inversión del amoníaco. Los coeficientes $a_0,\ a_1,\ a_2$ y $a_3$ vienen dados por las \eqsref{ec:coeficiente_a0_a1} y \eqref{ec:coeficiente_a2_a3}, es decir
+\begin{align}
+    a_0 = a_1 &= \frac{1}{\sqrt{2} } \cos \alpha, \\
+    a_2 = a_3 &= \frac{1}{\sqrt{2} } \sin \alpha.
+\end{align}
+La función de onda completa para cada uno de los estados no estacionarios viene dada, atendiendo a la \equatref{ec:funcion_onda_ene_general}, por
+\begin{equation}\label{ec:estados_no_estacionarios_alfa_completos}
+    \Psi(x,t) = a_0 \Ket{\Phi_0} e^{-i E_0 t / \hbar } +
+                a_1 \Ket{\Phi_1} e^{-i E_1 t / \hbar } +
+                a_2 \Ket{\Phi_2} e^{-i E_2 t / \hbar } +
+                a_3 \Ket{\Phi_3} e^{-i E_3 t / \hbar },
+\end{equation}
+donde $E_0$, $E_1$, $E_2$ y $E_3$ son las valores propios de energia del movimiento de inversión.
+La función de onda completa para los estados no estacionarios límite $\Psi_1(x,t)$ (para $\alpha=0$) y $\Psi_2(x,t)$ (para $\alpha=90^{\circ}$) son
+\begin{align}
+    \Psi_1(x,t) &= a_0 \Ket{\Phi_0} e^{-i E_0 t / \hbar } + a_1 \Ket{\Phi_1} e^{-i E_1 t / \hbar }, \label{ec:estado_no_estacionario_completo_limite_0}\\
+    \Psi_2(x,t) &= a_2 \Ket{\Phi_2} e^{-i E_2 t / \hbar } + a_3 \Ket{\Phi_3} e^{-i E_3 t / \hbar }. \label{ec:estado_no_estacionario_completo_limite_90}
+\end{align}
+
+
+
+% por lo que usamos las expresiones generales para calcular la probabilidad de supervivencia [\equatref{ec:probabilidad_supervivencia_general}] y el valor esperado de la posición [\equatref{ec:valor_esperado_x_general}].\\

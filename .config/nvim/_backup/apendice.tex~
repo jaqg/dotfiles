@@ -1,0 +1,54 @@
+\graphicspath{{./secciones/11.-apendice/figuras/}}
+% ---
+\section*{Apéndice}
+% ---
+Incluyo a continuación los programas, funciones y subrutinas usados para llevar a cabo los cálculos del presente trabajo.
+%
+\lstinputlisting[
+    caption={Ejecutable del programa.},
+    label={lst:ejecutable_bash},
+    language=bash,
+    style=myStyle
+    ]{./programa/doble_pozo_NH3/exec.sh}
+%
+\lstinputlisting[
+    caption={Módulo para el cálculo potencial, los puntos de corte, la masa reducida de la molécula y el parámetro alfa optimizado.},
+    label={lst:modulo_caracterizacion_sistema},
+    language=Fortran,
+    style=myStyle
+    ]{./programa/doble_pozo_NH3/subrutinas/caracterizacion_sistema.f90}
+%
+\lstinputlisting[
+    caption={Módulo para el cómputo de las funciones propias del oscilador armónico unidimensional.},
+    label={lst:modulo_OA1D},
+    language=Fortran,
+    style=myStyle
+    ]{./programa/doble_pozo_NH3/subrutinas/modulo_OA1D.f90}
+%
+\lstinputlisting[
+    caption={Módulo para el cálculo de las integrales del Hamiltoniano.},
+    label={lst:modulo_integrales_Hamiltoniano},
+    language=Fortran,
+    style=myStyle
+    ]{./programa/doble_pozo_NH3/subrutinas/modulo_integrales_hamiltoniano.f90}
+%
+\lstinputlisting[
+    caption={Módulo para el cálculo del tiempo de recurrencia y el cómputo de la probabilidad de supervivencia para un caso general.},
+    label={lst:modulo_tr_Ps},
+    language=Fortran,
+    style=myStyle
+    ]{./programa/doble_pozo_NH3/subrutinas/probabilidad_supervivencia.f90}
+%
+\lstinputlisting[
+    caption={Módulo para el cálculo del valor esperado de un observable.},
+    label={lst:modulo_valores_esperados},
+    language=Fortran,
+    style=myStyle
+    ]{./programa/doble_pozo_NH3/subrutinas/valores_esperados.f90}
+%
+\lstinputlisting[
+    caption={Programa principal en Fortran.},
+    label={lst:programa_principal},
+    language=Fortran,
+    style=myStyle
+    ]{./programa/doble_pozo_NH3/doble_pozo_NH3.f90}

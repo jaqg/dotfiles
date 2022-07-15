@@ -1,0 +1,81 @@
+# _____________________________________________________________________________
+# *****************************************************************************
+# Autor: José Antonio Quiñonero gris
+# Fecha de creación: 12 de abril de 2022
+# *****************************************************************************
+# -----------------------------------------------------------------------------
+
+# descripcion del programa
+
+# Librerias
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.style.use('mine')
+
+# *****************************************************************************
+# INICIO
+# *****************************************************************************
+a = 1
+b = 2
+
+def Vb(a,b):
+    res = b**2/(4*a)
+    return res
+
+def V(x,a,b):
+    res = a*x**4 - b*x**2 + Vb(a,b)
+    return res
+
+def xp1(a,b):
+    res = - ( b/(2*a) )**0.5
+    return res
+def xp2(a,b):
+    res = ( b/(2*a) )**0.5
+    return res
+
+def x1(n,a,b):
+    res = np.sqrt(np.sqrt(b**2-4*Vb(a,b)*a+4*E[n]*a)/a+b/a)/np.sqrt(2)
+    return res
+def x2(n,a,b):
+    res = np.sqrt(b/a-np.sqrt(b**2-4*Vb(a,b)*a+4*E[n]*a)/a)/np.sqrt(2)
+    return res
+
+# GRAFICA
+nombre_grafica = 'caracterizacion_potencial_2.pdf'
+
+xmin = -3
+xmax = 3
+# ymin = 0
+ymin = -0.5
+ymax = 2
+
+x = np.linspace(xmin, xmax, 200)
+
+fig, ax = plt.subplots()
+
+
+ax.plot(x, V(x,a,b), color='k')
+# ax.vlines(x=0,       ymin=ymin, ymax=ymax, ls='--', lw=0.5, color='k')
+# ax.hlines(y=Vb(a,b), xmin=xmin, xmax=0,    ls='--', lw=0.5, color='k')
+
+ax.set_xlim(xmin,xmax)
+ax.set_ylim(ymin,ymax)
+
+# x_ticks_pos = [ xp1(a,b), 0, xp2(a,b) ]
+# my_xticks = [ r'$x_{-}$', r'$x_{\mathrm{b}}$', r'$x_{+}$' ]
+# plt.xticks(x_ticks_pos, my_xticks)
+
+# y_ticks_pos = [ Vb(a,b) ]
+# my_yticks = [ r'$V_{\mathrm{b}}$' ]
+# plt.yticks(y_ticks_pos, my_yticks)
+
+ax.axis("off")
+
+# ax.set(title=r'$V(x) = ax^4 + bx^2 + b^2/4a,\ a={}$'.format(a), xlabel=r'$x\ (a_0)$', ylabel=r'$E\ (\mathrm{Ha})$')
+
+# ax.text(x1(0,a,b)+0.3, E[0], '$v=0$', horizontalalignment='center', verticalalignment='center')
+
+
+plt.savefig(nombre_grafica, transparent='True', bbox_inches='tight')
+# plt.show()

@@ -1,0 +1,87 @@
+# _____________________________________________________________________________
+# *****************************************************************************
+# Autor: José Antonio Quiñonero gris
+# Fecha de creación: 3 de marzo de 2022
+# *****************************************************************************
+# -----------------------------------------------------------------------------
+
+# Grafica para el oscilador con una perturbacion cuartica
+
+# Librerias
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+plt.style.use('mine')
+
+# line cyclers adapted to colourblind people
+from cycler import cycler
+line_cycler   = (cycler(color=["#E69F00", "#56B4E9", "#009E73", "#0072B2", "#D55E00", "#CC79A7", "#F0E442"]) +
+                 cycler(linestyle=["-", "--", "-.", ":", "-", "--", "-."]))
+marker_cycler = (cycler(color=["#E69F00", "#56B4E9", "#009E73", "#0072B2", "#D55E00", "#CC79A7", "#F0E442"]) +
+                 cycler(linestyle=["none", "none", "none", "none", "none", "none", "none"]) +
+                 cycler(marker=["4", "2", "3", "1", "+", "x", "."]))
+marker_line_cycler = (cycler(color=["#E69F00", "#56B4E9", "#009E73", "#0072B2", "#D55E00", "#CC79A7", "#F0E442"]) +
+                      cycler(linestyle=["-", "-", "-", "-", "-", "-", "-"]) +
+                      cycler(marker=["o", "^", "s", "v", "o", "^", "s"]))
+marker_line_cycler_2 = (cycler(color=["#E69F00", "#56B4E9", "#009E73", "#0072B2", "#D55E00", "#CC79A7", "#F0E442"]) +
+                      cycler(linestyle=["-", "--", "-", "--", "-", "--", "-"]) +
+                      cycler(marker=["o", "^", "s", "v", "o", "^", "s"]))
+
+
+plt.rc("axes", prop_cycle=marker_line_cycler)
+# Para un solo axes
+#ax.set_prop_cycle(line_cycler)
+
+
+# *****************************************************************************
+# INICIO
+# *****************************************************************************
+nombre_grafica = 'convergencia_n=0,5,10,15.pdf'
+# Creacion del dataframe
+file1 = '../data/out-N_vs_W0.dat'
+file3 = '../data/out-N_vs_W1.dat'
+file5 = '../data/out-N_vs_W2.dat'
+file7 = '../data/out-N_vs_W3.dat'
+
+# Grafico
+fig, ax = plt.subplots(1,2,figsize=(7.2*1.5,4.45))
+# marker=["4", "2", "3", "1", "+", "x", "."]
+grosor=1.2
+
+# N, W0      = np.loadtxt(file1, unpack=True, skiprows=2)
+# ax[0].plot(N,W0, lw=grosor, label=r'$W_0(\alpha)$'      )
+# N, W1      = np.loadtxt(file3, unpack=True, skiprows=2)
+# ax[1].plot(N,W1, lw=grosor, label=r'$W_5(\alpha)$'      )
+# N, W2     = np.loadtxt(file5, unpack=True, skiprows=2)
+# ax[1,0].plot(N,W2, lw=grosor, label=r'$W_{10}(\alpha)$'      )
+# N, W3     = np.loadtxt(file7, unpack=True, skiprows=2)
+# ax[1,1].plot(N,W3, lw=grosor, label=r'$W_{15}(\alpha)$'      )
+
+N, W0      = np.loadtxt(file1, unpack=True, skiprows=2)
+ax[0].plot(N,W0, lw=grosor, label=r'$W_0(\alpha)$'      )
+N, W1      = np.loadtxt(file3, unpack=True, skiprows=2)
+ax[0].plot(N,W1, lw=grosor, label=r'$W_1(\alpha)$'      )
+N, W2     = np.loadtxt(file5, unpack=True, skiprows=2)
+ax[1].plot(N,W2, lw=grosor, label=r'$W_2(\alpha)$'      )
+N, W3     = np.loadtxt(file7, unpack=True, skiprows=2)
+ax[1].plot(N,W3, lw=grosor, label=r'$W_3(\alpha)$'      )
+
+ax[0].set_xlim(0, 15)
+ax[0].set_ylim(min(W0)-(max(W0)-min(W0))/10,max(W0)+(max(W0)-min(W0))/10)
+ax[1].set_xlim(0, 20)
+ax[1].set_ylim(min(W2)-(max(W2)-min(W2))/10,max(W3)+(max(W3)-min(W3))/10)
+
+ax[0].set(xlabel=r'$N$',  ylabel=r'$E\ (\mathrm{cm^{-1}})$')
+ax[1].set(xlabel=r'$N$',  ylabel=r'$E\ (\mathrm{cm^{-1}})$')
+
+ax[0].legend()
+ax[1].legend()
+
+# if archivo==file3:
+#     handles, labels = ax.get_legend_handles_labels()
+#     ax.legend(handles[::-1], labels[::-1], loc=(1.03,0.03))
+# ax.text(0.9,0.95, r'$d=0.1$', horizontalalignment='center', verticalalignment='center', transform=ax.transAxes, bbox=dict(facecolor='none'))
+
+plt.savefig(nombre_grafica, transparent='True', bbox_inches='tight')
+# plt.show()

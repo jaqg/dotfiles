@@ -1,0 +1,6 @@
+2022/05/23-13:00:23.130 ec46 Creating DB /home/jose/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_www.reaxys.com_0.indexeddb.leveldb since it was missing.
+2022/05/23-13:00:23.138 ec46 Reusing MANIFEST /home/jose/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_www.reaxys.com_0.indexeddb.leveldb/MANIFEST-000001
+2022/05/23-13:13:30.069 98e1 Level-0 table #5: started
+2022/05/23-13:13:30.073 98e1 Level-0 table #5: 1293 bytes OK
+2022/05/23-13:13:30.077 98e1 Delete type=0 #3
+2022/05/23-13:13:30.078 98e1 Manual compaction at level-0 from (begin) .. (end); will stop at (end)

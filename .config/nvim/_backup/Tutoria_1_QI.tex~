@@ -1,0 +1,70 @@
+\documentclass[12pt,letterpaper,final]{article}
+
+%\input{C:/Users/usuario/Documents/UNIVERSIDAD/TextStudio/Preámbulo}
+\input{C:/Users/usuario/Documents/UNIVERSIDAD/TextStudio/Paquetes_informe}
+\input{C:/Users/usuario/Documents/UNIVERSIDAD/TextStudio/styles_an}
+
+\addbibresource{Bibliografía.bib}
+
+%\bibliography{Bibliografía}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Inicio del documento%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\renewcommand{\CancelColor}{\color{red}}
+
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash}m{#1}}
+
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash}m{#1}}
+
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash}m{#1}}
+
+\begin{center}
+	\textbf{\LARGE{Tutoría 1. Química Inorgánica II}}\\
+	\vspace{7mm}
+		\textbf{\large{$3^{\text{er}}$ curso del Grado en Química. Curso 2020/21.}}\\
+	\vspace{4mm}
+	\large{José Antonio Quiñonero Gris \footnote{Universidad de Murcia. Facultad de Química.}}\\
+\end{center}
+
+\vspace{7mm}
+
+ %
+ {
+ 	\extrarowheight = -0.7ex  %espacio en blanco
+ 	\renewcommand{\arraystretch}{2.00}
+ 	\begin{table}[h!]
+ 		\begin{center}
+ 			\begin{tabular}{ p{3cm} p{6cm} p{0.5cm} p{3cm} }
+ 				\caption{Ejercicio 1.}
+ 				\label{etiqueta}\\
+ 				\hline %línea horizontal
+ 				\vtop{\hbox{\strut \textbf{Definición}}\hbox{\strut \centering \textbf{propia}}} & \vtop{\hbox{\strut \textbf{Definición}}\hbox{\strut \centering \textbf{corregida}}} & \vtop{\hbox{\strut \textbf{Fuente}}\hbox{\strut \centering \textbf{Bibliográfica}}} & \textbf{Observaciones}\\
+ 				\hline %línea horizontal
+ 				
+ 				\textbf{Base:} especie química que actúa abstrayendo un protón de otra especie. Aumenta el pH del medio & Según la definición de Arrhenius, una base es una sustancia capaz de producir iones hidroxilo	($ \mathrm{OH^-}$) en disolución acuosa. Según la teoría de Bronsted-Lowry, una base es	un aceptor de protones. & Pág. 162~\cite{Petrucci10ed} & Definición incompleta y parcialmente incorrecta.\\
+ 				
+ 				\hline
+ 				
+ 				\textbf{Nucleófilo:} especie química que ataca a otra especie formando un enlace con el par de electrones que éste posee. & Un nucleófilo es un reactivo que busca lugares con densidad electrónica baja en una molécula. El nucleófilo es una especie rica en electrones y es la que cede un par de electrones a otra molécula. El electrófilo,también conocido como el sustrato, es la especie que es atacada por el nucleófilo y acepta un par de electrones.& Pág. 1211~\cite{Petrucci10ed} & Definición correcta aunque incompleta. \\
+ 				
+ 				\hline
+ 				
+ 				\textbf{Reductor:} especie química capaz de oxidarse perdiendo electrones que serán captados por otra especie que se reduzca (capta electrones). & En una reacción redox se llama agente reductor o reductor a la sustancia que hace posible que otra
+ 				sustancia se reduzca. A su vez el agente reductor se oxida en la reacción. Dicho de otra
+ 				manera, un agente reductor (reductor): produce la reducción de otras sustancias; contiene un elemento cuyo estado de oxidación aumenta en la reacción redox; pierde electrones (los electrones están en el lado derecho de su semiecuación); se oxida. En general, una sustancia con un elemento en uno de sus estados de oxidación más bajos posibles es un agente reductor. & Pág. 175~\cite{Petrucci10ed} & Definición correcta y completa dentro de lo requerido en el ejercicio.\\
+ 				
+ 				
+ 				\hline %línea horizontal
+ 			\end{tabular}
+ 		\end{center}
+ 	\end{table}
+ } 
+
+\printbibliography
+
+\end{document}

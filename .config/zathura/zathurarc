@@ -1,0 +1,29 @@
+set sandbox none
+set statusbar-h-padding 0
+set statusbar-v-padding 0
+set page-padding 1
+set selection-clipboard clipboard
+set recolor-darkcolor "#d2d4de"
+set recolor-lightcolor "#262626"
+set recolor-keephue true
+set recolor-reverse-video false
+set scroll-hstep -1
+set scroll-step 40
+set scroll-page-aware true
+set zoom-step 10
+map u scroll half-up
+map d scroll half-down
+map z scroll full-up
+map x scroll full-down
+map , scroll full-up
+map . scroll full-down
+map N next
+map P previous
+map M toggle_page_mode
+map r reload
+map R rotate
+map K zoom in
+map J zoom out
+map i recolor
+map p print
+map g goto top

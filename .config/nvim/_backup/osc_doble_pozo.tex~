@@ -1,0 +1,49 @@
+\documentclass[12pt, final, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[spanish, es-tabla]{babel}
+\usepackage{amsmath, amssymb}
+
+\input{/home/jose/Documents/latex/preamble/paquetes1} %mis paquetes
+\input{/home/jose/Documents/latex/preamble/bibliography_config} %configuracion para l bibliografia
+\input{/home/jose/Documents/latex/preamble/paquetesTikz} %mis paquetes
+\input{/home/jose/Documents/latex/preamble/tikzstyle} %Estilo para las gráficas
+
+% \newcommand{\mat}[1]{\boldsymbol{\mathrm{#1}}}
+
+\decimalpoint
+
+\graphicspath{{../grafica/}}
+
+\author{José Antonio Quiñonero Gris}
+\title{\textbf{Tratamiento variacional de un doble pozo de potencial.}\\
+        \vspace{5mm}
+        \large \textbf{Cálculo de las energías variacionales.}}
+
+% \date{29 de enero de 2022}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+%------------------------------------------------------------------------------
+\section{Introducción}%
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+\section{Cálculos}%
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+\section{Resultados}%
+%------------------------------------------------------------------------------
+\clearpage
+\newpage
+% \printbibliography[title={References}] % change from bibliography to references
+\printbibliography
+% \nocite{*}
+% \bibliographystyle{apalike}
+% \bibliography{/home/jose/Documents/latex/preamble/references.bib}
+\end{document}

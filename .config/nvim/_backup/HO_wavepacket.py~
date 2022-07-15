@@ -1,0 +1,177 @@
+# _____________________________________________________________________________
+# *****************************************************************************
+# Autor: José Antonio Quiñonero gris
+# Fecha de creación: 5 de octubre de 2021
+# *****************************************************************************
+# -----------------------------------------------------------------------------
+
+# Calculo y representacion del oscilador armonico cuantico unidimensional
+# acoplado.
+
+# -----------------------------------------------------------------------------
+# Librerias
+# -----------------------------------------------------------------------------
+import numpy as np
+import matplotlib.pyplot as plt
+from math import factorial
+from scipy.special import hermite
+import matplotlib.animation as animation
+
+# *****************************************************************************
+# INICIO
+# *****************************************************************************
+
+# -----------------------------------------------------------------------------
+# Definicion de constantes
+# -----------------------------------------------------------------------------
+
+# Realizo el calculo en unidades atomicas, por lo que
+hbar = 1                       # Constante de Planck reducida
+m = 1                          # Masa de la particula
+k = 1                          # Constante de fuerza
+omega = np.sqrt(k/m)           # Momento angular: omega = (k/m)^(1/2)
+
+# Definicion del vector espacio
+x = np.linspace(-10, 10, 250)
+
+# -----------------------------------------------------------------------------
+# Funciones propias del oscilador armonico unidimensional
+# -----------------------------------------------------------------------------
+
+# Funcion potencial
+def V(x):
+    return (1/2) * k * x**2
+
+# Valores propios de la energia
+def E(v):
+    return (v + 1/2) * hbar * omega
+
+# Definicion de una constante 'alpha' para simplificar la formulacion
+alpha = m * omega/hbar
+
+# Variable de desplazamiento xi
+def xi(x):
+    return np.sqrt(alpha) * x
+
+# Constante de normalizacion
+def N(v):
+    return ( np.sqrt(alpha/np.pi) * (1/(2**v * factorial(v))) )**(1/2)
+
+# Funcion exponencial a diferenciar
+def diff_expo(x):
+    return np.exp(-xi(x)**2)
+
+# Funcion exponencial
+def expo(x):
+    return np.exp(-(xi(x)**2)/2)
+
+# Polinomios de Hermite
+def Hv(v,x):
+    herm = hermite(v)
+    P_v = herm(x)
+    return P_v
+
+# Componente temporal de funciones
+def time_expo(v,t):
+    return np.exp(-1j * E(v) * t/hbar)
+
+# Funciones propias
+def phi(v,x,t):
+    return N(v) * expo(x) * Hv(v,x) * time_expo(v,t)
+
+# Densidad de probabilidad
+def dens_phi(v,x,t):
+    return np.conj(phi(v,x,t)) * phi(v,x,t)
+
+# -----------------------------------------------------------------------------
+# Funciones grafica
+# -----------------------------------------------------------------------------
+# c0 = 1/( np.sqrt(2) )
+# c1 = 1/( np.sqrt(2) )
+
+c0 = 0.8609
+c1 = 1.2225
+c2 = 1.2274
+c3 = 1.0059
+c4 = 0.7143
+c5 = 0.4542
+c6 = 0.2388
+c7 = 0.1413
+c8 = 0.0705
+c9 = 0.03301
+
+# H_med = c0**2 * E(0) + c1**2 * E(1)
+H_med = c0**2 * E(0) + c1**2 * E(1) + c2**2 * E(2) + c3**2 * E(3) +c4**2 * E(4) +c5**2 * E(5) +c6**2 * E(6) +c7**2 * E(7) +c8**2 * E(8) +c9**2 * E(9)
+
+def Delta(i,j):
+    res = (E(i)-E(j))/hbar
+    return res
+
+def psi(x,t):
+    # func = c0**2 * phi(0,x,t) + c1**2 * phi(1,x,t) + phi(0,x,t)*phi(1,x,t)*np.cos(Delta(1,0)*t)
+    func = c0 * phi(0,x-2,t) + c1 * phi(1,x,t) + c2 * phi(2,x,t) + c3 * phi(3,x,t) + c4 * phi(4,x,t) + c5 * phi(5,x,t) + c6 * phi(6,x,t) + c7 * phi(7,x,t) + c8 * phi(8,x,t) + c9 * phi(9,x,t)
+    return func
+# N=10
+#     func = 0
+#     for i in range(N):
+#         func = func + (1/N) * phi(i,x,t) + phi(i,x,t)*phi(i+1,x,t)*np.cos(Delta(i+1,i)*t)
+#     return func
+
+def x_esp(t):
+    x01 = np.sqrt(hbar/(2*m*omega))
+    res = x01 * np.cos(omega * t)
+    return res
+
+# -----------------------------------------------------------------------------
+# Animacion 1: variacion de la funcion de onda junto a su densidad de
+# probabilidad
+# -----------------------------------------------------------------------------
+
+# First set up the figure, the axis, and the plot element we want to animate
+fig = plt.figure()
+# fig.suptitle(r'$\Psi\,(x,t) = (1/2)\varphi_0\,(x,t) + (1/2)\varphi_1\,(x,t)$')
+ax = plt.axes(xlim=(-5, 5), ylim=(-5, 5))
+# ax = plt.axes(xlim=(-10, 10), ylim=(0, 20))
+# ax.axhline(y = H_med, color='black')
+ax.plot(x, V(x), color='gray')
+line, = ax.plot([], [], label=r'$\Psi\,(x,t)$', lw=2)
+line2, = ax.plot([], [], label=r'$\left| \Psi\,(x,t) \right|^2$', lw=2)
+ax.set_xlabel(r'$x\ (a_0)$')
+ax.set_ylabel(r'$\mathrm{Re}\left\{ f\,(x) \right\}$')
+ax.legend()
+# ax.grid()
+
+# initializstion function: plot the background of each frame
+def init():
+    line.set_data([], [])
+    return line,
+
+# animation function.  This is called sequentially
+dt = 1./30  # 30 fps
+t0 = 0
+def animate1(i):
+    t = t0 + (dt * i)
+    x = np.linspace(-10, 10, 250)
+    y = psi(x,t).real
+    # y = x_esp(t)
+    # y = phi(0,x-2,t).real
+    y2 = (np.conj(psi(x,t)) * psi(x,t)).real
+    line.set_data(x, y)
+    line2.set_data(x, y2)
+
+    return line, line2,
+    # return line,
+
+# call the animator.  blit=True means only re-draw the parts that have changed.
+anim = animation.FuncAnimation(fig, animate1, init_func=init,
+                               frames=300, interval=1, blit=True)
+
+# save the animation as an mp4.  This requires ffmpeg or mencoder to be
+# installed.  The extra_args ensure that the x264 codec is used, so that
+# the video can be embedded in html5.  You may need to adjust this for
+# your system: for more information, see
+# http://matplotlib.sourceforge.net/api/animation_api.html
+
+# anim.save('animaciones/oscilador_acoplado_prueba1.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
+
+plt.show()

@@ -1,0 +1,65 @@
+# _____________________________________________________________________________
+# *****************************************************************************
+# Autor: José Antonio Quiñonero gris
+# Fecha de creación: 7 de mayo de 2022
+# *****************************************************************************
+# -----------------------------------------------------------------------------
+
+# descripcion del programa
+
+# Librerias
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.style.use('mine')
+
+# *****************************************************************************
+# INICIO
+# *****************************************************************************
+
+nombre_grafica = 'grafica_transporte_2.pdf'
+
+fichero_datos = '../tablas/transporte.txt'
+t, A1, A2, A3, A4, A5, A6, A7, A8, A9 = np.loadtxt(fichero_datos, unpack=True, skiprows=1)
+
+# GRAFICA
+xmin = -10
+xmax = 70
+ymin = -1
+ymax = 5
+
+fig, ax = plt.subplots()
+fig.subplots_adjust(left=.15, bottom=.16, right=.99, top=.97)
+
+ax.plot(t, A1, marker='o', label='G1')
+ax.plot(t, A2, marker='o', label='G2')
+ax.plot(t, A3, marker='o', label='G3')
+ax.plot(t, A4, marker='o', label='G4')
+# ax.plot(t, A5, marker='o', label='G5')
+ax.plot(t, A6, marker='o', label='G6')
+ax.plot(t, A7, marker='o', label='G7')
+ax.plot(t, A8, marker='o', label='G8')
+ax.plot(t, A9, marker='o', label='G9')
+
+ax.set(xlabel=r'$t$ (horas)', ylabel=r'Absorbancia (a.u.)')
+
+# ax.set_xlim(xmin,xmax)
+# ax.set_ylim(ymin,ymax)
+
+# ax.text(0.02, 0.975, 'a)', fontsize=14, bbox=dict(facecolor='white', alpha=0.8), horizontalalignment='left', verticalalignment='top', transform=ax.transAxes)
+ax.text(max(t)+0.8, max(A1), 'G1, G3,'+'\n'+'G6, G9', fontsize=8, horizontalalignment='left', verticalalignment='center')
+ax.text(max(t)+0.8, max(A2), 'G2', fontsize=8, horizontalalignment='left', verticalalignment='center')
+# ax.text(max(t)+0.8, max(A3), 'G3', fontsize=8, horizontalalignment='left', verticalalignment='center')
+ax.text(max(t)+0.8, max(A4), 'G4', fontsize=8, horizontalalignment='left', verticalalignment='center')
+# ax.text(max(t)+0.8, max(A5), 'G5', fontsize=8, horizontalalignment='left', verticalalignment='center')
+# ax.text(max(t)+0.8, max(A6), 'G6', fontsize=8, horizontalalignment='left', verticalalignment='center')
+ax.text(max(t)+0.8, max(A7), 'G7', fontsize=8, horizontalalignment='left', verticalalignment='center')
+ax.text(max(t)+0.8, max(A8), 'G8', fontsize=8, horizontalalignment='left', verticalalignment='center')
+# ax.text(max(t)+0.8, max(A9), 'G9', fontsize=8, horizontalalignment='left', verticalalignment='center')
+
+ax.grid()
+
+ax.legend(loc='upper left')
+
+plt.savefig(nombre_grafica, transparent='True', bbox_inches='tight')
+# plt.show()

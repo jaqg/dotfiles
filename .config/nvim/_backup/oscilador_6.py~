@@ -1,0 +1,50 @@
+# _____________________________________________________________________________
+# *****************************************************************************
+# Autor: José Antonio Quiñonero gris
+# Fecha de creación: 15 de febrero de 2022
+# *****************************************************************************
+# -----------------------------------------------------------------------------
+
+# Oscilador con una perturbacion cuartica y de orden seis
+
+# Librerias
+import numpy as np
+import matplotlib.pyplot as plt
+import math
+
+# *****************************************************************************
+# INICIO
+# *****************************************************************************
+def V_4(a,b,x):
+    pot = a*x**2 + b*x**4
+    return pot
+
+def V_6(a,b,c,x):
+    pot = a*x**2 + b*x**4 + c*x**6
+    return pot
+
+def V_g(a_g,b_g,c_g,x):
+    pi = 3.141592653589793
+    # a_g = 1/(sigma* np.sqrt(2*pi))
+    # b_g = mu
+    # c_g = sigma
+    pot = a_g*np.exp(((x-b_g)**2)/(2*c_g**2))
+    return pot
+
+
+x = np.linspace(-10,10,200)
+a = -0.5
+b = 0.05
+c = 0.01
+a_g = 1.0
+b_g = 0
+c_g = -0.5
+
+plt.plot(x,V_4(a,b,x), color='b', label=r'$V(x)$')
+plt.plot(x,V_6(a,b,c,x), color='r', label=r'$V^{\prime}(x)$')
+plt.plot(x,V_g(a_g,b_g,c_g,x), color='g', label=r'$V^{\prime\prime}(x)$')
+plt.ylim(-2,10)
+# plt.xlim(-5,5)
+plt.legend()
+
+plt.show()

@@ -1,0 +1,166 @@
+# _____________________________________________________________________________
+# *****************************************************************************
+# Autor: José Antonio Quiñonero Gris
+# Fecha de creación: 7 de febrero de 2022
+# *****************************************************************************
+# -----------------------------------------------------------------------------
+
+# Animaciones de la particula en una caja unidimensional, bidimensional y
+# tridimensional
+
+# Librerias
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import axes3d
+import matplotlib.animation as animation
+from matplotlib import cm
+from math import factorial
+from scipy.special import hermite
+
+# Usar mi estilo para las graficas
+plt.style.use('mine')
+
+# *****************************************************************************
+# INICIO
+# *****************************************************************************
+
+# Archivos
+fichero_datos_1 = '/home/jose/Documents/Universidad/TFG/practicas_QFA/osc_doble_pozo_2/data/in-osc_doble_pozo.dat'
+fichero_datos_2 = '/home/jose/Documents/Universidad/TFG/practicas_QFA/osc_doble_pozo_2/data/in-potencial.dat'
+fichero_potencial = '/home/jose/Documents/Universidad/TFG/practicas_QFA/osc_doble_pozo_2/data/out-potencial.dat'
+archivo_energias = '/home/jose/Documents/Universidad/TFG/practicas_QFA/osc_doble_pozo_2/data/out-conver_energias.dat'
+archivo_funciones_pares = '/home/jose/Documents/Universidad/TFG/practicas_QFA/osc_doble_pozo_2/data/out-funciones_pares.dat'
+fichero_funciones_impares = '/home/jose/Documents/Universidad/TFG/practicas_QFA/osc_doble_pozo_2/data/out-funciones_impares.dat'
+fichero_densidad_prob_pares = '/home/jose/Documents/Universidad/TFG/practicas_QFA/osc_doble_pozo_2/data/out-densidad_prob_pares.dat'
+fichero_densidad_prob_impares = '/home/jose/Documents/Universidad/TFG/practicas_QFA/osc_doble_pozo_2/data/out-densidad_prob_impares.dat'
+
+N, a, b = np.loadtxt(fichero_datos_1, unpack=True, skiprows=1)
+xmin, xmax, dx = np.loadtxt(fichero_datos_2, unpack=True, skiprows=1)
+x, V = np.loadtxt(fichero_potencial, unpack=True, skiprows=3)
+n, E, Nconver = np.loadtxt(archivo_energias, unpack=True, skiprows=1)
+x, Phi0, Phi2, Phi4 = np.loadtxt(archivo_funciones_pares, unpack=True, skiprows=3)
+x, Phi1, Phi3, Phi5 = np.loadtxt(fichero_funciones_impares, unpack=True, skiprows=3)
+x, dPhi0, dPhi2, dPhi4 = np.loadtxt(fichero_densidad_prob_pares, unpack=True, skiprows=3)
+x, dPhi1, dPhi3, dPhi5 = np.loadtxt(fichero_densidad_prob_impares, unpack=True, skiprows=3)
+
+# -- Definicion de constantes --
+# Realizo el calculo en unidades atomicas, por lo que
+hbar = 1                       # Constante de Planck reducida
+m = 1                          # Masa de la particula
+k = 1                          # Constante de fuerza
+omega = np.sqrt(k/m)           # Momento angular: omega = (k/m)^(1/2)
+
+t0 = 0
+dt = 1/30
+nu = 1/(2 * np.pi) * np.sqrt(k/m)
+T = 1/nu
+T_frames = round(T/dt)
+
+numero_frames = 3 * T_frames
+
+def Vb(a,b):
+    res = b**2/(4*a)
+    return res
+
+def x1(n,a,b):
+    res = np.sqrt(np.sqrt(b**2-4*Vb(a,b)*a+4*E[n]*a)/a+b/a)/np.sqrt(2)
+    return res
+def x2(n,a,b):
+    res = np.sqrt(b/a-np.sqrt(b**2-4*Vb(a,b)*a+4*E[n]*a)/a)/np.sqrt(2)
+    return res
+
+# -----------------------------------------------------------------------------
+# Animacion 1
+# -----------------------------------------------------------------------------
+nombre_grafica = 'videos/osc_doble_pozo_b={}.mp4'.format(b)
+
+xmin = -5
+xmax = 5
+ymin = -5
+ymax = 5
+
+# Por debajo de la barrera
+if b==1:
+    n_barrera = 0
+elif b==2:
+    n_barrera = 1
+elif b==3:
+    n_barrera = 2
+elif b==4:
+    n_barrera = 2
+elif b==5:
+    n_barrera = 4
+
+# Creacion de la grafica
+fig = plt.figure()
+plt.axes()
+ax = fig.gca()
+# Creating color map
+# my_cmap = plt.get_cmap('bone_r')
+# Barra de color
+
+# Funcion actualizar
+def actualizar(i):
+    t = t0 + (dt * i)
+    Phi0t  = Phi0 * np.exp(-1j * E[0] * t/hbar)
+    Phi1t  = Phi1 * np.exp(-1j * E[1] * t/hbar)
+
+    c0 = 1/(np.sqrt(2))
+    c1 = 1/(np.sqrt(2))
+    Psi = c0 * Phi0 + c1 * Phi1
+    energia = c0 * E[0] + c1 * E[1]
+    Psit = Psi * np.exp(-1j * energia * t/hbar)
+
+    ax.clear()
+    # ax.axvline(x=0, lw=0.5,color='gray')
+    for i in np.arange(0,n_barrera):
+        ax.hlines(y = E[i], xmin=-x1(i,a,b), xmax=-x2(i,a,b), color='black', lw=1.0)
+        ax.hlines(y = E[i], xmin=x2(i,a,b), xmax=x1(i,a,b), color='black', lw=1.0)
+
+    # Por encima de la barrera
+    for i in np.arange(n_barrera,len(E)):
+        ax.hlines(y = E[i], xmin=-x1(i,a,b), xmax=x1(i,a,b), color='black', lw=1.0)
+
+    ax.plot(x, Phi0t.real, label=r'$\left| \Phi_0,(x,t) \right>$')
+    ax.plot(x, Phi0, label=r'$\left| \Phi_0\,(x,0) \right>$')
+    # ax.plot(x, Phi1t.real, label=r'$\left| \Phi_1 \right>$')
+    # ax.plot(x, Psit.real, label=r'$\left| \Psi \right>$')
+
+    # ax.plot(x,y2,  label=r'$\left| \Phi_0\,(x,t) \right|^2$')
+
+    ax.plot(x, V, label=r'$V\,(x)$', color='grey')
+
+    plt.title(r'$V\,(x) = {}x^4 - {}x^2$'.format(a,b) + '\n' + r'$t = {:.1f}$'.format(t))
+    # plt.title(r'$t = {:.1f}$'.format(t))
+
+    ax.set_xlabel(r'$x\, (a_0)$')
+    ax.set_ylabel(r'$\mathrm{Re}\left\{ \Phi\,(x,t) \right\}$')
+
+    ax.set_xlim(xmin,xmax)
+    ax.set_ylim(ymin,ymax)
+
+    ax.legend(loc='lower left')
+
+    # plt.legend(loc=(1.01, 0.5))
+    # # for major ticks
+    # ax.set_xticks([])
+    # # for minor ticks
+    # ax.set_xticks([], minor=True)
+    # # for major ticks
+    # ax.set_yticks([])
+    # # for minor ticks
+    # ax.set_yticks([], minor=True)
+
+# Llamada a la funcion animacion
+# animation.FuncAnimation(<figura>,
+#                         <funcion a iterar>,
+#                         <numero de iteraciones>,
+#                         interval=<delay en ms> )
+anim = animation.FuncAnimation(fig, actualizar, numero_frames,
+                              interval=1, repeat=True, blit=False)
+
+# Guardar el archivo
+# anim.save(nombre_grafica, fps=30, extra_args=['-vcodec', 'libx264'])
+
+plt.show()
+# plt.close()

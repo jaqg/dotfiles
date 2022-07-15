@@ -1,0 +1,41 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[spanish, es-tabla]{babel}
+\usepackage{amsmath, amssymb}
+
+\input{/home/jose/Documents/latex/preamble/paquetes1} %mis paquetes
+\input{/home/jose/Documents/latex/preamble/bibliography_config} %configuracion para l bibliografia
+\input{/home/jose/Documents/latex/preamble/paquetesTikz} %mis paquetes
+\input{/home/jose/Documents/latex/preamble/tikzstyle} %Estilo para las gráficas
+
+\decimalpoint
+
+\graphicspath{{../figuras/}}
+
+\author{José Antonio Quiñonero Gris}
+\title{\textbf{Ejercicio Química Física II Ana}
+    }
+
+% \date{}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+Demostrar que
+\begin{equation}
+    \frac{\partial}{\partial T} \left( \ln \frac{ e^{\frac{1}{k_B T}}}{e^{\frac{1}{k_B T} }-2} \right)_{N,N} = \frac{e^{\frac{1}{k_B T} }-2}{e^{\frac{1}{k_B T}}} \left(  \right)
+\end{equation}
+
+\clearpage
+\newpage
+% \printbibliography[title={References}] % change from bibliography to references
+\printbibliography
+% \nocite{*}
+% \bibliographystyle{apalike}
+% \bibliography{/home/jose/Documents/latex/preamble/references.bib}
+\end{document}

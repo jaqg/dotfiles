@@ -1,0 +1,6 @@
+2022/05/12-17:29:29.786 26b78 Creating DB /home/jose/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_www.instagram.com_0.indexeddb.leveldb since it was missing.
+2022/05/12-17:29:29.795 26b78 Reusing MANIFEST /home/jose/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_www.instagram.com_0.indexeddb.leveldb/MANIFEST-000001
+2022/05/12-19:27:36.683 366c3 Level-0 table #5: started
+2022/05/12-19:27:36.695 366c3 Level-0 table #5: 181938 bytes OK
+2022/05/12-19:27:36.698 366c3 Delete type=0 #3
+2022/05/12-19:27:36.699 366c3 Manual compaction at level-0 from (begin) .. (end); will stop at (end)

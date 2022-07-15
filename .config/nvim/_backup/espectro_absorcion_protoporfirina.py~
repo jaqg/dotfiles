@@ -1,0 +1,52 @@
+# _____________________________________________________________________________
+# *****************************************************************************
+# Autor: José Antonio Quiñonero gris
+# Fecha de creación: 7 de mayo de 2022
+# *****************************************************************************
+# -----------------------------------------------------------------------------
+
+# descripcion del programa
+
+# Librerias
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.style.use('mine')
+
+# *****************************************************************************
+# INICIO
+# *****************************************************************************
+
+nombre_grafica = 'espectro_absorcion_protoporfirina.pdf'
+
+fichero_datos = '../tablas/datos_espectros_metaloporfirinas.txt'
+longitud_onda, H2TPP_G2, H2TPP_G6, CuTPP_G5, CuTPP_G8, NiTPP_G4, NiTPP_G7, ZnTPP_G3, ZnTPP_G9, protoporfirina_G1, H4TPP_G2 = np.loadtxt(fichero_datos, unpack=True, skiprows=2)
+
+fichero_datos = '../tablas/UV-Vis_ZnTPP_G1.txt'
+longitud_onda_2, ZnTPP_G1 = np.loadtxt(fichero_datos, unpack=True, skiprows=2)
+
+
+# GRAFICA
+xmin = 340
+xmax = 760
+ymin = -0.1
+ymax = 2.2
+
+fig, ax = plt.subplots()
+fig.subplots_adjust(left=.15, bottom=.16, right=.99, top=.97)
+
+ax.plot(longitud_onda, protoporfirina_G1, label='Protoporfirina IX (G1)')
+
+ax.set(xlabel=r'$\lambda$ (nm)', ylabel=r'Absorbancia (a.u.)')
+
+ax.set_xlim(xmin,xmax)
+ax.set_ylim(ymin,ymax)
+
+# ax.text(0.02, 0.975, 'a)', fontsize=14, bbox=dict(facecolor='white', alpha=0.8), horizontalalignment='left', verticalalignment='top', transform=ax.transAxes)
+
+ax.grid()
+
+ax.legend(loc='upper right')
+
+plt.savefig(nombre_grafica, transparent='True', bbox_inches='tight')
+# plt.show()

@@ -1,0 +1,193 @@
+! _____________________________________________________________________________
+! *****************************************************************************
+! Autor: José Antonio Quiñonero Gris
+! Fecha de creación: 10 de febrero de 2022
+! *****************************************************************************
+! -----------------------------------------------------------------------------
+
+! -----------------------------------------------------------------------------
+! PROGRAMA PRINCIPAL
+! -----------------------------------------------------------------------------
+program doble_pozo
+
+! Programa para calcular las energias y parametros variacionales
+! diagonalizando la matriz del hamiltoniano, de manera que
+! Hc = Ec
+! donde H es una matriz real simetrica de elementos Hij=<i|Ĥ|j>
+! obtendremos como autovalores las energias variacionales, E
+! y como autovectores los coeficientes variacionales c
+
+! IMPLICIT REAL*8(A-H,O-Z)
+! IMPLICIT INTEGER(I-N)
+
+implicit none
+
+! =======================
+! Definicion de variables
+! =======================
+
+integer :: i,j,l
+
+COMMON k,hbar,m
+! Constante k
+real*8 :: k=1.0
+! Unidades atomicas
+real*8 :: hbar=1.0, m=1.0
+! Numero de funciones base
+integer :: N, Nmin, Nmax
+! Valores para el parametro de perturbacion cuartica
+integer, parameter :: rango_d=3
+real*8, dimension(rango_d) :: valores_d
+! Parametro de la componente cuadratica del oscilador
+real*8, parameter :: a=-1.0
+! Parametro de perturbacion cuartica
+real*8 :: d
+! Resultado de la funcion para el parametro alpha
+real*8 :: alpha_val
+! Resultado de la funcion para la integral sobre d2/dx2
+real*8 :: derivada
+! Resultado de la funcion para la integral sobre x2
+real*8 :: cuadratica
+! Resultado de la funcion para la integral sobre x4
+real*8 :: cuartica
+! Integrales del hamiltoniano, elementos Hij
+real*8 :: H
+! Matriz del hamiltoniano
+real*8, dimension(:,:), allocatable :: H_mat
+! Array para el vector propio de parametros variacionales
+real*8, dimension(:,:), allocatable :: C
+! Array para los valores propios de la energia
+real*8, dimension(:), allocatable :: E
+! Declaracion de parametros necesarios para la subrutina que calcula los
+! eigenvalues
+integer :: it_max, it_num, rot_num
+
+! ===================
+! INICIO DEL PROGRAMA
+! ===================
+
+! Apertura y lectura del fichero con los datos iniciales
+open(unit=1, file="data/in-doble_pozo.dat")
+! Omite la primera linea del archivo de datos de entrada
+read(1,*)
+! Lee los datos de entrada
+read(1,*) Nmin, Nmax, valores_d(1), valores_d(2), valores_d(3)
+close(1)
+
+! Apertura del fichero de resultados
+open(unit=2, file="data/out-energias_variacionales.dat")
+open(unit=5, file="data/out-energias_variacionales_2.dat")
+open(unit=3, file="data/out-parametros_variacionales.dat")
+open(unit=4, file="data/out-parametros_variacionales_2.dat")
+
+! Documento para la grafica
+write(4,9994)
+9994 format(2x, 'd', 5x,'Phi_0', 5x,'Phi_1', 5x,'Phi_2', 5x,'Phi_3', &
+            5x,'Phi_4', 5x,'Phi_5')
+write(5,9991)
+9991 format (2x, 'd', 4x, 'N', 6x, 'W0', 8x, 'W1', 8x, 'W2', 8x, 'W3', &
+             8x, 'W4', 8x, 'W5', 8x, 'W6', 8x, 'W7')
+
+
+! Bucle principal:
+! Para cada valor de d
+!   Para N funciones base
+!       Crea y escribe la matriz H
+!       Halla los valores y vectores propios
+!       Escribe los resultados
+do_valores_d: do l=1, rango_d, 1
+    d = valores_d(l)
+    ! Escribe la primera fila de las tablas
+    write(2,*) '====================================================&
+                ============================='
+    ! d=0.1
+    write(2,9999) d
+    9999 format (34x, 'd =', f5.2)
+    write(2,*) '----------------------------------------------------&
+                -----------------------------'
+    write(2,9998)
+    9998 format (2x, 'N', 6x, 'W0', 8x, 'W1', 8x, 'W2', 8x, 'W3', 8x, 'W4',&
+                8x, 'W5', 8x, 'W6', 8x, 'W7')
+    ! Hallar los resultados para cada valor de N
+    do_N: do n=2, Nmax, 1
+        ! Da dimensiones a la matriz del hamiltoniano
+        allocate(H_mat(1:n,1:n))
+        ! y de las matrices para la rutina de valores propios
+        allocate(C(1:n,1:n))
+        allocate(E(1:n))
+        ! Crear la matriz del hamiltoniano
+        do_filas: do i=1, n, 1
+            do_columnas: do j=1, n, 1
+                H_mat(i,j) = H(i-1,j-1,a,d)
+            end do do_columnas
+        end do do_filas
+        ! Rutina para calcular los valores propios
+        ! jacobi_eigenvalue( n, a, it_max, v, d, it_num, rot_num )
+        !   Input
+        !     integer n: orden de la matriz
+        !     real (kind=rk) A(N,N): la matriz, cuadrada, real y simetrica
+        !     integer IT_MAX: numero maximo de iteraciones
+        !   Output
+        !     real (kind=rk) V(N,N): la matriz de eigenvectors
+        !     real (kind=rk) D(N): los eigenvalores, en orden descendiente
+        !     integer IT_NUM: numero total de iteraciones
+        !     integer ROT_NUM: numero total de rotaciones
+        it_max = 1000
+        call jacobi_eigenvalue( n, H_mat, it_max, C, E, it_num, rot_num )
+
+        ! Las energias variacionales son guardas en el array E, ordenados en
+        ! sentido descendiente, de manera que la energia para un nivel i viene
+        ! dada por E(i:i)
+
+        ! Los parametros variacionales son guardados en la matriz C, de manera
+        ! que, los parametros para un nivel i, y para un numero de funciones N
+        ! vienen dados por C(N,i)
+
+        ! Escribe las 7 primeras energias variacionales cuando N>=8
+        if(N>=8) then
+            write(2,9997) N, E(1:1), E(2:2), E(3:3), E(4:4), E(5:5), E(6:6), &
+                          E(7:7), E(8:8)
+            9997 format(1x, i2.1, f10.5, f10.5, f10.5, f10.5, f10.5, f10.5,&
+                            f10.5, f10.5)
+        endif
+        if (N==10) then
+            write(3,*) '====================================================&
+                        ============================='
+            write(3,9996) d
+            9996 format (34x, 'd =', f5.2)
+            write(3,*) '----------------------------------------------------&
+                -----------------------------'
+            write(3,9995)
+            9995 format(3x,'Phi_0', 5x,'Phi_1', 5x,'Phi_2', 5x,'Phi_3', &
+                        5x,'Phi_4', 5x,'Phi_5')
+            do j=1, n, 1
+                ! Escribe los coeficientes para las 4 primeros estados
+                write(3,9993) C(j,1), C(j,2), C(j,3), C(j,4) , C(j,5), C(j,6)
+                9993 format(f10.5, f10.5, f10.5, f10.5, f10.5, f10.5)
+                ! Documento para la grafica
+                write(4,9992) d, C(j,1), C(j,2), C(j,3), C(j,4) , C(j,5), C(j,6)
+                9992 format(f5.2, f10.5, f10.5, f10.5, f10.5, f10.5, f10.5)
+            end do
+        end if
+        if (N==10) then
+            write(5,9990) d, N, E(1:1), E(2:2), E(3:3), E(4:4), E(5:5), E(6:6), &
+                              E(7:7), E(8:8)
+            9990 format(1x, f5.2, 1x, i2.1, f10.5, f10.5, f10.5, f10.5, f10.5, f10.5,&
+                            f10.5, f10.5)
+        end if
+        ! borra las matrices
+        deallocate(H_mat)
+        deallocate(C)
+        deallocate(E)
+    end do do_N
+end do do_valores_d
+
+close(2)
+close(3)
+close(4)
+close(5)
+
+write(*,*) 'El programa ha finalizado'
+
+stop
+endprogram doble_pozo

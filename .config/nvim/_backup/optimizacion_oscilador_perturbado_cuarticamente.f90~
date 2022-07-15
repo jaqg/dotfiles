@@ -1,0 +1,959 @@
+! _____________________________________________________________________________
+! *****************************************************************************
+! Autor: José Antonio Quiñonero Gris
+! Fecha de creación: 16 de enero de 2022
+! *****************************************************************************
+! -----------------------------------------------------------------------------
+
+! -----------------------------------------------------------------------------
+! PROGRAMA PRINCIPAL
+! -----------------------------------------------------------------------------
+program Optimizacion_oscilador_perturbado_cuarticamente
+
+! Estudio de convergencia de un oscilador con una perturbacion cuartica
+! V(x) = (k/2)x^2 + dx^4
+! mediante el metodo de variaciones lineal.
+
+! Realizar los calculos tomando como funciones base las funciones propias del
+! oscilador, para N=2,3,4 funciones base. Ademas, Estudiar los casos:
+! d=0.1, 0.5, 1.0
+
+! Declaracion de variables
+! IMPLICIT REAL*8(A-H,O-Z)
+! IMPLICIT INTEGER(I-N)
+implicit none
+
+COMMON k,hbar,m
+
+integer :: i,j
+
+! Constante k
+real*8 :: k=1.0
+! Unidades atomicas
+real*8 :: hbar=1.0, m=1.0
+
+integer :: N, Nmin, Nmax
+integer, parameter :: rango_d=3
+real*8, dimension(rango_d) :: valores_d
+real*8 :: d
+real*8 :: alpha,val_alpha_opt
+real*8 :: En, E0, E1, E2, E3
+real*8 :: H00, H02, H04, H06, H22, H24, H26, H44, H46, H66
+real*8 :: H11, H13, H15, H17, H33, H35, H37, H55, H57, H77
+real*8 :: a4, a3, a2, a1, a0
+real*8 :: W0, W1, W2, W3, W4, W5, W6, W7
+
+! =============================================================================
+! TAREAS
+! =============================================================================
+interface
+     subroutine alpha_opt(d, alpha)
+        real*8, intent(in) :: d
+        real*8, intent(out) :: alpha
+    end subroutine alpha_opt
+    function E(n) result(En)
+        integer, intent(in) :: n
+        real*8 :: En
+    end function E
+    subroutine energias_propias(n, E0, E1, E2, E3)
+        integer, intent(in) :: n
+        real*8, intent(out) :: E0, E1, E2, E3
+    end subroutine energias_propias
+    function der(i,j,d,alpha) result(derivada)
+        integer, intent(in) :: i, j
+        real*8, intent(in) :: d, alpha
+        real*8 :: derivada
+    end function der
+    function cuad(i,j,d,alpha) result(cuadratica)
+        integer, intent(in) :: i, j
+        real*8, intent(in) :: d, alpha
+        real*8 :: cuadratica
+    end function cuad
+    function cuar(i,j,d,alpha) result(cuartica)
+        integer, intent(in) :: i, j
+        real*8, intent(in) :: d, alpha
+        real*8 :: cuartica
+    end function cuar
+    function H(i, j, d, alpha) result(intham)
+        integer, intent(in) :: i, j
+        real*8, intent(in) :: d, alpha
+        real*8 :: intham
+    end function H
+    subroutine integrales_hamiltoniano(d, alpha,&
+                                        H00, H02, H04, H06,&
+                                        H22, H24, H26,&
+                                        H44, H46, H66,&
+                                        H11, H13, H15, H17,&
+                                        H33, H35, H37,&
+                                        H55, H57, H77)
+        real*8, intent(in) :: d, alpha
+        real*8, intent(out) :: H00, H02, H04, H06,&
+                           H22, H24, H26,&
+                           H44, H46, H66,&
+                           H11, H13, H15, H17,&
+                           H33, H35, H37,&
+                           H55, H57, H77
+    end subroutine
+    subroutine parametros_ec_cuadratica(H00, H11, a2, a1, a0)
+        real*8, intent(in) :: H00, H11
+        real*8, intent(out) :: a0, a1, a2
+    end subroutine parametros_ec_cuadratica
+    subroutine parametros_ec_cuadratica_par(H00, H22, H02, a2, a1, a0)
+        real*8, intent(in) :: H00, H22, H02
+        real*8, intent(out) :: a0, a1, a2
+    end subroutine parametros_ec_cuadratica_par
+    subroutine parametros_ec_cuadratica_impar(H11, H33, H13, a2, a1, a0)
+        real*8, intent(in) :: H11, H33, H13
+        real*8, intent(out) :: a0, a1, a2
+    end subroutine parametros_ec_cuadratica_impar
+    subroutine parametros_ec_cubica(H00, H11, H22, H02, a3, a2, a1, a0)
+        real*8, intent(in) :: H00, H11, H22, H02
+        real*8, intent(out) :: a0, a1, a2, a3
+    end subroutine parametros_ec_cubica
+    subroutine parametros_ec_cubica_par(H00, H22, H44, H24, H02, H04,&
+                                        a3, a2, a1, a0)
+        real*8, intent(in) :: H00, H22, H44, H24, H02, H04
+        real*8, intent(out) :: a0, a1, a2, a3
+    end subroutine parametros_ec_cubica_par
+    subroutine parametros_ec_cubica_impar(H11, H33, H55, H35, H13, H15,&
+                                        a3, a2, a1, a0)
+        real*8, intent(in) :: H11, H33, H55, H35, H13, H15
+        real*8, intent(out) :: a0, a1, a2, a3
+    end subroutine parametros_ec_cubica_impar
+    subroutine parametros_ec_cuartica_par(H00, H02, H04, H06,&
+                                      H22, H24, H26, H44, H46, H66,&
+                                      a4, a3, a2, a1, a0)
+        real*8, intent(in) :: H00, H02, H04, H06, H22, H24, H26, H44, H46, H66
+        real*8, intent(out) :: a0, a1, a2, a3, a4
+    end subroutine parametros_ec_cuartica_par
+    subroutine parametros_ec_cuartica_impar(H11, H13, H15, H17,&
+                                        H33, H35, H37, H55, H57, H77,&
+                                        a4, a3, a2, a1, a0)
+        real*8, intent(in) :: H11, H13, H15, H17, H33, H35, H37, H55, H57, H77
+        real*8, intent(out) :: a0, a1, a2, a3, a4
+    end subroutine parametros_ec_cuartica_impar
+    subroutine raices_ec_cuadratica(a2, a1, a0, x1, x2)
+        real*8, intent(in) :: a2, a1, a0
+        real*8, intent(out) :: x1, x2
+    end subroutine raices_ec_cuadratica
+    subroutine raices_ec_cubica(a3, a2, a1, a0, z1, z2, z3)
+        real*8, intent(in) :: a3, a2, a1, a0
+        real*8, intent(out) :: z1, z2, z3
+    end subroutine raices_ec_cubica
+    subroutine raices_ec_cuartica(a4, a3, a2, a1, a0, x1, x2, x3, x4)
+        real*8, intent(in) :: a4, a3, a2, a1, a0
+        real*8, intent(out) :: x1, x2, x3, x4
+    end subroutine raices_ec_cuartica
+end interface
+! =============================================================================
+
+! Apertura y lectura del fichero con los datos iniciales
+open(unit=1, file="data/in-opt_osc_pert_cuart.dat")
+read(1,*)
+read(1,*) Nmin, Nmax, valores_d(1), valores_d(2), valores_d(3)
+
+! Apertura del fichero de resultados
+open(unit=2, file="data/out-energias_osc_pert_cuart_opt.dat")
+open(unit=3, file="data/out-energias_osc_pert_cuart_opt_2.dat")
+
+! Calculo de las energias propias
+call energias_propias(n, E0, E1, E2, E3)
+
+! Escritura de la primera fila de la tabla de resultados (para grafica)
+    write(3,10)
+    10 format (3x,'d', 4x, 'N', 6x, 'W0', 8x, 'W1', 8x, 'W2', 8x, 'W3', 8x,&
+                'W4', 8x, 'W5', 8x, 'W6', 8x, 'W7')
+
+do_valores_d: do i=1, rango_d, 1
+
+    d = valores_d(i)
+
+    ! Asigna el valor del parametro alpha optimizado para el estado fundamental
+    call alpha_opt(d, alpha)
+
+    write(2,*) '====================================================&
+                ============================='
+    write(2,200) d
+    200 format(34x,'d =', f5.2)
+    write(2,*) '----------------------------------------------------&
+                -----------------------------'
+    ! Escritura de la primera fila de la tabla de resultados
+    write(2,300)
+    300 format (1x, 'N', 6x, 'W0', 8x, 'W1', 8x, 'W2', 8x, 'W3', 8x, 'W4',&
+                8x, 'W5', 8x, 'W6', 8x, 'W7')
+
+    do_numero_funciones_base: do N=Nmin, Nmax, 1
+
+        ! Integrales del hamiltoniano necesarias
+        call integrales_hamiltoniano(d, alpha,&
+                                     H00, H02, H04, H06,&
+                                     H22, H24, H26,&
+                                     H44, H46, H66,&
+                                     H11, H13, H15, H17,&
+                                     H33, H35, H37,&
+                                     H55, H57, H77)
+
+        if (N==2) then
+            ! Calculo el valor de los parametros a_i de la ecuacion cuadratica
+            call parametros_ec_cuadratica(H00, H11, a2, a1, a0)
+
+            ! Calculo de las raices de W
+            call raices_ec_cuadratica(a2, a1, a0, W1, W0)
+
+            ! Escritura resultados
+            write(2,400) N, W0, W1
+            400 format(1x, i1.1, f10.5, f10.5, 6x, '-', 9x, '-', 9x, '-', 9x,&
+                        '-', 9x, '-', 9x, '-')
+
+            ! Escritura resultados (grafica)
+            write(3,500) d, N, W0, W1, 0., 0., 0., 0., 0., 0.
+            500 format(f5.2, i4.1, f10.5, f10.5, f10.5, f10.5, f10.5, f10.5,&
+                        f10.5, f10.5)
+
+        elseif (N==3) then
+            ! Calculo el valor de los parametros a_i de la ecuacion cuartica
+            call parametros_ec_cubica(H00, H11, H22, H02, a3, a2, a1, a0)
+
+            ! Calculo de las raices de W
+            call raices_ec_cubica(a3, a2, a1, a0, W2, W1, W0)
+
+            ! Escritura resultados
+            write(2,600) N, W0, W1, W2
+            600 format(1x, i1.1, f10.5, f10.5, f10.5, 6x, '-', 9x, '-', 9x,&
+                        '-', 9x, '-', 9x, '-')
+
+            ! Escritura resultados (grafica)
+            write(3,700) d, N, W0, W1, W2, 0., 0., 0., 0., 0.
+            700 format(f5.2, i4.1, f10.5, f10.5, f10.5, f10.5, f10.5, f10.5,&
+                        f10.5, f10.5)
+
+        elseif (N==4) then
+            ! Calculo el valor de los parametros a_i de la ecuacion cuartica
+            call parametros_ec_cuadratica_par(H00, H22, H02, a2, a1, a0)
+
+            ! Calculo de las raices de W
+            call raices_ec_cuadratica(a2, a1, a0, W2, W0)
+
+            ! Calculo el valor de los parametros a_i de la ecuacion cuartica
+            call parametros_ec_cuadratica_impar(H11, H33, H13, a2, a1, a0)
+
+            ! Calculo de las raices de W
+            call raices_ec_cuadratica(a2, a1, a0, W3, W1)
+
+            ! Escritura resultados
+            write(2,800) N, W0, W1, W2, W3
+            800 format(1x, i1.1, f10.5, f10.5, f10.5, f10.5, 6x, '-', 9x, '-',&
+                        9x, '-', 9x, '-')
+
+            ! Escritura resultados (grafica)
+            write(3,900) d, N, W0, W1, W2, W3, 0., 0., 0., 0.
+            900 format(f5.2, i4.1, f10.5, f10.5, f10.5, f10.5, f10.5, f10.5,&
+                        f10.5, f10.5)
+
+        elseif (N==5) then
+            ! Calculo el valor de los parametros a_i de la ecuacion cuartica
+            call parametros_ec_cubica_par(H00, H22, H44, H24, H02, H04,&
+                                            a3, a2, a1, a0)
+
+            ! Calculo de las raices de W
+            call raices_ec_cubica(a3, a2, a1, a0, W4, W2, W0)
+
+            ! Calculo el valor de los parametros a_i de la ecuacion cuartica
+            call parametros_ec_cuadratica_impar(H11, H33, H13, a2, a1, a0)
+
+            ! Calculo de las raices de W
+            call raices_ec_cuadratica(a2, a1, a0, W3, W1)
+
+            ! Escritura resultados
+            write(2,1000) N, W0, W1, W2, W3, W4
+            1000 format(1x, i1.1, f10.5, f10.5, f10.5, f10.5, f10.5, 6x, '-',&
+                        9x, '-', 9x, '-')
+
+            ! Escritura resultados (grafica)
+            write(3,1100) d, N, W0, W1, W2, W3, W4, 0., 0., 0.
+            1100 format(f5.2, i4.1, f10.5, f10.5, f10.5, f10.5, f10.5, f10.5,&
+                        f10.5, f10.5)
+
+        elseif (N==6) then
+            ! Calculo el valor de los parametros a_i de la ecuacion cuartica
+            call parametros_ec_cubica_par(H00, H22, H44, H24, H02, H04,&
+                                            a3, a2, a1, a0)
+
+            ! Calculo de las raices de W
+            call raices_ec_cubica(a3, a2, a1, a0, W4, W2, W0)
+
+            ! Calculo el valor de los parametros a_i de la ecuacion cuartica
+            call parametros_ec_cubica_impar(H11, H33, H55, H35, H13, H15,&
+                                            a3, a2, a1, a0)
+
+            ! Calculo de las raices de W
+            call raices_ec_cubica(a3, a2, a1, a0, W5, W3, W1)
+
+            ! Escritura resultados
+            write(2,1200) N, W0, W1, W2, W3, W4, W5
+            1200 format(1x, i1.1, f10.5, f10.5, f10.5, f10.5, f10.5, f10.5,&
+                        6x, '-', 9x, '-')
+
+            ! Escritura resultados (grafica)
+            write(3,1300) d, N, W0, W1, W2, W3, W4, W5, 0., 0.
+            1300 format(f5.2, i4.1, f10.5, f10.5, f10.5, f10.5, f10.5,&
+                        f10.5, f10.5, f10.5)
+
+        elseif (N==7) then
+            ! Calculo el valor de los parametros a_i de la ecuacion cuartica
+            call parametros_ec_cuartica_par(H00, H02, H04, H06,&
+                                      H22, H24, H26, H44, H46, H66,&
+                                      a4, a3, a2, a1, a0)
+
+            ! Calculo de las raices de W
+            call raices_ec_cuartica(a4, a3, a2, a1, a0, W0, W2, W4, W6)
+
+            ! Calculo el valor de los parametros a_i de la ecuacion cuartica
+            call parametros_ec_cubica_impar(H11, H33, H55, H35, H13, H15,&
+                                            a3, a2, a1, a0)
+
+            ! Calculo de las raices de W
+            call raices_ec_cubica(a3, a2, a1, a0, W5, W3, W1)
+
+            ! Escritura resultados
+            write(2,1400) N, W0, W1, W2, W3, W4, W5, W6
+            1400 format(1x, i1.1, f10.5, f10.5, f10.5, f10.5, f10.5, f10.5,&
+                        f10.5, 6x, '-')
+
+            ! Escritura resultados (grafica)
+            write(3,1500) d, N, W0, W1, W2, W3, W4, W5, W6, 0.
+            1500 format(f5.2, i4.1, f10.5, f10.5, f10.5, f10.5, f10.5, f10.5,&
+                        f10.5, f10.5)
+
+        elseif (N==8) then
+            ! Calculo el valor de los parametros a_i de la ecuacion cuartica
+            call parametros_ec_cuartica_par(H00, H02, H04, H06,&
+                                      H22, H24, H26, H44, H46, H66,&
+                                      a4, a3, a2, a1, a0)
+
+            ! Calculo de las raices de W
+            call raices_ec_cuartica(a4, a3, a2, a1, a0, W0, W2, W4, W6)
+
+            ! Calculo el valor de los parametros a_i de la ecuacion cuartica
+            call parametros_ec_cuartica_impar(H11, H13, H15, H17,&
+                                        H33, H35, H37, H55, H57, H77,&
+                                        a4, a3, a2, a1, a0)
+
+            ! Calculo de las raices de W
+            call raices_ec_cuartica(a4, a3, a2, a1, a0, W1, W3, W5, W7)
+
+            ! Escritura resultados
+            write(2,1600) N, W0, W1, W2, W3, W4, W5, W6, W7
+            1600 format(1x, i1.1, f10.5, f10.5, f10.5, f10.5, f10.5, f10.5,&
+                        f10.5, f10.5)
+
+            ! Escritura resultados (grafica)
+            write(3,1700) d, N, W0, W1, W2, W3, W4, W5, W6, W7
+            1700 format(f5.2, i4.1, f10.5, f10.5, f10.5, f10.5, f10.5, f10.5,&
+                        f10.5, f10.5)
+
+        else
+            goto 100
+        endif
+
+        end do do_numero_funciones_base
+
+    write(2,*) '==============================================================&
+                ==================='
+
+    end do do_valores_d
+
+! Enunciado final
+write(*,*)
+write(*,*) 'El programa ha finalizado con exito'
+
+! Cierro los ficheros
+close(1)
+close(2)
+close(3)
+
+100 stop
+endprogram Optimizacion_oscilador_perturbado_cuarticamente
+
+! =============================================================================
+! FUNCIONES Y SUBRUTINAS
+! =============================================================================
+! -----------------------------------------------------------------------------
+! Parametro alpha optimizado
+! -----------------------------------------------------------------------------
+subroutine alpha_opt(d, alpha)
+    COMMON k,hbar,m
+    real*8 :: k, hbar, m
+    real*8, intent(in) :: d
+    real*8, intent(out) :: alpha
+
+    alpha = ((3**((-3.0d+0)/2.0d+0)*m*sqrt(243*d**2*hbar**2-k**3*m))/&
+                hbar**3+((6*m*d)/hbar**2)/2.0d+0)**(1.0d+0/3.0d+0)+&
+                (((m*k)*((3**((-3.0d+0)/2.0d+0)*m*sqrt(243*d**2*hbar**2-&
+                k**3*m))/hbar**3+((6*m*d)/hbar**2)/2.0d+0)**((-1.0d+0)/&
+                3.0d+0))/hbar**2)/3.0d+0
+
+    return
+end subroutine alpha_opt
+! -----------------------------------------------------------------------------
+! Valores propios de la energia del oscilador armonico 1D
+! -----------------------------------------------------------------------------
+! Defino primero una funcion para calcular la energia
+function E(n) result(En)
+    COMMON k,hbar,m
+    real*8 :: k,hbar,m,omega
+    real*8 :: En
+    integer, intent(in) :: n
+
+    ! Momento angular: omega = 2*pi*nu = 2*pi*( (1/(2*pi))*(k/m)^(1/2) )
+    !                        = (k/m)^(1/2)
+    omega = sqrt(k / m)
+
+    ! El valor propio de la energia viene dado por
+    En = (float(n) + 0.5) * hbar * omega
+
+    return
+end function E
+
+! A continuacion, creo una subrutina para calcular las energias que nos
+! interesan para este trabajo
+subroutine energias_propias(n, E0, E1, E2, E3)
+    integer, intent(in) :: n
+    real*8, intent(out) :: E0, E1, E2, E3
+    interface
+        function E(n) result(En)
+        integer, intent(in) :: n
+        real*8 :: En
+    end function E
+
+    end interface
+
+    E0 = E(0)
+    E1 = E(1)
+    E2 = E(2)
+    E3 = E(3)
+
+    return
+end subroutine energias_propias
+
+! -----------------------------------------------------------------------------
+! Calculo de la integral con la segunda derivada respeccto a x
+! -----------------------------------------------------------------------------
+function der(i,j,d,alpha) result(derivada)
+    COMMON k,hbar,m
+    real*8 :: k,hbar,m
+    integer, intent(in) :: i, j
+    real*8, intent(in) :: d, alpha
+    real*8 :: derivada
+
+    if (i==j) then
+        derivada = (-hbar**2/(2.*m)) * (-alpha*(float(i)+1./2.))
+    elseif (i==j+2 .or. j==i+2) then
+        if (i<j) then
+            derivada = (-hbar**2/(2.*m)) * &
+                       ((alpha*((float(i)+1)*(float(i)+2))**(1./2.))/2.)
+        else
+            derivada = (-hbar**2/(2.*m)) * &
+                       ((alpha*((float(j)+1)*(float(j)+2))**(1./2.))/2.)
+        end if
+    else
+        derivada = 0.
+    end if
+    return
+end function der
+
+! -----------------------------------------------------------------------------
+! Calculo de la integral con x^2
+! -----------------------------------------------------------------------------
+function cuad(i,j,d,alpha) result(cuadratica)
+    COMMON k,hbar,m
+    real*8 :: k,hbar,m
+    integer, intent(in) :: i, j
+    real*8, intent(in) :: d, alpha
+    real*8 :: cuadratica
+
+    ! Valor optimizado de k
+    ! k = (hbar**2 * alpha**2)/m
+    if (i==j) then
+        ! n = float(i) = float(j)
+        cuadratica = (k/2.) * ((float(i)+1./2.)/alpha)
+    elseif (i==j+2 .or. j==i+2) then
+        if (i<j) then
+            cuadratica = (k/2.) * ((((float(i)+1)*(float(i)+2))**(1./2.))/&
+                         (2.*alpha))
+        else
+            cuadratica = (k/2.) * ((((float(j)+1)*(float(j)+2))**(1./2.))/&
+                         (2.*alpha))
+        end if
+        ! n = float(i)
+    else
+        cuadratica = 0.
+    end if
+    return
+end function cuad
+
+! -----------------------------------------------------------------------------
+! Calculo de la integral de la componente cubica del potencial
+! -----------------------------------------------------------------------------
+function cuar(i,j,d,alpha) result(cuartica)
+    COMMON k,hbar,m
+    real*8 :: k,hbar,m
+    integer, intent(in) :: i, j
+    real*8, intent(in) :: d, alpha
+    real*8 :: cuartica
+
+    ! Funcion para el calculo de la integral <n|x⁴|m>
+
+    if (j == i) then
+        cuartica = d * (3. * ((2. * real(i)**2 + 2. * real(i) + 1.))/&
+            (4. * alpha**2))
+    elseif (j == i + 2) then
+        cuartica = d *&
+            (((2. * real(i) + 3.) * ((real(i) + 1.) * (real(i)+2.))**(1./2.))&
+            /(2. * alpha**2))
+   elseif (i == j + 2) then
+        cuartica = d *&
+            (((2. * real(j) + 3.) * ((real(j) + 1.) * (real(j)+2.))**(1./2.))&
+            /(2. * alpha**2))
+    elseif (j == i + 4) then
+        cuartica = d *&
+            ((((real(i) + 1.) * (real(i) + 2.) * (real(i) + 3.) * &
+            (real(i) + 4.))**(1./2.))/(4. * alpha**2))
+    elseif (i == j + 4) then
+        cuartica = d *&
+            ((((real(j) + 1.) * (real(j) + 2.) * (real(j) + 3.) * &
+            (real(j) + 4.))**(1./2.))/(4. * alpha**2))
+    else    ! Para una diferencia igual o mayor a 6 niveles, la integral sobre
+            ! x4 es (practicamente) nula
+        cuartica = 0.0
+    endif
+
+    return
+end function cuar
+
+! -----------------------------------------------------------------------------
+! Integrales del Hamiltoniano
+! -----------------------------------------------------------------------------
+! Funcion para el calculo de la integral del hamiltoniano
+function H(i, j, d, alpha) result(intham)
+    COMMON k,hbar,m
+    real*8 :: k,hbar,m
+    integer, intent(in) :: i, j
+    real*8, intent(in) :: d, alpha
+    real*8 :: intham
+
+    real*8 :: derivada, cuadratica, cuartica
+
+    ! Hago uso de las funciones para el calculo de los valores
+    ! propios de la energia y la integral de la componente cuartica
+    interface
+        function der(i,j,d,alpha) result(derivada)
+        integer, intent(in) :: i, j
+        real*8, intent(in) :: d, alpha
+        real*8 :: derivada
+        end function der
+        function cuad(i,j,d,alpha) result(cuadratica)
+        integer, intent(in) :: i, j
+        real*8, intent(in) :: d, alpha
+        real*8 :: cuadratica
+        end function cuad
+        function cuar(i,j,d,alpha) result(cuartica)
+        integer, intent(in) :: i, j
+        real*8, intent(in) :: d, alpha
+        real*8 :: cuartica
+        end function cuar
+    end interface
+
+    intham = der(i,j,d,alpha) + cuad(i,j,d,alpha) + cuar(i,j,d,alpha)
+    return
+end function H
+! Subrutina para guardar los valores de las integrales del hamiltoniano que
+! vamos a necesitar
+subroutine integrales_hamiltoniano(d, alpha,&
+                                   H00, H02, H04, H06,&
+                                   H22, H24, H26,&
+                                   H44, H46, H66,&
+                                   H11, H13, H15, H17,&
+                                   H33, H35, H37,&
+                                   H55, H57, H77)
+
+    COMMON k,hbar,m
+    real*8 :: k,hbar,m
+    real*8, intent(in) :: d, alpha
+    real*8, intent(out) :: H00, H02, H04, H06,&
+                           H22, H24, H26,&
+                           H44, H46, H66,&
+                           H11, H13, H15, H17,&
+                           H33, H35, H37,&
+                           H55, H57, H77
+
+    interface
+        function H(i, j, d, alpha) result(intham)
+        integer, intent(in) :: i, j
+        real*8, intent(in) :: d, alpha
+        real*8 :: intham
+        end function H
+    end interface
+
+    ! Integrales del hamiltoniano
+    H00 = H(0, 0, d, alpha)
+    H02 = H(0, 2, d, alpha)
+    H04 = H(0, 4, d, alpha)
+    H06 = H(0, 6, d, alpha)
+    H22 = H(2, 2, d, alpha)
+    H24 = H(2, 4, d, alpha)
+    H26 = H(2, 6, d, alpha)
+    H44 = H(4, 4, d, alpha)
+    H46 = H(4, 6, d, alpha)
+    H66 = H(6, 6, d, alpha)
+
+    H11 = H(1, 1, d, alpha)
+    H13 = H(1, 3, d, alpha)
+    H15 = H(1, 5, d, alpha)
+    H17 = H(1, 7, d, alpha)
+    H33 = H(3, 3, d, alpha)
+    H35 = H(3, 5, d, alpha)
+    H37 = H(3, 7, d, alpha)
+    H55 = H(5, 5, d, alpha)
+    H57 = H(5, 7, d, alpha)
+    H77 = H(7, 7, d, alpha)
+
+    return
+end subroutine integrales_hamiltoniano
+
+! -----------------------------------------------------------------------------
+! Subrutina para calcular los parametros de la ecuacion cuadratica
+! -----------------------------------------------------------------------------
+subroutine parametros_ec_cuadratica(H00, H11, a2, a1, a0)
+    real*8, intent(in) :: H00, H11
+    real*8, intent(out) :: a0, a1, a2
+
+    ! Las expresiones encontradas para los parametros de la ecuacion
+    ! caracteristica:
+    !
+    ! a2 W^2 + a1 W + a0 = 0
+    !
+    ! son:
+    a2 = 1.
+    a1 = -H00 -H11
+    a0 = H00 * H11
+    return
+end subroutine parametros_ec_cuadratica
+
+! -----------------------------------------------------------------------------
+! Subrutina para calcular los parametros de la ecuacion cuadratica par
+! -----------------------------------------------------------------------------
+subroutine parametros_ec_cuadratica_par(H00, H22, H02, a2, a1, a0)
+    real*8, intent(in) :: H00, H22, H02
+    real*8, intent(out) :: a0, a1, a2
+
+    ! Las expresiones encontradas para los parametros de la ecuacion
+    ! caracteristica:
+    !
+    ! a2 W^2 + a1 W + a0 = 0
+    !
+    ! son:
+    a2 = 1.
+    a1 = -H22 -H00
+    a0 = H00 * H22 - H02**2
+    return
+end subroutine parametros_ec_cuadratica_par
+
+! -----------------------------------------------------------------------------
+! Subrutina para calcular los parametros de la ecuacion cuadratica impar
+! -----------------------------------------------------------------------------
+subroutine parametros_ec_cuadratica_impar(H11, H33, H13, a2, a1, a0)
+    real*8, intent(in) :: H11, H33, H13
+    real*8, intent(out) :: a0, a1, a2
+
+    ! Las expresiones encontradas para los parametros de la ecuacion
+    ! caracteristica:
+    !
+    ! a2 W^2 + a1 W + a0 = 0
+    !
+    ! son:
+    a2 = 1.
+    a1 = -H33 -H11
+    a0 = H11 * H33 - H13**2
+    return
+end subroutine parametros_ec_cuadratica_impar
+
+
+! -----------------------------------------------------------------------------
+! Subrutina para calcular los parametros de la ecuacion cubica par
+! -----------------------------------------------------------------------------
+subroutine parametros_ec_cubica(H00, H11, H22, H02, a3, a2, a1, a0)
+    real*8, intent(in) :: H00, H11, H22, H02
+    real*8, intent(out) :: a0, a1, a2, a3
+
+    ! Las expresiones encontradas para los parametros de la ecuacion
+    ! caracteristica:
+    !
+    ! a3 W^3 + a2 W^2 + a1 W + a0 = 0
+    !
+    ! son:
+    a3 = -1.
+    a2 = H22+H11+H00
+    a1 = ((-H11)-H00)*H22-H00*H11+H02**2
+    a0 = H00*H11*H22-H02**2*H11
+    return
+end subroutine parametros_ec_cubica
+
+! -----------------------------------------------------------------------------
+! Subrutina para calcular los parametros de la ecuacion cubica par
+! -----------------------------------------------------------------------------
+subroutine parametros_ec_cubica_par(H00, H22, H44, H24, H02, H04,&
+                                    a3, a2, a1, a0)
+    real*8, intent(in) :: H00, H22, H44, H24, H02, H04
+    real*8, intent(out) :: a0, a1, a2, a3
+
+    ! Las expresiones encontradas para los parametros de la ecuacion
+    ! caracteristica:
+    !
+    ! a3 W^3 + a2 W^2 + a1 W + a0 = 0
+    !
+    ! son:
+    a3 = -1.
+    a2 = H44+H22+H00
+    a1 = ((-H22)-H00)*H44+H24**2-H00*H22+H04**2+H02**2
+    a0 = (H00*H22-H02**2)*H44-H00*H24**2+2*H02*H04*H24-H04**2*H22
+    return
+end subroutine parametros_ec_cubica_par
+
+! -----------------------------------------------------------------------------
+! Subrutina para calcular los parametros de la ecuacion cubica impar
+! -----------------------------------------------------------------------------
+subroutine parametros_ec_cubica_impar(H11, H33, H55, H35, H13, H15,&
+                                        a3, a2, a1, a0)
+    real*8, intent(in) :: H11, H33, H55, H35, H13, H15
+    real*8, intent(out) :: a0, a1, a2, a3
+
+    ! Las expresiones encontradas para los parametros de la ecuacion
+    ! caracteristica:
+    !
+    ! a3 W^3 + a2 W^2 + a1 W + a0 = 0
+    !
+    ! son:
+    a3 = -1.
+    a2 = H55+H33+H11
+    a1 = ((-H33)-H11)*H55+H35**2-H11*H33+H15**2+H13**2
+    a0 = (H11*H33-H13**2)*H55-H11*H35**2+2*H13*H15*H35-H15**2*H33
+    return
+end subroutine parametros_ec_cubica_impar
+
+! -----------------------------------------------------------------------------
+! Subrutina para calcular los parametros de la ecuacion cuartica
+! -----------------------------------------------------------------------------
+subroutine parametros_ec_cuartica_par(H00, H02, H04, H06,&
+                                      H22, H24, H26, H44, H46, H66,&
+                                      a4, a3, a2, a1, a0)
+    real*8, intent(in) :: H00, H02, H04, H06, H22, H24, H26, H44, H46, H66
+    real*8, intent(out) :: a0, a1, a2, a3, a4
+
+    ! Las expresiones encontradas para los parametros de la ecuacion
+    ! caracteristica:
+    !
+    ! a4 W^4 + a3 W^3 + a2 W^2 + a1 W + a0 = 0
+    !
+    ! son:
+    a4 = 1.
+    a3 = (-H66)-H44-H22-H00
+    a2 = (H44+H22+H00)*H66-H46**2+(H22+H00)*H44-H26**2-H24**2+H00*H22-H06**2&
+         -H04**2-H02**2
+    a1 = (((-H22)-H00)*H44+H24**2-H00*H22+H04**2+H02**2)*H66+(H22+H00)*H46**2&
+         +((-2*H24*H26)-2*H04*H06)*H46+(H26**2-H00*H22+H06**2+H02**2)*H44&
+         +H00*H26**2-2*H02*H06*H26+H00*H24**2-2*H02*H04*H24+(H06**2+H04**2)*H22
+    a0 = ((H00*H22-H02**2)*H44-H00*H24**2+2*H02*H04*H24-H04**2*H22)*H66&
+         +(H02**2-H00*H22)*H46**2+((2*H00*H24-2*H02*H04)*H26-2*H02*H06*H24&
+         +2*H04*H06*H22)*H46+((-H00*H26**2)+2*H02*H06*H26-H06**2*H22)*H44+&
+         H04**2*H26**2-2*H04*H06*H24*H26+H06**2*H24**2
+    return
+end subroutine parametros_ec_cuartica_par
+
+
+! -----------------------------------------------------------------------------
+! Subrutina para calcular los parametros de la ecuacion cuartica
+! -----------------------------------------------------------------------------
+subroutine parametros_ec_cuartica_impar(H11, H13, H15, H17,&
+                                        H33, H35, H37, H55, H57, H77,&
+                                        a4, a3, a2, a1, a0)
+    real*8, intent(in) :: H11, H13, H15, H17, H33, H35, H37, H55, H57, H77
+    real*8, intent(out) :: a0, a1, a2, a3, a4
+
+    ! Las expresiones encontradas para los parametros de la ecuacion
+    ! caracteristica:
+    !
+    ! a4 W^4 + a3 W^3 + a2 W^2 + a1 W + a0 = 0
+    !
+    ! son:
+    a4 = 1.
+    a3 = (-H77)-H55-H33-H11
+    a2 = (H55+H33+H11)*H77-H57**2+(H33+H11)*H55-H37**2-H35**2+H11*H33-H17**2&
+         -H15**2-H13**2
+    a1 = (((-H33)-H11)*H55+H35**2-H11*H33+H15**2+H13**2)*H77+(H33+H11)*H57**2&
+         +((-2*H35*H37)-2*H15*H17)*H57+(H37**2-H11*H33+H17**2+H13**2)*H55&
+         +H11*H37**2-2*H13*H17*H37+H11*H35**2-2*H13*H15*H35+(H17**2+H15**2)*H33
+    a0 = ((H11*H33-H13**2)*H55-H11*H35**2+2*H13*H15*H35-H15**2*H33)*H77&
+         +(H13**2-H11*H33)*H57**2+((2*H11*H35-2*H13*H15)*H37-2*H13*H17*H35&
+         +2*H15*H17*H33)*H57+((-H11*H37**2)+2*H13*H17*H37-H17**2*H33)*H55&
+         +H15**2*H37**2-2*H15*H17*H35*H37+H17**2*H35**2
+    return
+end subroutine parametros_ec_cuartica_impar
+
+! -----------------------------------------------------------------------------
+! Subrutina ecuacion cuadratica
+! -----------------------------------------------------------------------------
+subroutine raices_ec_cuadratica(a2, a1, a0, x1, x2)
+
+! Subrutina para calcular las raices de una ecuacion cuadratica
+
+implicit none
+
+! Parametros de entrada y de salida
+real*8, intent(in) :: a2, a1, a0
+real*8, intent(out) :: x1, x2
+
+x1 = (-a1 + sqrt(a1**2 - 4. * a2 * a0))/(2. * a2)
+x2 = (-a1 - sqrt(a1**2 - 4. * a2 * a0))/(2. * a2)
+
+end subroutine raices_ec_cuadratica
+
+! -----------------------------------------------------------------------------
+! Subrutina ecuacion cubica
+! -----------------------------------------------------------------------------
+subroutine raices_ec_cubica(a3, a2, a1, a0, z1, z2, z3)
+
+! Subrutina para calcular las raices de una ecuacion cubica del tipo
+! a3 Z^3 + a2 Z^2 + a1 Z + a0 = 0
+
+implicit none
+! Constantes
+real*8, parameter :: pi = 3.1415926535
+
+! Parametros de entrada y de salida
+real*8, intent(in) :: a3, a2, a1, a0
+real*8, intent(out) :: z1, z2, z3
+! Variables
+real*8 :: q, r, p
+real*8 :: S, S1, S2
+real*8 :: t, theta
+real*8 :: p2, p1, p0
+
+! Cambio de signo de a2, a1 y a0 si a3=-1
+if (a3 == -1) then
+    p2 = -1.0 * a2
+    p1 = -1.0 * a1
+    p0 = -1.0 * a0
+elseif (a3 == 1) then
+    p2 = a2
+    p1 = a1
+    p0 = a0
+elseif (a3 /= 1 .or. a3 /= -1) then
+    ! Divido todos los parametros entre a3 para que este sea la unidad
+    p2 = a2/a3
+    p1 = a1/a3
+    p0 = a0/a3
+endif
+
+! Declaracion de variables
+q = (p1 / 3.0) - (p2**2 / 9.0)
+r = ((p1 * p2 - 3*p0) / 6.0) - (p2**3 / 27.0)
+p = q**3 + r**2
+
+if (p>0) then
+    !write(*,*) 'Hay una raiz real y dos conjugados complejos'
+
+elseif (p == 0) then
+    !write(*,*) 'Hay tres raices reales y al menos dos iguales'
+    S = r**(1./3.)
+    S1 = S
+    S2 = S
+
+    Z1 = 2 * S - (p2 / 3.0)
+    Z2 = - (S + (p2 / 3.0))
+    Z3 = Z2
+
+else
+    !write(*,*) 'Hay tres raices reales diferentes'
+
+    t = 3 * (-q)**0.5
+    theta = acos((27 * r / t**3))
+
+    Z1 = - (p2 / 3.0) + ((2.0 / 3.0) * t * cos(theta / 3.0))
+    Z2 = - (p2 / 3.0) - ((2.0 / 3.0) * t * cos((theta / 3.0) + 60. * pi/180.))
+    Z3 = - (p2 / 3.0) - ((2.0 / 3.0) * t * cos((theta / 3.0) - 60. * pi/180.))
+
+endif
+
+    return
+end subroutine raices_ec_cubica
+
+! -----------------------------------------------------------------------------
+! Subrutina ecuacion cuartica
+! -----------------------------------------------------------------------------
+subroutine raices_ec_cuartica(a4, a3, a2, a1, a0, x1, x2, x3, x4)
+
+! Subrutina para calcular las raices de una ecuacion cuartica del tipo
+! a4x^4 + a3x^3 + a2x^2 + a1x + a0 = 0
+
+implicit none
+! Coeficientes de la ecuacion cuartica
+real*8, intent(in) :: a4, a3, a2, a1, a0
+! Raices de la ecuacion cuartica
+real*8, intent(out) :: x1, x2, x3, x4
+! Nuevos parametros de sustitucion
+real*8 :: A, B, C
+! Coeficientes de la ecuacion cubica en s
+real*8 :: z3, z2, z1, z0
+! Raices de la ecuacion cubica en s
+real*8 :: s1, s2, s3
+! Raiz que usare para calcular las raices de la euacion cuartica
+real*8 :: s
+! Soluciones de la ecuacion reducida
+real*8 :: y1, y2, y3, y4
+
+! Tareas
+interface
+        subroutine raices_ec_cubica(a3, a2, a1, a0, z1, z2, z3)
+        implicit none
+        real*8, intent(in) :: a3, a2, a1, a0
+        real*8, intent(out) :: z1, z2, z3
+    end subroutine raices_ec_cubica
+end interface
+
+! Definicion de los nuevos parametros de sustitucion
+A = (a2/a4) - (3. * a3**2/(8. * a4**2))
+B = (a1/a4) - (a3 * a2/(2. * a4**2)) + (a3**3/(8. * a4**3))
+C = (a0/a4) - (a3 * a1/(4. * a4**2)) + (a3**2 * a2/(16. * a4**3))&
+    - (3. * a3**4/(256. * a4**4))
+
+! Calculo de s: satisface la ecuacion:
+! 8s^3 - 4As^2 - 8Cs + (4AC - B^2) = 0
+z3 = 8
+z2 = -4. * A
+z1 = -8. * C
+z0 = 4. * A * C - B**2
+call raices_ec_cubica(z3, z2, z1, z0, s1, s2, s3)
+
+! Calculo de las soluciones de la ecuacion reducida, por ejemplo, para la
+! primera raiz de s:
+s = s1
+
+! Definicion de las soluciones de la ecuacion reducida
+y2 = -(1./2.) * sqrt(2. * s - A) + (1./2.)&
+    * sqrt(-2. * s - A + (2. * B/(sqrt(2. * s - A))))
+y1 = -(1./2.) * sqrt(2. * s - A) - (1./2.)&
+    * sqrt(-2. * s - A + (2. * B/(sqrt(2. * s - A))))
+y4 = (1./2.) * sqrt(2. * s - A) + (1./2.)&
+    * sqrt(-2. * s - A - (2. * B/(sqrt(2. * s - A))))
+y3 = (1./2.) * sqrt(2. * s - A) - (1./2.)&
+    * sqrt(-2. * s - A - (2. * B/(sqrt(2. * s - A))))
+
+! Definicion de las soluciones de la ecuacion cuartica general
+x1 = y1 - (a3/(4. * a4))
+x2 = y2 - (a3/(4. * a4))
+x3 = y3 - (a3/(4. * a4))
+x4 = y4 - (a3/(4. * a4))
+
+    return
+end subroutine raices_ec_cuartica

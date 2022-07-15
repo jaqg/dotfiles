@@ -1,0 +1,52 @@
+00:00:00.002161 main     VirtualBox XPCOM Server 6.1.34 r150636 linux.amd64 (May 30 2022 06:37:05) release log
+00:00:00.002164 main     Log opened 2022-06-10T16:04:44.284866000Z
+00:00:00.002164 main     Build Type: release
+00:00:00.002166 main     OS Product: Linux
+00:00:00.002167 main     OS Release: 5.15.45-1-lts
+00:00:00.002168 main     OS Version: #1 SMP Mon, 06 Jun 2022 09:19:52 +0000
+00:00:00.002188 main     DMI Product Name: 81HN
+00:00:00.002196 main     DMI Product Version: Lenovo V130-15IKB
+00:00:00.002200 main     Firmware type: UEFI
+00:00:00.002807 main     Secure Boot: Disabled
+00:00:00.002838 main     Host RAM: 7284MB (7.1GB) total, 6788MB (6.6GB) available
+00:00:00.002844 main     Executable: /usr/lib/virtualbox/VBoxSVC
+00:00:00.002844 main     Process ID: 3038
+00:00:00.002845 main     Package type: LINUX_64BITS_GENERIC (OSE)
+00:00:00.004365 main     IPC socket path: /tmp/.vbox-jose-ipc/ipcd
+00:00:00.115214 nspr-2   VirtualBox: object creation starts
+00:00:00.115274 nspr-2   Home directory: '/home/jose/.config/VirtualBox'
+00:00:00.116521 nspr-2   Loading settings file "/home/jose/.config/VirtualBox/VirtualBox.xml" with version "1.12-linux"
+00:00:00.123257 nspr-2   USB: Unknown USB device detected (idVendor: 0x8087, idProduct: 0x0a2a)
+00:00:00.123335 nspr-2   Successfully initialised host USB using sysfs
+00:00:00.135299 nspr-2   NetIfAdpCtlOut: VBoxNetAdpCtl: Error while retrieving link speed for wlp2s0: VBoxNetAdpCtl: ioctl failed: Operation not supported
+00:00:00.136575 nspr-2   HostDnsMonitor: initializing
+00:00:00.136772 nspr-2   NAT: resolv.conf: nameserver 192.168.0.1
+00:00:00.136787 nspr-2   HostDnsMonitor: updating information
+00:00:00.136802 nspr-2   HostDnsMonitor: old information
+00:00:00.136807 nspr-2     no server entries
+00:00:00.136810 nspr-2     no domain set
+00:00:00.136813 nspr-2     no search string entries
+00:00:00.136817 nspr-2   HostDnsMonitor: new information
+00:00:00.136820 nspr-2     server 1: 192.168.0.1
+00:00:00.136824 nspr-2     no domain set
+00:00:00.136827 nspr-2     no search string entries
+00:00:00.141355 nspr-2   VD: VDInit finished with VINF_SUCCESS
+00:00:00.141980 nspr-2   ERROR [COM]: aRC=NS_ERROR_FAILURE (0x80004005) aIID={027bc463-929c-40e8-bf16-fea557cd8e7e} aComponent={SystemPropertiesWrap} aText={Cannot determine default Guest Additions ISO location. Most likely they are not available}, preserve=false aResultDetail=0
+00:00:00.149870 nspr-2   Loading settings file "/home/jose/VirtualBox VMs/Windows LITE 32B/Windows LITE 32B.vbox" with version "1.15-linux"
+00:00:00.150838 nspr-2   VirtualBox: object created
+00:02:02.063980 nspr-2   Launched VM: 1275078448 pid: 4306 (0x10d2) frontend: GUI/Qt name: Windows LITE 32B
+00:02:03.033443 nspr-5   ERROR [COM]: aRC=VBOX_E_OBJECT_NOT_FOUND (0x80bb0001) aIID={70401eef-c8e9-466b-9660-45cb3e9979e4} aComponent={ExtPackManagerWrap} aText={No extension pack by the name 'Oracle VM VirtualBox Extension Pack' was found}, preserve=false aResultDetail=0
+00:02:03.122224 nspr-5   ERROR [COM]: aRC=VBOX_E_IPRT_ERROR (0x80bb0005) aIID={85632c68-b5bb-4316-a900-5eb28d3413df} aComponent={SessionMachine} aText={Saved screenshot data is not available (VERR_NOT_SUPPORTED)}, preserve=false aResultDetail=-37
+00:02:03.156682 nspr-5   NetIfAdpCtlOut: VBoxNetAdpCtl: Error while retrieving link speed for wlp2s0: VBoxNetAdpCtl: ioctl failed: Operation not supported
+00:19:34.977407 nspr-4   Saving settings file "/home/jose/VirtualBox VMs/Windows LITE 32B/Windows LITE 32B.vbox" with version "1.15-linux"
+00:19:58.784699 nspr-4   Saving settings file "/home/jose/.config/VirtualBox/VirtualBox.xml" with version "1.12-linux"
+00:19:58.796019 nspr-6   Saving settings file "/home/jose/.config/VirtualBox/VirtualBox.xml" with version "1.12-linux"
+00:19:58.810334 nspr-4   Saving settings file "/home/jose/.config/VirtualBox/VirtualBox.xml" with version "1.12-linux"
+00:19:58.816554 nspr-5   Saving settings file "/home/jose/.config/VirtualBox/VirtualBox.xml" with version "1.12-linux"
+00:20:04.328838 main     VirtualBox: object deletion starts
+00:20:04.328870 main     ERROR [COM]: aRC=VBOX_E_OBJECT_IN_USE (0x80bb000c) aIID={ad47ad09-787b-44ab-b343-a082a3f2dfb1} aComponent={MediumWrap} aText={Medium '/home/jose/VirtualBox VMs/Windows LITE 32B/Windows LITE 32B.vdi' cannot be closed because it is still attached to 1 virtual machines}, preserve=false aResultDetail=0
+00:20:04.331302 main     HostDnsMonitor: shutting down ...
+00:20:04.349516 main     HostDnsMonitor: shut down
+00:20:04.499091 Watcher  ERROR [COM]: aRC=E_ACCESSDENIED (0x80070005) aIID={d0a0163f-e254-4e5b-a1f2-011cf991c38d} aComponent={VirtualBoxWrap} aText={The object is not ready}, preserve=false aResultDetail=0
+00:20:09.379589 main     {00007efc500187a0} HostPowerServiceLinux::~HostPowerServiceLinux: RTThreadWait() for 5000 ms failed with VERR_TIMEOUT
+00:20:09.379865 main     VirtualBox: object deleted

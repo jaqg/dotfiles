@@ -1,0 +1,11 @@
+! Energias propias del oscilador armonico unidimensional
+function E(n) result(res_E)
+    COMMON k,hbar,m
+    real*8 :: k,hbar,m
+    integer, intent(in) :: n
+    real*8 :: res_E
+
+    res_E = (float(n) + 0.5) * hbar * omega
+
+    return
+end function E

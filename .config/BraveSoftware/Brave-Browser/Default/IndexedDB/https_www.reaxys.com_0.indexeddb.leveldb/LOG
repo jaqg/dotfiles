@@ -1,0 +1,15 @@
+2022/05/25-12:26:50.395 24764 Reusing MANIFEST /home/jose/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_www.reaxys.com_0.indexeddb.leveldb/MANIFEST-000001
+2022/05/25-12:26:50.395 24764 Recovering log #4
+2022/05/25-12:26:50.395 24764 Reusing old log /home/jose/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_www.reaxys.com_0.indexeddb.leveldb/000004.log 
+2022/05/25-12:27:15.123 247dc Level-0 table #8: started
+2022/05/25-12:27:15.126 247dc Level-0 table #8: 190 bytes OK
+2022/05/25-12:27:15.130 247dc Delete type=0 #4
+2022/05/25-12:27:15.130 247dc Manual compaction at level-0 from (begin) .. (end); will stop at (end)
+2022/05/25-12:27:15.130 247dc Manual compaction at level-1 from (begin) .. (end); will stop at '\x00\x00\x00\x00\x06' @ 77 : 1
+2022/05/25-12:27:15.130 247dc Compacting 1@1 + 1@2 files
+2022/05/25-12:27:15.133 247dc Generated table #9@1: 28 keys, 719 bytes
+2022/05/25-12:27:15.133 247dc Compacted 1@1 + 1@2 files => 719 bytes
+2022/05/25-12:27:15.138 247dc compacted to: files[ 0 0 1 0 0 0 0 ]
+2022/05/25-12:27:15.138 247dc Delete type=2 #8
+2022/05/25-12:27:15.138 247dc Delete type=2 #5
+2022/05/25-12:27:15.138 247dc Manual compaction at level-1 from '\x00\x00\x00\x00\x06' @ 77 : 1 .. (end); will stop at (end)

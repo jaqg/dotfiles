@@ -1,0 +1,46 @@
+% Metropolis theme
+\usetheme[
+    titleformat=regular,           % regular, smallcaps, allsmallcaps, allcaps
+    sectionpage=progressbar,       % none, simple, progressbar
+    subsectionpage=none,           % none, simple, progressbar
+    numbering=fraction,            % none, counter, fraction
+    progressbar=frametitle,        % none, head, frametitle, foot
+    block=fill,                    % transparent, fill
+    background=light,              % light, dark
+    titleformat title=regular,     % regular, smallcaps, allsmallcaps, allcaps
+    titleformat subtitle=regular,  % regular, smallcaps, allsmallcaps, allcaps
+    titleformat section=regular,   % regular, smallcaps, allsmallcaps, allcaps
+    titleformat frame=regular     % regular, smallcaps, allsmallcaps, allcaps
+]{metropolis}
+%
+\usefonttheme{professionalfonts} % required for mathspec
+\usepackage{mathspec}
+%
+% \setsansfont[BoldFont={Fira Sans}, Numbers={OldStyle}]{Fira Sans Light}
+% \setmathsfont(Digits)[Numbers={Lining, Proportional}]{Fira Sans Light}
+%
+% --- o mas oscuro ---
+%
+\setsansfont[BoldFont={Fira Sans SemiBold}, Numbers={OldStyle}]{Fira Sans Book}
+\setmathsfont(Digits)[Numbers={Lining, Proportional}]{Fira Sans Light}
+
+
+% \setbeamercolor{normal text}{fg=white, bg=}
+% \setbeamercolor{alerted text}{fg=white, bg=}
+% \setbeamercolor{example text}{fg=white, bg=}
+
+% \setbeamercolor{progress bar}{ ... }
+% \setbeamercolor{title separator}{ ... }
+% \setbeamercolor{progress bar in head/foot}{ ... }
+% \setbeamercolor{progress bar in section page}{ ... }
+
+% \setbeamercolor{palette primary}{bg=black,fg=white}
+% \setbeamercolor{background canvas}{parent=palette primary}
+% \setbeamercolor{progress bar}{use=palette primary,fg=blue}
+
+% \setbeamersize{text margin left=1em,text margin right=1em}
+
+% \useoutertheme{metropolis}
+% \useinnertheme{metropolis}
+% \usefonttheme{metropolis}
+% \usecolortheme{seahorse}

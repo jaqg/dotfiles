@@ -1,0 +1,126 @@
+# _____________________________________________________________________________
+# *****************************************************************************
+# Autor: José Antonio Quiñonero gris
+# Fecha de creación: 7 de mayo de 2022
+# *****************************************************************************
+# -----------------------------------------------------------------------------
+
+# descripcion del programa
+
+# Librerias
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.style.use('mine')
+
+# *****************************************************************************
+# INICIO
+# *****************************************************************************
+
+nombre_grafica = 'espectro_fluorescencia_todos.pdf'
+
+# GRAFICA
+xmin = 500
+xmax = 750
+ymin = -20
+ymax = 1600
+
+numero_subplots = 2
+width = 5 #Default 7.2x4.45
+height = width*(4.45/7.2)
+
+fig, axs = plt.subplots(numero_subplots, numero_subplots, figsize=(width*numero_subplots, height*numero_subplots))
+fig.subplots_adjust(left=.15, bottom=.16, right=.99, top=.97)
+
+#=============
+ax = axs[0][0]
+fichero_datos = '../tablas/xy_H2TPP_G2_em-exc432-fluorescencia.txt'
+longitud_onda_1, A_1 = np.loadtxt(fichero_datos, unpack=True, skiprows=1)
+fichero_datos = '../tablas/xy_H2TPP_G6_em-exc432-fluorescencia.txt'
+longitud_onda_2, A_2 = np.loadtxt(fichero_datos, unpack=True, skiprows=1)
+fichero_datos = '../tablas/xy_H2TPP_G2_em-exc650-fluorescencia.txt'
+longitud_onda_3, A_3 = np.loadtxt(fichero_datos, unpack=True, skiprows=1)
+fichero_datos = '../tablas/xy_H2TPP_G6_em-exc650-fluorescencia.txt'
+longitud_onda_4, A_4 = np.loadtxt(fichero_datos, unpack=True, skiprows=1)
+xmin = 500
+xmax = 750
+ymin = -10
+ymax = 500
+ax.plot(longitud_onda_1, A_1, label=r'$\mathrm{H2TPP},\ \lambda_{\mathrm{exc}} = 432\ \mathrm{nm}$ (G2)')
+ax.plot(longitud_onda_2, A_2, label=r'$\mathrm{H2TPP},\ \lambda_{\mathrm{exc}} = 432\ \mathrm{nm}$ (G6)')
+# ax.plot(longitud_onda_3, A_3, label=r'$\mathrm{H2TPP},\ \lambda_{\mathrm{exc}} = 650\ \mathrm{nm}$ (G2)')
+# ax.plot(longitud_onda_4, A_4, label=r'$\mathrm{H2TPP},\ \lambda_{\mathrm{exc}} = 650\ \mathrm{nm}$ (G6)')
+ax.set(ylabel=r'$I$ (a.u.)')
+ax.set_xlim(xmin,xmax)
+ax.set_ylim(ymin,ymax)
+ax.text(-0.12, 1.12, 'a', fontweight='bold', fontsize=18, horizontalalignment='left', verticalalignment='top', transform=ax.transAxes)
+ax.text(652, 440, '$\lambda = 650$ nm', fontsize=14, bbox=dict(facecolor='white', alpha=0.7), horizontalalignment='center', verticalalignment='bottom')
+ax.text(712, 80, '$\lambda = 712$ nm', fontsize=14, bbox=dict(facecolor='white', alpha=0.7), horizontalalignment='center', verticalalignment='bottom')
+ax.grid()
+ax.legend(loc=(0.01,0.6))
+
+#=============
+ax = axs[0][1]
+fichero_datos = '../tablas/xy_NiTPP_G4-fluorescencia.txt'
+longitud_onda_1, A1 = np.loadtxt(fichero_datos, unpack=True, skiprows=1)
+fichero_datos = '../tablas/xy_NiTPP_G7-fluorescencia.txt'
+longitud_onda_2, A2 = np.loadtxt(fichero_datos, unpack=True, skiprows=1)
+xmin = 500
+xmax = 750
+ymin = -100
+ymax = 7400
+ax.plot(longitud_onda_1, A1, label=r'$\mathrm{[Ni(TPP)]}$ (G4)')
+ax.plot(longitud_onda_2, A2, label=r'$\mathrm{[Ni(TPP)]}$ (G7)')
+ax.set_xlim(xmin,xmax)
+ax.set_ylim(ymin,ymax)
+ax.text(-0.12, 1.12, 'b', fontweight='bold', fontsize=18, horizontalalignment='left', verticalalignment='top', transform=ax.transAxes)
+ax.text(650, 6500, '$\lambda = 650$ nm', fontsize=14, bbox=dict(facecolor='white', alpha=0.7), horizontalalignment='center', verticalalignment='bottom')
+ax.text(714, 1000, '$\lambda = 714$ nm', fontsize=14, bbox=dict(facecolor='white', alpha=0.7), horizontalalignment='center', verticalalignment='bottom')
+ax.grid()
+ax.legend(loc='upper left')
+
+#=============
+ax = axs[1][0]
+fichero_datos = '../tablas/xy_ZnTPP-fluorescencia.txt'
+longitud_onda_1, A1 = np.loadtxt(fichero_datos, unpack=True, skiprows=1)
+fichero_datos = '../tablas/xy_ZnTPP_G1-fluorescencia.txt'
+longitud_onda_2, A2 = np.loadtxt(fichero_datos, unpack=True, skiprows=1)
+fichero_datos = '../tablas/xy_ZnTPP_G3-fluorescencia.txt'
+longitud_onda_3, A3 = np.loadtxt(fichero_datos, unpack=True, skiprows=1)
+xmin = 500
+xmax = 750
+ymin = -200
+ymax = 12000
+ax.plot(longitud_onda_1, A1, label=r'$\mathrm{[Zn(TPP)]}$')
+ax.plot(longitud_onda_3, A3, label=r'$\mathrm{[Zn(TPP)]}$ (G3)')
+ax.plot(longitud_onda_2, A2, label=r'$\mathrm{[Zn(TPP)]}$ (G1)')
+ax.set(xlabel=r'$\lambda$ (nm)', ylabel=r'$I$ (a.u.)')
+ax.set_xlim(xmin,xmax)
+ax.set_ylim(ymin,ymax)
+ax.text(-0.12, 1.12, 'c', fontweight='bold', fontsize=18, horizontalalignment='left', verticalalignment='top', transform=ax.transAxes)
+ax.text(600, 10500, '$\lambda = 595$ nm', fontsize=14, bbox=dict(facecolor='white', alpha=0.7), horizontalalignment='center', verticalalignment='bottom')
+ax.text(640, 10500, '$\lambda = 640$ nm', fontsize=14, bbox=dict(facecolor='white', alpha=0.7), horizontalalignment='left', verticalalignment='bottom')
+ax.grid()
+ax.legend(loc=(0.65,0.5))
+
+#=============
+ax = axs[1][1]
+fichero_datos = '../tablas/xy_CuTPP-fluorescencia.txt'
+longitud_onda_1, A1 = np.loadtxt(fichero_datos, unpack=True, skiprows=1)
+fichero_datos = '../tablas/xy_CuTPP_G5-fluorescencia.txt'
+longitud_onda_2, A2 = np.loadtxt(fichero_datos, unpack=True, skiprows=1)
+xmin = 500
+xmax = 750
+ymin = -10
+ymax = 150
+ax.plot(longitud_onda_1, A1, label=r'$\mathrm{[Cu(TPP)]}$')
+ax.plot(longitud_onda_2, A2, label=r'$\mathrm{[Cu(TPP)]}$ (G5)')
+ax.set(xlabel=r'$\lambda$ (nm)')
+ax.set_xlim(xmin,xmax)
+ax.set_ylim(ymin,ymax)
+ax.text(-0.12, 1.12, 'd', fontweight='bold', fontsize=18, horizontalalignment='left', verticalalignment='top', transform=ax.transAxes)
+ax.grid()
+ax.legend(loc='best')
+
+plt.savefig(nombre_grafica, transparent='True', bbox_inches='tight')
+# plt.show()

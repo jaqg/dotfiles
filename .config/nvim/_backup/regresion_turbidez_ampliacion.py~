@@ -1,0 +1,70 @@
+# _____________________________________________________________________________
+# *****************************************************************************
+# Autor: José Antonio Quiñonero gris
+# Fecha de creación: 13 de abril de 2022
+# *****************************************************************************
+# -----------------------------------------------------------------------------
+
+# descripcion del programa
+
+# Librerias
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.style.use('mine')
+
+colores=['#E69F00', '#56B4E9', '#009E73', '#0072B2', '#D55E00', '#CC79A7', '#F0E442']
+
+# *****************************************************************************
+# INICIO
+# *****************************************************************************
+
+nombre_grafica = 'regresion_turbidez_ampliacion.pdf'
+
+datos_x_calibrado = [0, 13.3, 26.6, 40]
+datos_y_calibrado = [0, 58.6, 109.3, 170.1]
+datos_x_problema = [0, 0, 37.75, 4.91, 0.18]
+datos_y_problema = [0, 0, 159.3, 21.1, 1.2]
+
+def regresion(x):
+    res = 0.4312 + 4.2087*x
+    return res
+
+# GRAFICA
+xmin = -2
+xmax = 8
+ymin = -10
+ymax = 40
+
+x = np.linspace(xmin, xmax, 100)
+
+fig, ax = plt.subplots(figsize=(3,3))
+tamaño_marcador=6
+
+ax.plot(datos_x_problema[0], datos_y_problema[0], ls='none', marker='^', color=colores[0], ms=tamaño_marcador, label=r'P1')
+ax.plot(datos_x_problema[1], datos_y_problema[1], ls='none', marker='^', color=colores[1], ms=tamaño_marcador, label=r'P2')
+ax.plot(datos_x_problema[3], datos_y_problema[3], ls='none', marker='^', color=colores[3], ms=tamaño_marcador, label=r'Charco')
+ax.plot(datos_x_problema[4], datos_y_problema[4], ls='none', marker='^', color=colores[4], ms=tamaño_marcador, label=r'Lluvia')
+
+ax.plot(x, regresion(x), lw=1.0,color='grey')
+
+ax.text(datos_x_problema[0], datos_y_problema[0]-4, 'P1,',     color=colores[0], horizontalalignment='center', verticalalignment='center')
+ax.text(datos_x_problema[1]+0.8, datos_y_problema[1]-4, 'P2',     color=colores[1], horizontalalignment='center', verticalalignment='center')
+ax.text(datos_x_problema[3]-0.5,   datos_y_problema[3]+3, 'Charco', color=colores[3], horizontalalignment='center', verticalalignment='center')
+ax.text(datos_x_problema[4]-0.5,   datos_y_problema[4]+3, 'Lluvia', color=colores[4], horizontalalignment='center', verticalalignment='center')
+
+# ax.fill_between(x, y1, y2)
+# ax.text(x, y, string, horizontalalignment='center', verticalalignment='center')
+
+# ax.set(xlabel=r'FTU', ylabel=r'$I_{\mathrm{corr},i}$')
+
+ax.set_xlim(xmin,xmax)
+ax.set_ylim(ymin,ymax)
+
+# Invertir el orden de las etiquetas
+# handles, labels = ax.get_legend_handles_labels()
+# ax.legend(handles[::-1], labels[::-1], loc=(1.01,0.4))
+ax.legend()
+
+plt.savefig(nombre_grafica, transparent='True', bbox_inches='tight')
+# plt.show()
