@@ -1,3 +1,0 @@
-sh exec.sh
-sh exec_pot.sh
-python grafica/osc_doble_pozo.py

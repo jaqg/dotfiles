@@ -1,2 +1,0 @@
-gfortran osc_doble_pozo_completo.f90 subrutinas/*.f90 -o osc_doble_pozo_completo -L/usr/local/lib/ -llapack -lblas
-./osc_doble_pozo_completo

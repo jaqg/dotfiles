@@ -1,2 +1,0 @@
-gfortran osc_cuartico_diag_opt.f90 subrutinas/*.f90 -o osc_cuartico_diag_opt -L/usr/local/lib/ -llapack -lblas
-./osc_cuartico_diag_opt

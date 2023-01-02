@@ -1,3 +1,0 @@
-Aqui he hecho cppy-paste de osc_doble_pozo_3, asignando los valores de a y b a partir de xe y Vb, segun
-a = Vb/xe**4
-b = 2*Vb/xe**2
